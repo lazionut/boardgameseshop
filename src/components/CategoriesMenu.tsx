@@ -32,7 +32,11 @@ export default function CategoriesMenu() {
     method: "GET",
   };
 
-  const categories = useFetchData(getCategoriesRequestConfig);
+  const {
+    data: categories,
+    loading,
+    error,
+  } = useFetchData(getCategoriesRequestConfig);
 
   return (
     <div>
@@ -42,13 +46,11 @@ export default function CategoriesMenu() {
       >
         Categories
       </Button>
-      <Menu
-        id="basic-menu"
-        open={open}
-        onClose={handleClose}
-      >
-        {categories.data.map((category: any) => (
-          <MenuItem onClick={handleClose}>{category.name}</MenuItem>
+      <Menu id="basic-menu" open={open} onClose={handleClose}>
+        {categories.map((category: any, index: number) => (
+          <MenuItem key={index} onClick={handleClose}>
+            {category.name}
+          </MenuItem>
         ))}
       </Menu>
     </div>
