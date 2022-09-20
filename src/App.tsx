@@ -1,12 +1,17 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import Example from "./components/Example";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import NavigationBar from "./components/NavigationBar";
 
 function App() {
   return (
     <div className="App">
-      <Example />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<NavigationBar />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
