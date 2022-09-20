@@ -7,14 +7,14 @@ axios.defaults.timeout = Configs.REQUEST_TIMEOUT;
 
 type RequestState = {
   data: any | any[];
-  isLoading: boolean;
+  loading: boolean;
   error: any;
 };
 
 const useFetchData = (requestConfig: AxiosRequestConfig) => {
   const [requestState, setRequestState] = useState<RequestState>({
     data: [],
-    isLoading: false,
+    loading: false,
     error: null,
   });
 
@@ -23,7 +23,7 @@ const useFetchData = (requestConfig: AxiosRequestConfig) => {
       try {
         setRequestState({
           ...requestState,
-          isLoading: true,
+          loading: true,
         });
 
         const response = await axios(requestConfig);
@@ -31,7 +31,7 @@ const useFetchData = (requestConfig: AxiosRequestConfig) => {
         setRequestState({
           ...requestState,
           data: response.data,
-          isLoading: false,
+          loading: false,
         });
       } catch (err) {
         setRequestState({
