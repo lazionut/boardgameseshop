@@ -1,33 +1,28 @@
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import { Menu, MenuItem } from "@mui/material";
+import { MdKeyboardArrowDown } from "react-icons/md";
 import { AxiosRequestConfig } from "axios";
 
-import useFetchData from "../hooks/fetchData";
+import useFetchData from "../hooks/useFetchData";
+import useNavigateSearch from "../hooks/useNavigateSearch";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+import { Constants } from "../constants/Constants";
 
 export default function CategoriesMenu() {
-  const [open, setOpen] = useState<boolean>(false);
+  const navigateSearch = useNavigateSearch();
 
-  const handleClick = () => {
-    setOpen(!open);
+  const [anchorElement, setAnchorElement] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorElement);
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorElement(event.currentTarget);
   };
   const handleClose = () => {
-    setOpen(false);
+    setAnchorElement(null);
   };
 
-  const getCategoriesRequestConfig: AxiosRequestConfig = {
+  const getCategoriesRequestConfig: { [key: string]: string } = {
     url: "/categories",
     method: "GET",
   };
@@ -39,16 +34,38 @@ export default function CategoriesMenu() {
   } = useFetchData(getCategoriesRequestConfig);
 
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        flexWrap: "wrap",
+      }}
+    >
       <Button
-        sx={{ my: 2, color: "white", display: "block" }}
+        sx={{
+          my: 2,
+          backgroundColor: "white",
+          color: "black",
+          display: "block",
+        }}
         onClick={handleClick}
       >
         Categories
+        <MdKeyboardArrowDown size={20} style={{ verticalAlign: "middle" }} />
       </Button>
-      <Menu id="basic-menu" open={open} onClose={handleClose}>
+      <Menu anchorEl={anchorElement} open={open} onClose={handleClose}>
         {categories.map((category: any, index: number) => (
-          <MenuItem key={index} onClick={handleClose}>
+          <MenuItem
+            key={index}
+            onClick={() => {
+              handleClose();
+              navigateSearch(`/categories/${category.id}/boardgames`, {
+                pageIndex: Constants.DEFAULT_PAGE_INDEX,
+                pageSize: Constants.DEFAULT_PAGE_SIZE,
+                sortOrder: Constants.DEFAULT_SORT_ORDER,
+              });
+            }}
+          >
             {category.name}
           </MenuItem>
         ))}
