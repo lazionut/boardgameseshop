@@ -20,7 +20,7 @@ import {
   requiredFieldRule,
 } from "../constants/Rules";
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const navigate = useNavigate();
 
   const [showAlert, setShowAlert] = useState(false);
