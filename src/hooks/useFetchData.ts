@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import axios, { AxiosRequestConfig } from "axios";
+import React, { useState, useEffect } from "react";
+import axios, { AxiosResponse } from "axios";
 import { Configs } from "../constants/Configs";
 
-axios.defaults.baseURL = Configs.BASE_URL;
-axios.defaults.timeout = Configs.REQUEST_TIMEOUT;
+axios.defaults.baseURL = String(Configs.BASE_URL);
+axios.defaults.timeout = Number(Configs.REQUEST_TIMEOUT);
 
 type RequestState = {
   data: any | any[];
@@ -11,7 +11,7 @@ type RequestState = {
   error: any;
 };
 
-const useFetchData = (requestConfig: AxiosRequestConfig) => {
+const useFetchData = (requestConfig: { [key: string]: string }) => {
   const [requestState, setRequestState] = useState<RequestState>({
     data: [],
     loading: false,
@@ -26,7 +26,7 @@ const useFetchData = (requestConfig: AxiosRequestConfig) => {
           loading: true,
         });
 
-        const response = await axios(requestConfig);
+        const response: AxiosResponse<any, any> = await axios(requestConfig);
 
         setRequestState({
           ...requestState,
@@ -42,7 +42,7 @@ const useFetchData = (requestConfig: AxiosRequestConfig) => {
     };
 
     fetchData();
-  }, []);
+  }, [requestConfig.url]);
 
   return requestState;
 };
