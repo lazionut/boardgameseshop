@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import { Menu, MenuItem } from "@mui/material";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { AxiosRequestConfig } from "axios";
 
 import useFetchData from "../hooks/useFetchData";
 import useNavigateSearch from "../hooks/useNavigateSearch";
@@ -27,11 +26,7 @@ export default function CategoriesMenu() {
     method: "GET",
   };
 
-  const {
-    data: categories,
-    loading,
-    error,
-  } = useFetchData(getCategoriesRequestConfig);
+  const [categories] = useFetchData(getCategoriesRequestConfig);
 
   return (
     <div
@@ -54,7 +49,7 @@ export default function CategoriesMenu() {
         <MdKeyboardArrowDown size={20} style={{ verticalAlign: "middle" }} />
       </Button>
       <Menu anchorEl={anchorElement} open={open} onClose={handleClose}>
-        {categories.map((category: any, index: number) => (
+        {categories.data.map((category: any, index: number) => (
           <MenuItem
             key={index}
             onClick={() => {

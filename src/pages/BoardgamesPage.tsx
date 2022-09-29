@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { Grid } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
+import { AxiosRequestConfig } from "axios";
 
 import useFetchData from "../hooks/useFetchData";
 import BoardgameCard from "../components/BoardgameCard";
 
 import { Constants } from "../constants/Constants";
+import PaginationOutlined from "../components/PaginationOutlined";
+import { NotificationToast } from "../components/NotificationToast";
 
 export default function BoardgamesPage() {
-  let { categoryId } = useParams();
+  const { categoryId } = useParams();
+  const { state } = useLocation();
+
+  console.log(state?.isLoggedIn);
 
   const [pageIndex, setPageIndex] = useState<number>(
     Constants.DEFAULT_PAGE_INDEX
@@ -18,9 +24,8 @@ export default function BoardgamesPage() {
     Constants.DEFAULT_SORT_ORDER
   );
 
-  const [boardgameRequestConfig, setBoardgameRequestConfig] = useState<{
-    [key: string]: string;
-  }>({});
+  const [boardgameRequestConfig, setBoardgameRequestConfig] =
+    useState<AxiosRequestConfig>({});
 
   useEffect(() => {
     if (categoryId === undefined) {
@@ -36,34 +41,39 @@ export default function BoardgamesPage() {
     }
   }, [categoryId]);
 
-  const {
-    data: boardgames,
-    loading,
-    error,
-  } = useFetchData(boardgameRequestConfig);
+  const [boardgames] = useFetchData(boardgameRequestConfig);
 
   return (
-    <Grid
-      container
-      sx={{
-        flexDirection: { xs: "column", sm: "row" },
-        alignItems: { xs: "center", sm: "normal" },
-        justifyContent: { xs: "center", sm: "normal" },
-      }}
-      spacing={3}
-      p={3}
-    >
-      {boardgames.map((boardgame: any, index: number) => (
-        <Grid item xs={9} sm={6} md={3} key={index}>
-          <BoardgameCard
-            id={boardgame.id}
-            image={boardgame.image}
-            name={boardgame.name}
-            price={boardgame.price}
-            quantity={boardgame.quantity}
-          />
-        </Grid>
-      ))}
-    </Grid>
+    <>
+      <Grid
+        container
+        sx={{
+          flexDirection: { xs: "column", sm: "row" },
+          alignItems: { xs: "center", sm: "normal" },
+          justifyContent: { xs: "center", sm: "normal" },
+        }}
+        spacing={3}
+        p={3}
+      >
+        {boardgames.data.map((boardgame: any, index: number) => (
+          <Grid item xs={9} sm={6} md={3} key={index}>
+            <BoardgameCard
+              id={boardgame.id}
+              image={boardgame.image}
+              name={boardgame.name}
+              price={boardgame.price}
+              quantity={boardgame.quantity}
+            />
+          </Grid>
+        ))}
+        <PaginationOutlined pageCount={20} />
+      </Grid>
+      {state?.isLoggedIn === true && (
+        <NotificationToast
+          toastText="Succesfully logged in!"
+          isSuccessful={true}
+        />
+      )}
+    </>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { Configs } from "../constants/Configs";
 
 axios.defaults.baseURL = String(Configs.BASE_URL);
@@ -11,15 +11,19 @@ type RequestState = {
   error: any;
 };
 
-const useFetchData = (requestConfig: { [key: string]: string }) => {
+const useFetchData = (requestConfig: AxiosRequestConfig): any => {
   const [requestState, setRequestState] = useState<RequestState>({
     data: [],
     loading: false,
     error: null,
   });
 
-  useEffect(() => {
-    const fetchData = async () => {
+  console.log(requestConfig);
+
+  const fetchData = async () => {
+    if (requestConfig.url !== undefined) {
+      console.log("Intra2");
+
       try {
         setRequestState({
           ...requestState,
@@ -39,12 +43,14 @@ const useFetchData = (requestConfig: { [key: string]: string }) => {
           error: err,
         });
       }
-    };
+    }
+  };
 
+  useEffect(() => {
     fetchData();
-  }, [requestConfig.url]);
+  }, [requestConfig.url, JSON.stringify(requestConfig.data)]);
 
-  return requestState;
+  return [requestState, fetchData] as const;
 };
 
 export default useFetchData;

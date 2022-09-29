@@ -29,8 +29,8 @@ export const passwordFieldRule: {
   [key: string]: { [key: string]: RegExp | string };
 } = {
   pattern: {
-    value: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
+    value: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/,
     message:
-      "Minimum eight characters, at least one uppercase letter, one lowercase letter, one digit and one special character",
+      "Minimum six characters, at least one uppercase letter, one lowercase letter, one digit and one special character",
   },
 };

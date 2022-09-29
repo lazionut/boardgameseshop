@@ -10,8 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { IoMdLogIn } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import {
   emailFieldRule,
@@ -19,6 +18,9 @@ import {
   phoneFieldRule,
   requiredFieldRule,
 } from "../constants/Rules";
+import authenticationService, { Account } from "../hooks/useAuth";
+import useTimeout from "../hooks/useTimeout";
+import { NotificationToast } from "../components/NotificationToast";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
@@ -31,28 +33,52 @@ export default function RegisterPage() {
     formState: { errors },
   } = useForm();
 
-  const handleFormSubmission = () => {
-    setShowAlert(true);
-    navigate("/boardgames");
+  const handleFormSubmission = async (data: { [key: string]: string }) => {
+    const registerInput: Account = {
+      accountData: {
+        details: data["details"],
+        city: data["city"],
+        county: data["county"],
+        country: data["country"],
+        phone: data["phone"],
+        firstName: data["first-name"],
+        lastName: data["last-name"],
+        email: data["email"],
+        password: data["password"],
+      },
+    };
+
+    const registerResponse = await authenticationService.register(
+      registerInput
+    );
+
+    if (registerResponse?.data.token !== undefined) {
+      navigate("/", { state: { isLoggedIn: true } });
+    } else {
+      setShowAlert(true);
+    }
   };
+
+  useTimeout(showAlert, setShowAlert);
 
   return (
     <>
       <form onSubmit={handleSubmit(handleFormSubmission)}>
-        <Container maxWidth="xs">
+        <Container
+          sx={{
+            maxWidth: { xs: "xs", sm: "sm", md: "xs" },
+          }}
+        >
           <Box
             sx={{
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              marginTop: 8,
+              marginTop: 2,
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
-              <IoMdLogIn />
-            </Avatar>
             <Typography variant="h5">Sign up</Typography>
-            <Grid container spacing={2} sx={{ mt: 3 }}>
+            <Grid container spacing={2} sx={{ mt: 1 }}>
               <Grid item xs={12} sm={6}>
                 <TextField
                   type="text"
@@ -87,12 +113,12 @@ export default function RegisterPage() {
                   fullWidth
                   autoFocus
                   label="Street *"
-                  error={!!errors["street"]}
+                  error={!!errors["details"]}
                   helperText={
-                    errors["street"]?.message !== undefined &&
-                    String(errors["street"]?.message)
+                    errors["details"]?.message !== undefined &&
+                    String(errors["details"]?.message)
                   }
-                  {...register("street", { ...requiredFieldRule })}
+                  {...register("details", { ...requiredFieldRule })}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -220,12 +246,19 @@ export default function RegisterPage() {
               Sign up
             </Button>
             <Grid container justifyContent="flex-end">
-              <Grid item>Having an account already? Sign in</Grid>
+              <Grid item>
+                <Link to={"/login"}>Having an account already? Sign in</Link>
+              </Grid>
             </Grid>
           </Box>
         </Container>
       </form>
-      {showAlert && <Alert>Form submitted successfully!</Alert>}
+      {showAlert === true && (
+        <NotificationToast
+          toastText="Server isn't available right now"
+          isSuccessful={false}
+        />
+      )}
     </>
   );
 }
