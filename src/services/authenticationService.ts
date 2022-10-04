@@ -1,4 +1,3 @@
-import React from "react";
 import axios, { AxiosError, AxiosResponse } from "axios";
 
 export interface Account {

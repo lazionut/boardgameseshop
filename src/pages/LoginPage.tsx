@@ -15,7 +15,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { NotificationToast } from "../components/NotificationToast";
 import { emailFieldRule, requiredFieldRule } from "../constants/Rules";
-import authenticationService, { Login } from "../hooks/useAuth";
+import authenticationService, {
+  Login,
+} from "../services/authenticationService";
 import useTimeout from "../hooks/useTimeout";
 
 export default function LoginPage() {
@@ -57,10 +59,9 @@ export default function LoginPage() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              marginTop: 4,
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
+            <Avatar sx={{ m: "2%", bgcolor: "primary.main" }}>
               <IoMdLogIn />
             </Avatar>
             <Typography variant="h5">Sign in</Typography>
@@ -104,7 +105,7 @@ export default function LoginPage() {
               fullWidth
               variant="contained"
               size="medium"
-              sx={{ mt: 3, mb: 1.5 }}
+              sx={{ mt: "5%", mb: "5%" }}
             >
               Sign in
             </Button>

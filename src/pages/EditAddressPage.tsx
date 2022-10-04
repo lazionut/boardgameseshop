@@ -1,53 +1,87 @@
-import React, { useState } from "react";
-import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import {
+  Autocomplete,
+  Box,
+  Button,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
 import Container from "@mui/material/Container";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { phoneFieldRule, requiredFieldRule } from "../constants/Rules";
-import { BiArrowBack } from "react-icons/bi";
-import { AxiosRequestConfig } from "axios";
 
-import useFetchData from "../hooks/useFetchData";
+import NavigateBackButton from "../components/NavigateBackButton";
+import { Configs } from "../constants/Configs";
+import sendDataService from "../services/sendDataService";
+import { NotificationToast } from "../components/NotificationToast";
+import { Countries } from "../constants/Countries";
+import { getCurrentCountryCode } from "../utils/Utilities";
 
 export default function EditAddressPage() {
   const navigate = useNavigate();
   const { state } = useLocation();
+  const authToken: string | null = localStorage.getItem("token");
+  //const countryCode: string = getCurrentCountryCode();
 
-  const [shownStreet, setShownStreet] = useState<string>(
-    state.myAccount.address.details
+  const [shownStreet, setShownStreet] = useState<string | undefined>(
+    state?.details
   );
-  const [shownCounty, setShownCounty] = useState<string>(
-    state.myAccount.address.county
+  const [shownCounty, setShownCounty] = useState<string | undefined>(
+    state?.county
   );
-  const [shownCity, setShownCity] = useState<string>(
-    state.myAccount.address.city
+  const [shownCity, setShownCity] = useState<string | undefined>(state?.city);
+  const [shownCountry, setShownCountry] = useState<string | undefined>(
+    state?.country
   );
-  const [shownCountry, setShownCountry] = useState<string>(
-    state.myAccount.address.country
-  );
-  const [shownPhone, setShownPhone] = useState<string>(
-    state.myAccount.address.phone
+  const [shownPhone, setShownPhone] = useState<string | undefined>(
+    state?.phone
   );
 
-  const [showAlert, setShowAlert] = useState(false);
+  const [showAlert, setShowAlert] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const handleFormSubmission = (data: any) => {
-    console.log(data);
-    setShowAlert(true);
-    navigate("/account");
-  };
+  useEffect(() => {
+    if (
+      state?.details === undefined ||
+      state?.county === undefined ||
+      state?.city === undefined ||
+      state?.country === undefined ||
+      state?.phone === undefined
+    ) {
+      navigate("/account");
+    }
+  }, []);
 
-  const updateAddressRequestConfig: AxiosRequestConfig = {
-    url: "addresses",
-    method: "PUT",
-  };
+  const handleFormSubmission = async (data: { [key: string]: string }) => {
+    const editAddressInput = {
+      details: data["street"],
+      city: data["city"],
+      county: data["county"],
+      country: data["country"],
+      phone: data["phone"],
+    };
 
-  const { loading, error } = useFetchData(updateAddressRequestConfig);
+    const editAddressResponse = await sendDataService.execute({
+      url: "/addresses",
+      method: "put",
+      data: editAddressInput,
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+
+    if (editAddressResponse?.status === Configs.NO_CONTENT_RESPONSE) {
+      navigate("/account", { state: { isEditedAddress: true } });
+    } else {
+      setShowAlert(true);
+    }
+  };
 
   return (
     <>
@@ -58,10 +92,7 @@ export default function EditAddressPage() {
           }}
         >
           <Box sx={{ mt: "5%", display: "flex", justifyContent: "flex-start" }}>
-            <Link to="/account">
-              <BiArrowBack />
-              Back to account
-            </Link>
+            <NavigateBackButton to="/account" />
           </Box>
           <Box
             sx={{
@@ -125,20 +156,47 @@ export default function EditAddressPage() {
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField
-                  type="text"
-                  variant="filled"
-                  value={shownCountry}
-                  fullWidth
-                  autoFocus
-                  label="Country *"
-                  error={!!errors["country"]}
-                  helperText={
-                    errors["country"]?.message !== undefined &&
-                    String(errors["country"]?.message)
-                  }
-                  {...register("country", { ...requiredFieldRule })}
-                  onChange={(e) => setShownCountry(e.target.value)}
+                <Autocomplete
+                  options={Countries}
+                  autoHighlight
+                  defaultValue={{
+                    label: String(shownCountry),
+                    code: "default",
+                  }}
+                  getOptionLabel={(option) => option.label}
+                  renderOption={(props, option) => (
+                    <Box
+                      component="li"
+                      sx={{ "& > img": { mr: "5%" } }}
+                      {...props}
+                    >
+                      <img
+                        loading="lazy"
+                        width="20"
+                        src={require(`../assets/images/countries_flags/${option.code.toLowerCase()}.png`)}
+                        alt="country flag"
+                      />
+                      {option.label} ({option.code})
+                    </Box>
+                  )}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      type="text"
+                      variant="filled"
+                      value={shownCountry}
+                      fullWidth
+                      autoFocus
+                      label="Country *"
+                      error={!!errors["country"]}
+                      helperText={
+                        errors["country"]?.message !== undefined &&
+                        String(errors["country"]?.message)
+                      }
+                      {...register("country", { ...requiredFieldRule })}
+                      onChange={(e) => setShownCountry(e.target.value)}
+                    />
+                  )}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -168,7 +226,6 @@ export default function EditAddressPage() {
                   variant="contained"
                   size="medium"
                   sx={{ width: "25%", mt: 2 }}
-                  onClick={handleFormSubmission}
                 >
                   Submit
                 </Button>
@@ -177,6 +234,12 @@ export default function EditAddressPage() {
           </Box>
         </Container>
       </form>
+      {showAlert === true && (
+        <NotificationToast
+          toastText="Address couldn't be updated"
+          isSuccessful={false}
+        />
+      )}
     </>
   );
 }

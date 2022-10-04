@@ -25,12 +25,14 @@ export const emailFieldRule: {
   },
 };
 
+export const PASSWORD_MESSAGE: string =
+  "Minimum six characters, at least one uppercase letter, one lowercase letter, one digit and one special character";
+
 export const passwordFieldRule: {
   [key: string]: { [key: string]: RegExp | string };
 } = {
   pattern: {
     value: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/,
-    message:
-      "Minimum six characters, at least one uppercase letter, one lowercase letter, one digit and one special character",
+    message: PASSWORD_MESSAGE,
   },
 };

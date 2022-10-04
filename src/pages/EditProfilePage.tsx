@@ -1,43 +1,74 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import Container from "@mui/material/Container";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { BiArrowBack } from "react-icons/bi";
+import { AxiosRequestConfig } from "axios";
 
 import { emailFieldRule, requiredFieldRule } from "../constants/Rules";
 import useFetchData from "../hooks/useFetchData";
-import { AxiosRequestConfig } from "axios";
+import NavigateBackButton from "../components/NavigateBackButton";
+import { Configs } from "../constants/Configs";
+import sendDataService from "../services/sendDataService";
+import { NotificationToast } from "../components/NotificationToast";
+import useTimeout from "../hooks/useTimeout";
 
-export default function EditAccountPage() {
+export default function EditProfilePage() {
   const navigate = useNavigate();
   const { state } = useLocation();
+  const authToken: string | null = localStorage.getItem("token");
 
-  const [shownFirstName, setShownFirstName] = useState<string>(
-    state.myAccount.firstName
+  const [shownFirstName, setShownFirstName] = useState<string | undefined>(
+    state?.firstName
   );
-  const [shownLastName, setShownLastName] = useState<string>(
-    state.myAccount.lastName
+  const [shownLastName, setShownLastName] = useState<string | undefined>(
+    state?.lastName
   );
-  const [shownEmail, setShownEmail] = useState<string>(state.myAccount.email);
-  const [showAlert, setShowAlert] = useState(false);
+  const [shownEmail, setShownEmail] = useState<string | undefined>(
+    state?.email
+  );
+  const [showAlert, setShowAlert] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (
+      state?.firstName === undefined ||
+      state?.lastName === undefined ||
+      state?.email === undefined
+    ) {
+      navigate("/account");
+    }
+  }, []);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const handleFormSubmission = () => {
-    setShowAlert(true);
-    navigate("/account");
+  const handleFormSubmission = async (data: { [key: string]: string }) => {
+    const editAccountInput = {
+      firstName: data["first-name"],
+      lastName: data["last-name"],
+      email: data["email"],
+    };
+
+    const editProfileResponse = await sendDataService.execute({
+      url: "/accounts",
+      method: "patch",
+      data: editAccountInput,
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+
+    if (editProfileResponse?.status === Configs.NO_CONTENT_RESPONSE) {
+      navigate("/account", { state: { isEditedProfile: true } });
+    } else {
+      setShowAlert(true);
+    }
   };
 
-  const updateAccountRequestConfig: AxiosRequestConfig = {
-    url: "accounts",
-    method: "PUT",
-  };
-
-  const { loading, error } = useFetchData(updateAccountRequestConfig);
+  useTimeout(showAlert, setShowAlert);
 
   return (
     <>
@@ -48,10 +79,7 @@ export default function EditAccountPage() {
           }}
         >
           <Box sx={{ mt: "5%", display: "flex", justifyContent: "flex-start" }}>
-            <Link to="/account">
-              <BiArrowBack />
-              Back to account
-            </Link>
+            <NavigateBackButton to="/account" />
           </Box>
           <Box
             sx={{
@@ -61,7 +89,7 @@ export default function EditAccountPage() {
               marginTop: 2,
             }}
           >
-            <Typography variant="h5">Edit account</Typography>
+            <Typography variant="h5">Edit profile</Typography>
             <Grid container spacing={2} sx={{ mt: 1 }}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -123,7 +151,6 @@ export default function EditAccountPage() {
                   variant="contained"
                   size="medium"
                   sx={{ width: "25%", mt: 2 }}
-                  onClick={handleFormSubmission}
                 >
                   Submit
                 </Button>
@@ -132,6 +159,12 @@ export default function EditAccountPage() {
           </Box>
         </Container>
       </form>
+      {showAlert === true && (
+        <NotificationToast
+          toastText="Email already exists"
+          isSuccessful={false}
+        />
+      )}
     </>
   );
 }

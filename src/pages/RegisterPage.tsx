@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {
   Alert,
+  Autocomplete,
   Avatar,
   Box,
   Button,
@@ -15,17 +16,21 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   emailFieldRule,
   passwordFieldRule,
+  PASSWORD_MESSAGE,
   phoneFieldRule,
   requiredFieldRule,
 } from "../constants/Rules";
-import authenticationService, { Account } from "../hooks/useAuth";
+import authenticationService, {
+  Account,
+} from "../services/authenticationService";
 import useTimeout from "../hooks/useTimeout";
 import { NotificationToast } from "../components/NotificationToast";
+import { Countries } from "../constants/Countries";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
 
-  const [showAlert, setShowAlert] = useState(false);
+  const [showAlert, setShowAlert] = useState<boolean>(false);
   const {
     register,
     watch,
@@ -150,17 +155,44 @@ export default function RegisterPage() {
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField
-                  type="text"
-                  fullWidth
-                  autoFocus
-                  label="Country *"
-                  error={!!errors["country"]}
-                  helperText={
-                    errors["country"]?.message !== undefined &&
-                    String(errors["country"]?.message)
-                  }
-                  {...register("country", { ...requiredFieldRule })}
+                <Autocomplete
+                  options={Countries}
+                  autoHighlight
+                  getOptionLabel={(option) => option.label}
+                  renderOption={(props, option) => (
+                    <Box
+                      component="li"
+                      sx={{ "& > img": { mr: "5%" } }}
+                      {...props}
+                    >
+                      <img
+                        loading="lazy"
+                        width="20"
+                        src={require(`../assets/images/countries_flags/${option.code.toLowerCase()}.png`)}
+                        alt="country flag"
+                      />
+                      {option.label} ({option.code})
+                    </Box>
+                  )}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      type="text"
+                      fullWidth
+                      autoFocus
+                      label="Country *"
+                      error={!!errors["country"]}
+                      helperText={
+                        errors["country"]?.message !== undefined &&
+                        String(errors["country"]?.message)
+                      }
+                      {...register("country", { ...requiredFieldRule })}
+                      inputProps={{
+                        ...params.inputProps,
+                        autoComplete: "new-password",
+                      }}
+                    />
+                  )}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -204,10 +236,7 @@ export default function RegisterPage() {
                   autoFocus
                   label="Password *"
                   error={!!errors["password"]}
-                  helperText={
-                    errors["password"]?.message !== undefined &&
-                    String(errors["password"]?.message)
-                  }
+                  helperText={PASSWORD_MESSAGE}
                   {...register("password", {
                     ...requiredFieldRule,
                     ...passwordFieldRule,
