@@ -1,10 +1,7 @@
 import React from "react";
 import { Grid, Box, Container, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 
 export default function ErrorTemplate() {
-  const navigate = useNavigate();
-
   return (
     <Box
       sx={{

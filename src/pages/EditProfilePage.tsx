@@ -7,10 +7,10 @@ import { AxiosRequestConfig } from "axios";
 
 import { emailFieldRule, requiredFieldRule } from "../constants/Rules";
 import useFetchData from "../hooks/useFetchData";
-import NavigateBackButton from "../components/NavigateBackButton";
+import NavigateBackButton from "../components/common/NavigateBackButton";
 import { Configs } from "../constants/Configs";
 import sendDataService from "../services/sendDataService";
-import { NotificationToast } from "../components/NotificationToast";
+import { NotificationToast } from "../components/common/NotificationToast";
 import useTimeout from "../hooks/useTimeout";
 
 export default function EditProfilePage() {
@@ -90,7 +90,7 @@ export default function EditProfilePage() {
             }}
           >
             <Typography variant="h5">Edit profile</Typography>
-            <Grid container spacing={2} sx={{ mt: 1 }}>
+            <Grid container spacing={"3%"} sx={{ mt: 1 }}>
               <Grid item xs={12} sm={6}>
                 <TextField
                   type="text"

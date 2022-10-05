@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 
 interface SendDataProps {
-  method: "post" | "patch" | "put" | "delete";
+  method: "get" | "post" | "patch" | "put" | "delete";
   url: string;
   headers: any;
   data: any;

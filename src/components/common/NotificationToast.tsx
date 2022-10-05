@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { Configs } from "../constants/Configs";
+import { Configs } from "../../constants/Configs";
 
 interface NotificationToastProps {
   toastText: string;

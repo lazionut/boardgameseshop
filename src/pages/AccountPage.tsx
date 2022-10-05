@@ -6,7 +6,7 @@ import { AxiosRequestConfig } from "axios";
 import useFetchData from "../hooks/useFetchData";
 import ProfileItems from "../components/account/ProfileItems";
 import AddressItems from "../components/account/AddressItems";
-import { NotificationToast } from "../components/NotificationToast";
+import { NotificationToast } from "../components/common/NotificationToast";
 
 export default function AccountPage() {
   const { state } = useLocation();
@@ -42,7 +42,7 @@ export default function AccountPage() {
       >
         <Typography variant="h5">My account</Typography>
         {accountData.address && (
-          <Grid container spacing={2} sx={{ mt: { xs: 2 } }}>
+          <Grid container spacing={"3%"} sx={{ mt: { xs: "3%" } }}>
             <ProfileItems
               firstName={accountData.firstName}
               lastName={accountData.lastName}
@@ -61,7 +61,7 @@ export default function AccountPage() {
                 fullWidth
                 variant="contained"
                 size="medium"
-                sx={{ mt: 2 }}
+                sx={{ mt: "5%" }}
                 onClick={() =>
                   navigate("/account/profile/edit", {
                     state: {
@@ -81,7 +81,7 @@ export default function AccountPage() {
                 fullWidth
                 variant="contained"
                 size="medium"
-                sx={{ mt: 2, mb: 2 }}
+                sx={{ my: "5%" }}
                 onClick={() =>
                   navigate("/account/address/edit", {
                     state: {

@@ -12,10 +12,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { phoneFieldRule, requiredFieldRule } from "../constants/Rules";
 
-import NavigateBackButton from "../components/NavigateBackButton";
+import NavigateBackButton from "../components/common/NavigateBackButton";
 import { Configs } from "../constants/Configs";
 import sendDataService from "../services/sendDataService";
-import { NotificationToast } from "../components/NotificationToast";
+import { NotificationToast } from "../components/common/NotificationToast";
 import { Countries } from "../constants/Countries";
 import { getCurrentCountryCode } from "../utils/Utilities";
 
@@ -99,11 +99,11 @@ export default function EditAddressPage() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              marginTop: 2,
+              marginTop: "5%",
             }}
           >
             <Typography variant="h5">My address</Typography>
-            <Grid container spacing={2} sx={{ mt: 1 }}>
+            <Grid container spacing={"3%"} sx={{ mt: "2%" }}>
               <Grid item xs={12}>
                 <TextField
                   type="text"
@@ -225,7 +225,7 @@ export default function EditAddressPage() {
                   fullWidth
                   variant="contained"
                   size="medium"
-                  sx={{ width: "25%", mt: 2 }}
+                  sx={{ width: "25%", mt: "3%" }}
                 >
                   Submit
                 </Button>

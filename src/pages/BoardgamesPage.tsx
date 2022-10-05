@@ -5,25 +5,23 @@ import { AxiosRequestConfig } from "axios";
 
 import useFetchData from "../hooks/useFetchData";
 import BoardgameCard from "../components/boardgame/BoardgameCard";
-import { Constants } from "../constants/Constants";
-import PaginationOutlined from "../components/PaginationOutlined";
-import { NotificationToast } from "../components/NotificationToast";
-import PageSizeSelect from "../components/PageSizeSelect";
-import EmptyTemplate from "../components/EmptyTemplate";
-import SortOrderSelect from "../components/SortOrderSelect";
+import { Constants, ConstantsArrays } from "../constants/Constants";
+import PaginationOutlined from "../components/common/PaginationOutlined";
+import { NotificationToast } from "../components/common/NotificationToast";
+import PageSizeSelect from "../components/common/PageSizeSelect";
+import EmptyTemplate from "../components/common/EmptyTemplate";
+import SortOrderSelect from "../components/boardgame/SortOrderSelect";
 
 export default function BoardgamesPage() {
   const { categoryId } = useParams();
   const { state } = useLocation();
 
   const [pageIndex, setPageIndex] = useState<number>(
-    Number(Constants.DEFAULT_PAGE_INDEX)
+    Constants.DEFAULT_PAGE_INDEX
   );
-  const [pageSize, setPageSize] = useState<number>(
-    Number(Constants.DEFAULT_PAGE_SIZE)
-  );
+  const [pageSize, setPageSize] = useState<number>(Constants.DEFAULT_PAGE_SIZE);
   const [sortOrder, setSortOrder] = useState<number>(
-    Number(Constants.DEFAULT_SORT_ORDER)
+    ConstantsArrays.SORT_OPTIONS[0]
   );
 
   let boardgameRequestConfig: AxiosRequestConfig = {
@@ -56,7 +54,14 @@ export default function BoardgamesPage() {
               justifyContent: { xs: "right" },
             }}
           >
-            <Grid item sx={{ mr: 3, mt: { xs: 2, sm: "auto" } }}>
+            <Grid
+              item
+              sx={{
+                mr: "3%",
+                mt: { xs: "2%", sm: "auto" },
+                mb: { xs: "5%", sm: "auto" },
+              }}
+            >
               <SortOrderSelect
                 sortOrder={sortOrder}
                 setSortOrder={setSortOrder}
@@ -70,11 +75,11 @@ export default function BoardgamesPage() {
               alignItems: { xs: "center", sm: "normal" },
               justifyContent: "center",
             }}
-            spacing={3}
-            p={3}
+            spacing={"3%"}
+            p={"2%"}
           >
-            {boardgamesData.boardgames.map((boardgame: any, index: number) => (
-              <Grid item xs={9} sm={6} md={3} key={index}>
+            {boardgamesData.boardgames.map((boardgame: any) => (
+              <Grid item key={boardgame.id} xs={9} sm={6} md={3}>
                 <BoardgameCard
                   id={boardgame.id}
                   image={boardgame.image}
@@ -93,14 +98,20 @@ export default function BoardgamesPage() {
               justifyContent: { xs: "center" },
             }}
           >
-            <Grid item>
+            <Grid
+              item
+              sx={{ ml: "3%", mt: { xs: "5%", sm: "auto" }, mb: "1.5%" }}
+            >
               <PaginationOutlined
                 pageCount={boardgamesData.pageCount}
                 pageIndex={pageIndex}
                 setPageIndex={setPageIndex}
               />
             </Grid>
-            <Grid item sx={{ ml: 3, mt: { xs: 2, sm: "auto" } }}>
+            <Grid
+              item
+              sx={{ ml: "3%", mt: { xs: "5%", sm: "auto" }, mb: "1.5%" }}
+            >
               <PageSizeSelect pageSize={pageSize} setPageSize={setPageSize} />
             </Grid>
           </Grid>

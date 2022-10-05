@@ -14,6 +14,7 @@ import OrderHistoryPage from "./pages/OrderHistoryPage";
 import AuthenticatedRoute from "./routes/AuthenticatedRoute";
 import OrderDetailsPage from "./pages/OrderDetailsPage";
 import ErrorPage from "./pages/ErrorPage";
+import WishlistsPage from "./pages/WishlistsPage";
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/boardgames" element={<BoardgamesPage />} />
-        <Route path="/boardgame" element={<SingleBoardGamePage />} />
+        <Route path="/boardgame/:boardgameId" element={<SingleBoardGamePage />} />
         <Route path="/error" element={<ErrorPage />} />
         <Route
           path={`/categories/:categoryId/boardgames`}
@@ -52,6 +53,14 @@ function App() {
           element={
             <AuthenticatedRoute>
               <EditAddressPage />
+            </AuthenticatedRoute>
+          }
+        />
+        <Route
+          path="/wishlists"
+          element={
+            <AuthenticatedRoute>
+              <WishlistsPage />
             </AuthenticatedRoute>
           }
         />

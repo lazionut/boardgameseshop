@@ -24,7 +24,7 @@ import authenticationService, {
   Account,
 } from "../services/authenticationService";
 import useTimeout from "../hooks/useTimeout";
-import { NotificationToast } from "../components/NotificationToast";
+import { NotificationToast } from "../components/common/NotificationToast";
 import { Countries } from "../constants/Countries";
 
 export default function RegisterPage() {
@@ -83,7 +83,7 @@ export default function RegisterPage() {
             }}
           >
             <Typography variant="h5">Sign up</Typography>
-            <Grid container spacing={2} sx={{ mt: 1 }}>
+            <Grid container spacing={"2%"} sx={{ mt: "3%" }}>
               <Grid item xs={12} sm={6}>
                 <TextField
                   type="text"
@@ -270,11 +270,11 @@ export default function RegisterPage() {
               fullWidth
               variant="contained"
               size="medium"
-              sx={{ mt: 3, mb: 1.5 }}
+              sx={{ mt: "5%", mb: "3%" }}
             >
               Sign up
             </Button>
-            <Grid container justifyContent="flex-end">
+            <Grid container justifyContent="flex-end" mb={"5%"}>
               <Grid item>
                 <Link to={"/login"}>Having an account already? Sign in</Link>
               </Grid>
@@ -284,7 +284,7 @@ export default function RegisterPage() {
       </form>
       {showAlert === true && (
         <NotificationToast
-          toastText="Server isn't available right now"
+          toastText="Please choose a different email"
           isSuccessful={false}
         />
       )}

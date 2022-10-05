@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import { Menu, MenuItem } from "@mui/material";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { AxiosRequestConfig } from "axios";
 
-import useFetchData from "../hooks/useFetchData";
-import useNavigateSearch from "../hooks/useNavigateSearch";
+import useFetchData from "../../hooks/useFetchData";
+import useNavigateSearch from "../../hooks/useNavigateSearch";
 
-import { Constants } from "../constants/Constants";
+import { Constants, ConstantsArrays } from "../../constants/Constants";
 
 export default function CategoriesMenu() {
   const navigateSearch = useNavigateSearch();
@@ -43,7 +43,6 @@ export default function CategoriesMenu() {
     >
       <Button
         sx={{
-          my: 2,
           backgroundColor: "white",
           color: "black",
           display: "block",
@@ -54,15 +53,15 @@ export default function CategoriesMenu() {
         <MdKeyboardArrowDown size={20} style={{ verticalAlign: "middle" }} />
       </Button>
       <Menu anchorEl={anchorElement} open={open} onClose={handleClose}>
-        {categories.map((category: any, index: number) => (
+        {categories.map((category: any) => (
           <MenuItem
-            key={index}
+            key={category.id}
             onClick={() => {
               handleClose();
               navigateSearch(`/categories/${category.id}/boardgames`, {
                 pageIndex: Constants.DEFAULT_PAGE_INDEX,
                 pageSize: Constants.DEFAULT_PAGE_SIZE,
-                sortOrder: Constants.DEFAULT_SORT_ORDER,
+                sortOrder: ConstantsArrays.SORT_OPTIONS[0],
               });
             }}
           >

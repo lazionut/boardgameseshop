@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Container, Grid, Typography } from "@mui/material";
 
 import OrderItemsCard from "../components/order/OrderItemsCard";
-import NavigateBackButton from "../components/NavigateBackButton";
+import NavigateBackButton from "../components/common/NavigateBackButton";
 import { useLocation } from "react-router-dom";
 
 export default function OrderDetailsPage() {
@@ -23,7 +23,7 @@ export default function OrderDetailsPage() {
       <Typography variant="h5" sx={{ textDecoration: "underline" }} mt="2%">
         Order #{state.order.id}
       </Typography>
-      <Box sx={{ mt: "2%" }}>
+      <Box sx={{ mt: "5%" }}>
         <Grid container flexDirection="row">
           <OrderItemsCard order={state.order} />
         </Grid>

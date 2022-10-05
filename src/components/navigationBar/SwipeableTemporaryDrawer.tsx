@@ -27,7 +27,7 @@ export default function SwipeableTemporaryDrawer() {
             size="large"
             edge="start"
             color="inherit"
-            sx={{ mr: 2 }}
+            sx={{ mr: "5%" }}
             onClick={() => setOpen(true)}
           >
             <MdMenu />
@@ -43,8 +43,18 @@ export default function SwipeableTemporaryDrawer() {
             >
               <List>
                 <ListItem disablePadding>
+                  <ListItemButton onClick={() => navigate("/")}>
+                    <ListItemText primary={"Home"} />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
                   <ListItemButton onClick={() => navigate("/account")}>
                     <ListItemText primary={"My account"} />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={() => navigate("/wishlists")}>
+                    <ListItemText primary={"My wishlists"} />
                   </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>

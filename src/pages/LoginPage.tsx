@@ -13,7 +13,7 @@ import { useForm } from "react-hook-form";
 import { IoMdLogIn } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 
-import { NotificationToast } from "../components/NotificationToast";
+import { NotificationToast } from "../components/common/NotificationToast";
 import { emailFieldRule, requiredFieldRule } from "../constants/Rules";
 import authenticationService, {
   Login,
@@ -61,11 +61,11 @@ export default function LoginPage() {
               alignItems: "center",
             }}
           >
-            <Avatar sx={{ m: "2%", bgcolor: "primary.main" }}>
+            <Avatar sx={{  bgcolor: "primary.main" }}>
               <IoMdLogIn />
             </Avatar>
             <Typography variant="h5">Sign in</Typography>
-            <Grid container spacing={2} sx={{ mt: 3 }}>
+            <Grid container spacing={"5%"} sx={{ mt: "5%" }}>
               <Grid item xs={12}>
                 <TextField
                   type="text"

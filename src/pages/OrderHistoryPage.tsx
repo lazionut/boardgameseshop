@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { AxiosRequestConfig } from "axios";
 
 import useFetchData from "../hooks/useFetchData";
-import { Constants } from "../constants/Constants";
+import { Constants, ConstantsArrays } from "../constants/Constants";
 import { orderStatusDefiner } from "../utils/Utilities";
 
 export default function OrderHistoryPage() {
@@ -20,13 +20,11 @@ export default function OrderHistoryPage() {
   const authToken: string | null = localStorage.getItem("token");
 
   const [pageIndex, setPageIndex] = useState<number>(
-    Number(Constants.DEFAULT_PAGE_INDEX)
+    Constants.DEFAULT_PAGE_INDEX
   );
-  const [pageSize, setPageSize] = useState<number>(
-    Number(Constants.DEFAULT_PAGE_SIZE)
-  );
+  const [pageSize, setPageSize] = useState<number>(Constants.DEFAULT_PAGE_SIZE);
   const [sortOrder, setSortOrder] = useState<number>(
-    Number(Constants.DEFAULT_SORT_ORDER)
+    ConstantsArrays.SORT_OPTIONS[0]
   );
 
   const ordersRequestConfig: AxiosRequestConfig = {
@@ -48,8 +46,8 @@ export default function OrderHistoryPage() {
       <Grid container display="flex" sx={{ flexDirection: "column" }}>
         <Typography variant="h5">Order history</Typography>
         {ordersData.boardgames &&
-          ordersData.boardgames.map((order: any, index: number) => (
-            <Grid item key={index} mt="2%" mb="2%">
+          ordersData.boardgames.map((order: any) => (
+            <Grid item key={order.id} mt="2%" mb="2%">
               <Card
                 variant="outlined"
                 sx={{

@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { orderStatusDefiner } from "../../utils/Utilities";
+import OrderBoardgameCard from "./OrderBoardgameCard";
 
 interface OrderItem {
   order: {
@@ -49,45 +50,18 @@ export default function OrderItemsCard({ order }: OrderItem) {
             <Typography> {order.fullName}</Typography>
             <Typography>Address: </Typography>
             <Typography> {order.address}</Typography>
-            <Typography mt={2}>Ordered on: {order.creationDate}</Typography>
+            <Typography mt={"5%"}>Ordered on: {order.creationDate}</Typography>
             <Chip
               variant="outlined"
               color="primary"
-              sx={{ mt: 2 }}
+              sx={{ mt: "5%" }}
               label={orderStatusDefiner(order.status)}
             />
           </Box>
         </CardActions>
         <Divider />
-        {order.boardgames.map((boardgame: any, index: number) => (
-          <Box key={index} sx={{ ml: 0.5 }}>
-            <CardActions
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-              }}
-            >
-              <CardMedia
-                component="img"
-                image={require("../../assets/images/no-image.jpg")}
-                alt="no image"
-                sx={{ width: 90, height: 70 }}
-              />
-              <Typography
-                fontSize="lg"
-                ml={2}
-                mb={0.5}
-                sx={{ marginRight: "auto" }}
-              >
-                {boardgame.name}
-              </Typography>
-              <Box>
-                <Typography mb={1}>Quantity: {boardgame.quantity}</Typography>
-                <Chip variant="outlined" label={`Price: ${boardgame.price}`} />
-              </Box>
-            </CardActions>
-            <Divider />
-          </Box>
+        {order.boardgames.map((boardgame: any) => (
+          <OrderBoardgameCard key={boardgame.id} boardgame={boardgame} />
         ))}
         <Box
           sx={{
@@ -97,7 +71,7 @@ export default function OrderItemsCard({ order }: OrderItem) {
         >
           <Chip
             variant="outlined"
-            sx={{ mt: 2 }}
+            sx={{ mt: { xs: "5%", sm: "2%" } }}
             label={`Total: ${order.total}`}
           />
         </Box>

@@ -7,7 +7,8 @@ import {
   MenuItem,
 } from "@mui/material";
 
-import { sortOrderDefiner } from "../utils/Utilities";
+import { sortOrderDefiner } from "../../utils/Utilities";
+import { ConstantsArrays } from "../../constants/Constants";
 
 interface PageSizeSelectProps {
   sortOrder: number;
@@ -36,14 +37,13 @@ export default function SortOrderSelect({
           onChange={handleChange}
           label="Sort by"
         >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          {[0, 1, 2, 3, 4].map((sortNumber: number, index: number) => (
-            <MenuItem key={index} value={sortNumber}>
-              {sortOrderDefiner(sortNumber)}
-            </MenuItem>
-          ))}
+          {ConstantsArrays.SORT_OPTIONS.map(
+            (sortNumber: number) => (
+              <MenuItem key={sortNumber} value={sortNumber}>
+                {sortOrderDefiner(sortNumber)}
+              </MenuItem>
+            )
+          )}
         </Select>
       </FormControl>
     </div>

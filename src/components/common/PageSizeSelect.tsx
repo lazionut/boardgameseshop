@@ -4,7 +4,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { Constants } from "../constants/Constants";
+import { ConstantsArrays } from "../../constants/Constants";
 
 interface PageSizeSelectProps {
   pageSize: number;
@@ -15,8 +15,6 @@ export default function PageSizeSelect({
   pageSize,
   setPageSize,
 }: PageSizeSelectProps) {
-  const pageSizes: number[] = Constants.PAGE_SIZES as number[];
-
   return (
     <Box sx={{ minWidth: 80 }}>
       <FormControl fullWidth variant="standard">
@@ -27,8 +25,8 @@ export default function PageSizeSelect({
           label="Page size"
           onChange={(e) => setPageSize(Number(e.target.value))}
         >
-          {pageSizes.map((pageOption: number, index: number) => (
-            <MenuItem key={index} value={pageOption}>
+          {ConstantsArrays.PAGE_SIZES.map((pageOption: number) => (
+            <MenuItem key={pageOption} value={pageOption}>
               {pageOption}
             </MenuItem>
           ))}
