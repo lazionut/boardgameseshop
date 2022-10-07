@@ -17,7 +17,11 @@ export default function BoardgameDetailsCard({
     <Grid item flexDirection="column">
       <CardOverflow>
         {description && (
-          <Typography variant="h6" style={{ wordWrap: "break-word" }} mt="10%">
+          <Typography
+            variant="h6"
+            style={{ wordWrap: "break-word" }}
+            mt={link ? "15%" : "15vh"}
+          >
             {description}
           </Typography>
         )}

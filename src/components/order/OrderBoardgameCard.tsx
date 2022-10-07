@@ -10,6 +10,7 @@ import {
 
 interface OrderBoardgameCardProps {
   boardgame: {
+    image: string;
     name: string;
     quantity: number;
     price: number;
@@ -29,7 +30,11 @@ export default function OrderBoardgameCard({
       >
         <CardMedia
           component="img"
-          image={require("../../assets/images/no_image.jpg")}
+          image={
+            boardgame.image
+              ? boardgame.image
+              : require("../../assets/images/no_image.jpg")
+          }
           alt="no image"
           sx={{ width: 90, height: 70 }}
         />
@@ -38,7 +43,7 @@ export default function OrderBoardgameCard({
         </Typography>
         <Box>
           <Typography mb={"5%"}>Quantity: {boardgame.quantity}</Typography>
-          <Chip variant="outlined" label={`Price: ${boardgame.price}`} />
+          <Chip variant="outlined" label={`Price / unit: ${boardgame.price}`} />
         </Box>
       </CardActions>
       <Divider />

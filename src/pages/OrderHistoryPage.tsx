@@ -14,6 +14,7 @@ import { AxiosRequestConfig } from "axios";
 import useFetchData from "../hooks/useFetchData";
 import { Constants, ConstantsArrays } from "../constants/Constants";
 import { orderStatusDefiner } from "../utils/Utilities";
+import PaginationOutlined from "../components/common/PaginationOutlined";
 
 export default function OrderHistoryPage() {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ export default function OrderHistoryPage() {
   } = useFetchData(ordersRequestConfig);
 
   return (
-    <Container sx={{ mb: { xs: "5%", md: "auto" }, mt: "3%" }}>
+    <Container sx={{ mb: { xs: "5%", md: "auto" }, mt: "3%"}}>
       <Grid container display="flex" sx={{ flexDirection: "column" }}>
         <Typography variant="h5">Order history</Typography>
         {ordersData.boardgames &&
@@ -105,6 +106,13 @@ export default function OrderHistoryPage() {
               </Card>
             </Grid>
           ))}
+        <PaginationOutlined
+          pageCount={ordersData.pageCount}
+          pageIndex={pageIndex}
+          setPageIndex={setPageIndex}
+          pageSize={pageSize}
+          setPageSize={setPageSize}
+        />
       </Grid>
     </Container>
   );

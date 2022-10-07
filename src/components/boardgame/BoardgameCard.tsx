@@ -10,23 +10,21 @@ import {
 } from "@mui/material";
 import { stockDefiner } from "../../utils/Utilities";
 import { useNavigate } from "react-router-dom";
+import { useCartContext } from "../../context/CartContext";
 
 interface Boardgame {
-  id: number;
-  image: string | null;
-  name: string;
-  price: number;
-  quantity: number;
+  boardgame: {
+    id: number;
+    image: string | null;
+    name: string;
+    price: number;
+    quantity: number;
+  };
 }
 
-export default function BoardgameCard({
-  id,
-  image,
-  name,
-  price,
-  quantity,
-}: Boardgame) {
+export default function BoardgameCard({ boardgame }: Boardgame) {
   const navigate = useNavigate();
+  const { increaseCartItemQuantity } = useCartContext();
 
   return (
     <Card
@@ -41,29 +39,35 @@ export default function BoardgameCard({
         },
         "& > *": { minWidth: "clamp(0px, (360px - 100%) * 999,100%)" },
       }}
-      onClick={() => navigate(`/boardgame/${id}`)}
     >
-      <CardActionArea>
+      <CardActionArea onClick={() => navigate(`/boardgames/${boardgame.id}`)}>
         <CardMedia
           component="img"
           image={
-            image === null
+            boardgame.image === null
               ? require("../../assets/images/no_image.jpg")
-              : { image }
+              : boardgame.image
           }
           alt="no image"
         />
         <CardContent>
-          <Typography variant="h5">{name}</Typography>
+          <Typography variant="h5">{boardgame.name}</Typography>
           <Typography sx={{ mb: "2%" }} color="text.secondary">
-            {price} RON
+            {boardgame.price} RON
           </Typography>
-          <Typography variant="body2">{stockDefiner(quantity)}</Typography>
+          <Typography variant="body2">
+            {stockDefiner(boardgame.quantity)}
+          </Typography>
         </CardContent>
-        <CardActions>
-          <Button size="large">Buy now</Button>
-        </CardActions>
       </CardActionArea>
+      <CardActions>
+        <Button
+          size="large"
+          onClick={() => increaseCartItemQuantity(boardgame.id)}
+        >
+          Buy now
+        </Button>
+      </CardActions>
     </Card>
   );
 }

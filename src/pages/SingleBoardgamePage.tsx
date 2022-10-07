@@ -26,7 +26,7 @@ export default function SingleBoardgamePage() {
     <>
       {boardgameData.id !== undefined && (
         <Container>
-          <Card sx={{ mt: "5%" }}>
+          <Card sx={{ mb: "10%" }}>
             <CardOverflow
               variant="soft"
               color="primary"
@@ -40,28 +40,22 @@ export default function SingleBoardgamePage() {
             >
               <Box
                 display="flex"
-                mb="4%"
                 sx={{
                   flexDirection: { xs: "column", sm: "column", md: "row" },
+                  justifyContent: "center",
+                  mb: "4%",
+                  mr: { xs: "auto", lg: "10%" },
                 }}
               >
                 <Box
                   display="flex"
                   flexDirection="column"
-                  justifyContent="center"
+                  alignItems="center"
                   sx={{ mt: { xs: "5%", md: "3%" } }}
                 >
-                  <BoardgameContentCard
-                    image={boardgameData.image}
-                    name={boardgameData.name}
-                    price={boardgameData.price}
-                  />
+                  <BoardgameContentCard boardgame={boardgameData} />
                 </Box>
-                <Box
-                  flexDirection="column"
-                  alignItems="flex-end"
-                  sx={{ mr: { xs: "auto", md: "10%" }, mt: "5%" }}
-                >
+                <Box flexDirection="column">
                   <BoardgameDetailsCard
                     description={boardgameData.description}
                     link={boardgameData.link}
@@ -69,7 +63,9 @@ export default function SingleBoardgamePage() {
                 </Box>
               </Box>
               <Divider />
-              <ReviewTemplate />
+              {boardgameId && (
+                <ReviewTemplate boardgameId={Number(boardgameId)} />
+              )}
             </CardOverflow>
           </Card>
         </Container>

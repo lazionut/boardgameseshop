@@ -2,26 +2,37 @@ import React from "react";
 import { Box, Button, CardActions, Grid, Typography } from "@mui/material";
 
 import { stockDefiner } from "../../utils/Utilities";
+import { useCartContext } from "../../context/CartContext";
 
 interface BoardgameContentCardProps {
-  image: string;
-  name: string;
-  price: number;
+  boardgame: {
+    id: number;
+    image: string;
+    name: string;
+    price: number;
+  };
 }
 
 export default function BoardgameContentCard({
-  image,
-  name,
-  price,
+  boardgame,
 }: BoardgameContentCardProps) {
+  const { cartItems, increaseCartItemQuantity, decreaseCartItemQuantity } =
+    useCartContext();
+
+  console.log(JSON.stringify(cartItems));
+
   return (
     <Grid container display="flex" justifyContent="center">
       <Grid item xs={12} justifyContent="center">
         <img
-          src={image ? image : require("../../assets/images/no_image.jpg")}
+          src={
+            boardgame.image
+              ? boardgame.image
+              : require("../../assets/images/no_image.jpg")
+          }
           alt="boardgame image"
           style={
-            image
+            boardgame.image
               ? {
                   width: 300,
                   height: 300,
@@ -34,10 +45,12 @@ export default function BoardgameContentCard({
         />
       </Grid>
       <Grid item xs={12}>
-        <Typography variant="h5">{name}</Typography>
+        <Typography variant="h5">{boardgame.name}</Typography>
         <Box display="display" flexDirection="row">
-          <Typography color="text.secondary">{price} RON</Typography>
-          <Typography variant="body2">{stockDefiner(price)}</Typography>
+          <Typography color="text.secondary">{boardgame.price} RON</Typography>
+          <Typography variant="body2">
+            {stockDefiner(boardgame.price)}
+          </Typography>
         </Box>
       </Grid>
       <Grid item>
@@ -45,7 +58,11 @@ export default function BoardgameContentCard({
           <Button size="medium" variant="outlined">
             Add to wishlist
           </Button>
-          <Button size="medium" variant="outlined">
+          <Button
+            size="medium"
+            variant="outlined"
+            onClick={() => increaseCartItemQuantity(boardgame.id)}
+          >
             Buy now
           </Button>
         </CardActions>

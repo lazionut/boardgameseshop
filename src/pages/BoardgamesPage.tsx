@@ -8,7 +8,6 @@ import BoardgameCard from "../components/boardgame/BoardgameCard";
 import { Constants, ConstantsArrays } from "../constants/Constants";
 import PaginationOutlined from "../components/common/PaginationOutlined";
 import { NotificationToast } from "../components/common/NotificationToast";
-import PageSizeSelect from "../components/common/PageSizeSelect";
 import EmptyTemplate from "../components/common/EmptyTemplate";
 import SortOrderSelect from "../components/boardgame/SortOrderSelect";
 
@@ -42,9 +41,11 @@ export default function BoardgamesPage() {
     error,
   } = useFetchData(boardgameRequestConfig);
 
+  console.log("The mighty error is: " + error);
+
   return (
     <>
-      {boardgamesData.boardgames ? (
+      {boardgamesData.boardgames && error?.status != 404 ? (
         <div>
           <Grid
             container
@@ -80,41 +81,17 @@ export default function BoardgamesPage() {
           >
             {boardgamesData.boardgames.map((boardgame: any) => (
               <Grid item key={boardgame.id} xs={9} sm={6} md={3}>
-                <BoardgameCard
-                  id={boardgame.id}
-                  image={boardgame.image}
-                  name={boardgame.name}
-                  price={boardgame.price}
-                  quantity={boardgame.quantity}
-                />
+                <BoardgameCard boardgame={boardgame} />
               </Grid>
             ))}
           </Grid>
-          <Grid
-            container
-            sx={{
-              flexDirection: { xs: "column", sm: "row" },
-              alignItems: { xs: "center", sm: "normal" },
-              justifyContent: { xs: "center" },
-            }}
-          >
-            <Grid
-              item
-              sx={{ ml: "3%", mt: { xs: "5%", sm: "auto" }, mb: "1.5%" }}
-            >
-              <PaginationOutlined
-                pageCount={boardgamesData.pageCount}
-                pageIndex={pageIndex}
-                setPageIndex={setPageIndex}
-              />
-            </Grid>
-            <Grid
-              item
-              sx={{ ml: "3%", mt: { xs: "5%", sm: "auto" }, mb: "1.5%" }}
-            >
-              <PageSizeSelect pageSize={pageSize} setPageSize={setPageSize} />
-            </Grid>
-          </Grid>
+          <PaginationOutlined
+            pageCount={boardgamesData.pageCount}
+            pageIndex={pageIndex}
+            setPageIndex={setPageIndex}
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+          />
         </div>
       ) : (
         <EmptyTemplate />

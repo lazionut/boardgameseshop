@@ -48,7 +48,7 @@ export function getCurrentCountryCode(
   shownCountry: string
 ): string {
   const labelIndex = countries.findIndex(
-    (country: CountryType) => country.label == shownCountry
+    (country: CountryType) => country.label === shownCountry
   );
 
   return countries[labelIndex].code;

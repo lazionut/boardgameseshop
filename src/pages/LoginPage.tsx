@@ -59,9 +59,10 @@ export default function LoginPage() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              mb: { xs: "40vh", sm: "30vh", md: "40vh" },
             }}
           >
-            <Avatar sx={{  bgcolor: "primary.main" }}>
+            <Avatar sx={{ bgcolor: "primary.main" }}>
               <IoMdLogIn />
             </Avatar>
             <Typography variant="h5">Sign in</Typography>

@@ -9,15 +9,17 @@ import {
   Alert,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
 
 import sendDataService from "../../../services/sendDataService";
 import { requiredFieldRule } from "../../../constants/Rules";
 import useTimeout from "../../../hooks/useTimeout";
 import RatingOptions from "./RatingOptions";
 
-export function ReviewForm() {
-  const { boardgameId } = useParams();
+interface ReviewFormProps {
+  boardgameId: number;
+}
+
+export function ReviewForm({ boardgameId }: ReviewFormProps) {
   const authToken: string | null = localStorage.getItem("token");
 
   const [showAlert, setShowAlert] = useState<boolean>(false);
@@ -32,7 +34,7 @@ export function ReviewForm() {
 
   const handleFormSubmission = async (data: { [key: string]: string }) => {
     const reviewInput = {
-      boardgameId: Number(boardgameId),
+      boardgameId: boardgameId,
       score: ratingStars,
       title: data["title"],
       content: data["content"],
@@ -69,7 +71,6 @@ export function ReviewForm() {
             rows={4}
             variant="outlined"
             type="text"
-            autoFocus
             label="Title"
             error={!!errors["title"]}
             helperText={
@@ -85,7 +86,6 @@ export function ReviewForm() {
             multiline
             rows={4}
             variant="outlined"
-            autoFocus
             label="Content"
             error={!!errors["content"]}
             helperText={

@@ -5,14 +5,14 @@ import { AxiosRequestConfig } from "axios";
 import ReviewCard from "./ReviewCard";
 import useFetchData from "../../../hooks/useFetchData";
 import { Constants } from "../../../constants/Constants";
-import PageSizeSelect from "../../common/PageSizeSelect";
 import PaginationOutlined from "../../common/PaginationOutlined";
 import { ReviewForm } from "./ReviewForm";
-import { useParams } from "react-router-dom";
 
-export default function ReviewTemplate() {
-  const { boardgameId } = useParams();
+interface ReviewTemplateProps {
+  boardgameId: number;
+}
 
+export default function ReviewTemplate({ boardgameId }: ReviewTemplateProps) {
   const [pageIndex, setPageIndex] = useState<number>(
     Constants.DEFAULT_PAGE_INDEX
   );
@@ -46,7 +46,7 @@ export default function ReviewTemplate() {
               ml: { md: "5%" },
             }}
           >
-            <ReviewForm />
+            <ReviewForm boardgameId={Number(boardgameId)} />
             <Grid item mt="5%">
               <Typography variant="h5" sx={{ textDecoration: "underline" }}>
                 What people say:
@@ -59,31 +59,13 @@ export default function ReviewTemplate() {
                 ))}
               </Box>
             </Grid>
-            <Grid
-              container
-              sx={{
-                flexDirection: { xs: "column", sm: "row" },
-                alignItems: { xs: "center", sm: "normal" },
-                justifyContent: { xs: "center" },
-              }}
-            >
-              <Grid
-                item
-                sx={{ ml: "3%", mt: { xs: "5%", sm: "auto" }, mb: "1.5%" }}
-              >
-                <PaginationOutlined
-                  pageCount={reviewData.pageCount}
-                  pageIndex={pageIndex}
-                  setPageIndex={setPageIndex}
-                />
-              </Grid>
-              <Grid
-                item
-                sx={{ ml: "3%", mt: { xs: "5%", sm: "auto" }, mb: "1.5%" }}
-              >
-                <PageSizeSelect pageSize={pageSize} setPageSize={setPageSize} />
-              </Grid>
-            </Grid>
+            <PaginationOutlined
+              pageCount={reviewData.pageCount}
+              pageIndex={pageIndex}
+              setPageIndex={setPageIndex}
+              pageSize={pageSize}
+              setPageSize={setPageSize}
+            />
           </Box>
         </Card>
       )}

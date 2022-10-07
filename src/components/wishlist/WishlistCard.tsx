@@ -10,6 +10,7 @@ import {
   Typography,
   Button,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 interface WishlistCardProp {
   wishlist: {
@@ -30,6 +31,8 @@ interface WishlistCardProp {
 }
 
 export default function WishlistCard({ wishlist }: WishlistCardProp) {
+  const navigate = useNavigate();
+
   return (
     <Container sx={{ mt: "2%" }} maxWidth="xs">
       <Card variant="outlined">
@@ -49,7 +52,7 @@ export default function WishlistCard({ wishlist }: WishlistCardProp) {
                 />
                 <Typography fontSize="lg">{boardgame.name}</Typography>
                 <Typography fontSize="lg">{boardgame.price}</Typography>
-                <Button variant="contained">View details</Button>
+                <Button variant="contained" size="small" onClick={() => navigate(`/boardgames/${boardgame.id}`)}>View details</Button>
               </CardActions>
             </Box>
           ))}
