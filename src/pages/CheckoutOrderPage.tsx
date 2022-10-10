@@ -64,8 +64,6 @@ export default function CheckoutOrderPage() {
   }
 
   useEffect(() => {
-    console.log("Cart items are the following: " + JSON.stringify(cartItems));
-
     const orderBoardgameIds = cartItems.map((boardgame) => boardgame.id);
     const orderBoardgameQuantities = cartItems.map(
       (boardgame) => boardgame.quantity
@@ -101,7 +99,11 @@ export default function CheckoutOrderPage() {
     <Container component="main" maxWidth="sm" sx={{ mb: "6%" }}>
       <Paper
         variant="outlined"
-        sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
+        sx={{
+          my: { xs: 3, md: 6 },
+          p: { xs: 2, md: 3 },
+          bgcolor: "common.customDirtyWhite",
+        }}
       >
         <Typography component="h1" variant="h4" align="center">
           Checkout

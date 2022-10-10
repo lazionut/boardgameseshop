@@ -8,7 +8,8 @@ import {
   Typography,
 } from "@mui/material";
 import { MdAccountCircle } from "react-icons/md";
-import { Gi3DMeeple } from "react-icons/gi";
+import { Gi3DMeeple, GiMineralHeart } from "react-icons/gi";
+import { FaHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { HiShoppingBag } from "react-icons/hi";
 
@@ -16,20 +17,25 @@ import CategoriesMenu from "./CategoriesMenu";
 import SwipeableTemporaryDrawer from "./SwipeableTemporaryDrawer";
 import SearchBar from "./SearchBar";
 import { useCartContext } from "../../context/CartContext";
+import { useWishlistContext } from "../../context/WishlistContext";
 
 export default function NavigationBar() {
   const navigate = useNavigate();
   const authToken: string | null = localStorage.getItem("token");
   const { cartQuantity, openCart } = useCartContext();
+  const { wishlistItems, openWishlist } = useWishlistContext();
 
   return (
     <Box sx={{ mb: { xs: "10%", sm: "auto" } }}>
-      <AppBar position="fixed">
+      <AppBar position="fixed" sx={{ bgcolor: "common.customCyan" }}>
         <Toolbar>
           {authToken && <SwipeableTemporaryDrawer />}
           <Box marginRight={"3%"}>
-            <IconButton color="inherit" onClick={() => navigate("/")}>
-              <Gi3DMeeple size={40} color="yellow"/>
+            <IconButton
+              sx={{ color: "common.customRedOrange" }}
+              onClick={() => navigate("/")}
+            >
+              <Gi3DMeeple size={40} />
             </IconButton>
           </Box>
           <CategoriesMenu />
@@ -39,6 +45,11 @@ export default function NavigationBar() {
               marginLeft: "auto",
             }}
           >
+            <IconButton onClick={openWishlist}>
+              <Badge badgeContent={wishlistItems?.length} color="secondary">
+                <FaHeart color="white" size={30} />
+              </Badge>
+            </IconButton>
             <IconButton onClick={openCart}>
               <Badge badgeContent={cartQuantity} color="secondary">
                 <HiShoppingBag color="white" size={35} />

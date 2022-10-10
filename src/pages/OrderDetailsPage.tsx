@@ -23,7 +23,7 @@ export default function OrderDetailsPage() {
       <Typography variant="h5" sx={{ textDecoration: "underline" }} mt="2%">
         Order #{state.order.id}
       </Typography>
-      <Box sx={{ mt: "5%" }}>
+      <Box sx={{ mt: "3%" }}>
         <Grid container flexDirection="row">
           <OrderItemsCard order={state.order} />
         </Grid>

@@ -1,6 +1,6 @@
 import React, { createContext, ReactNode, useContext, useState } from "react";
 
-import CartDrawer from "../components/navigationBar/cart/CartDrawer";
+import CartDrawer from "../components/cart/CartDrawer";
 import { useSessionStorage } from "../hooks/useSessionStorage";
 
 type CartContextType = {

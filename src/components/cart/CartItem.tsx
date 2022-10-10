@@ -4,16 +4,18 @@ import {
   Button,
   Chip,
   Grid,
+  IconButton,
   Stack,
   TextField,
   Typography,
 } from "@mui/material";
 import { AxiosRequestConfig } from "axios";
-import useFetchData from "../../../hooks/useFetchData";
+import useFetchData from "../../hooks/useFetchData";
 
-import { useCartContext } from "../../../context/CartContext";
+import { useCartContext } from "../../context/CartContext";
 import { FaMinusCircle } from "react-icons/fa";
 import { BsPlusCircleFill } from "react-icons/bs";
+import { MdDelete } from "react-icons/md";
 
 interface CartItemProps {
   id: number;
@@ -28,6 +30,7 @@ export function CartItem({
   setLocalCartItems,
 }: CartItemProps) {
   const {
+    setCartItemQuantity,
     increaseCartItemQuantity,
     decreaseCartItemQuantity,
     removeCartItem,
@@ -55,18 +58,19 @@ export function CartItem({
       direction="row"
       alignItems="center"
       mb="5%"
-      justifyContent="center"
       paddingX="5%"
     >
-      <img
-        src={
-          boardgameData.image
-            ? boardgameData.image
-            : require("../../../assets/images/no_image.jpg")
-        }
-        width="110"
-        height="80"
-      />
+      <Box marginTop="5%">
+        <img
+          src={
+            boardgameData.image
+              ? boardgameData.image
+              : require("../../assets/images/no_image.jpg")
+          }
+          width="110"
+          height="80"
+        />
+      </Box>
       <Box width="35%">
         <Grid container item justifyContent="center">
           <Typography>{boardgameData.name}</Typography>
@@ -74,7 +78,18 @@ export function CartItem({
             <Button onClick={() => decreaseCartItemQuantity(boardgameData.id)}>
               <FaMinusCircle size={25} />
             </Button>
-            <Typography>{getCartItemQuantity(boardgameData.id)}</Typography>
+            <TextField
+              type="tel"
+              size="small"
+              value={getCartItemQuantity(boardgameData.id)}
+              onChange={(e) => {
+                if (Number(e.target.value) > 0) {
+                  setCartItemQuantity(boardgameData.id, Number(e.target.value));
+                } else {
+                  setCartItemQuantity(boardgameData.id, 1);
+                }
+              }}
+            />
             <Button onClick={() => increaseCartItemQuantity(boardgameData.id)}>
               <BsPlusCircleFill size={25} />
             </Button>
@@ -82,10 +97,16 @@ export function CartItem({
         </Grid>
       </Box>
       <Box display="flex" flexDirection="column" marginLeft="auto">
+        <IconButton
+          sx={{ marginLeft: "auto", color: "red" }}
+          onClick={() => removeCartItem(boardgameData.id)}
+        >
+          <MdDelete size={30} />
+        </IconButton>
         <Chip label={boardgameData.price + " RON"} sx={{ mb: "10%" }} />
         <Chip
           label={
-            "Total price: " +
+            "Price: " +
             (
               boardgameData.price * getCartItemQuantity(boardgameData.id)
             ).toFixed(2) +

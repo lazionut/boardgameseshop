@@ -6,14 +6,14 @@ import {
   Container,
   Grid,
   Typography,
+  Card,
 } from "@mui/material";
-import { Card } from "@mui/joy";
 import { useNavigate } from "react-router-dom";
 import { AxiosRequestConfig } from "axios";
 
 import useFetchData from "../hooks/useFetchData";
 import { Constants, ConstantsArrays } from "../constants/Constants";
-import { orderStatusDefiner } from "../utils/Utilities";
+import { orderStatusDefiner, trimDateTime } from "../utils/Utilities";
 import PaginationOutlined from "../components/common/PaginationOutlined";
 
 export default function OrderHistoryPage() {
@@ -43,7 +43,7 @@ export default function OrderHistoryPage() {
   } = useFetchData(ordersRequestConfig);
 
   return (
-    <Container sx={{ mb: { xs: "5%", md: "auto" }, mt: "3%"}}>
+    <Container sx={{ mb: { xs: "5%", md: "auto" }, mt: "3%" }}>
       <Grid container display="flex" sx={{ flexDirection: "column" }}>
         <Typography variant="h5">Order history</Typography>
         {ordersData.boardgames &&
@@ -53,15 +53,9 @@ export default function OrderHistoryPage() {
                 variant="outlined"
                 sx={{
                   gap: "clamp(0px, (100% - 360px + 32px) * 999, 16px)",
-                  transition: "transform 0.3s, border 0.3s",
-                  "&:hover": {
-                    borderColor: "primary",
-                    transform: "translateY(-2px)",
-                  },
-                  "& > *": {
-                    minWidth: "clamp(0px, (360px - 100%) * 999,100%)",
-                  },
                   cursor: "pointer",
+                  bgcolor: "common.customDirtyWhite",
+                  p: "2%",
                 }}
                 onClick={() =>
                   navigate(`/orders/${order.id}`, {
@@ -77,7 +71,9 @@ export default function OrderHistoryPage() {
                   alignItems="flex-start"
                 >
                   <Typography variant="h6">Order #{order.id}</Typography>
-                  <Typography>Ordered at: {order.creationDate}</Typography>
+                  <Typography>
+                    Ordered at: {trimDateTime(order.creationDate)}
+                  </Typography>
                   <Box
                     sx={{
                       marginLeft: "auto",

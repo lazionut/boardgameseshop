@@ -1,20 +1,26 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 
 interface SendDataProps {
-  method: "get" | "post" | "patch" | "put" | "delete";
+  method: "post" | "patch" | "put" | "delete";
   url: string;
   headers: any;
-  data: any;
+  data?: any;
 }
 
 const sendDataService = {
   async execute({ method, url, headers, data }: SendDataProps): Promise<any> {
     try {
-      const response: AxiosResponse<any, any> = await axios[method](
-        url,
-        data,
-        {headers},
-      );
+      let response: AxiosResponse<any, any>;
+
+      if (data !== undefined) {
+        response = await axios[method](url, data, {
+          headers,
+        });
+      } else {
+        response = await axios[method](url, {
+          headers,
+        });
+      }
 
       console.log("Response to send data is: " + JSON.stringify(response));
 

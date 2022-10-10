@@ -108,6 +108,7 @@ export default function EditAddressPage() {
                 <TextField
                   type="text"
                   variant="filled"
+                  sx={{ bgcolor: "common.customDirtyWhite" }}
                   value={shownStreet}
                   fullWidth
                   autoFocus
@@ -125,6 +126,7 @@ export default function EditAddressPage() {
                 <TextField
                   type="text"
                   variant="filled"
+                  sx={{ bgcolor: "common.customDirtyWhite" }}
                   value={shownCity}
                   fullWidth
                   autoFocus
@@ -142,6 +144,7 @@ export default function EditAddressPage() {
                 <TextField
                   type="text"
                   variant="filled"
+                  sx={{ bgcolor: "common.customDirtyWhite" }}
                   value={shownCounty}
                   fullWidth
                   autoFocus
@@ -184,6 +187,7 @@ export default function EditAddressPage() {
                       {...params}
                       type="text"
                       variant="filled"
+                      sx={{ bgcolor: "common.customDirtyWhite" }}
                       value={shownCountry}
                       fullWidth
                       autoFocus
@@ -203,6 +207,7 @@ export default function EditAddressPage() {
                 <TextField
                   type="text"
                   variant="filled"
+                  sx={{ bgcolor: "common.customDirtyWhite" }}
                   value={shownPhone}
                   fullWidth
                   autoFocus

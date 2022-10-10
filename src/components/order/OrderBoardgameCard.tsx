@@ -31,11 +31,11 @@ export default function OrderBoardgameCard({
         <CardMedia
           component="img"
           image={
-            boardgame.image
+            boardgame.image !== null
               ? boardgame.image
               : require("../../assets/images/no_image.jpg")
           }
-          alt="no image"
+          alt="boardgame image"
           sx={{ width: 90, height: 70 }}
         />
         <Typography fontSize="lg" ml={"2%"} sx={{ marginRight: "auto" }}>

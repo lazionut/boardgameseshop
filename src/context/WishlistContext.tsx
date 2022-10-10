@@ -1,6 +1,6 @@
 import React, { createContext, ReactNode, useContext, useState } from "react";
 
-import CartDrawer from "../components/navigationBar/cart/CartDrawer";
+import WishlistModal from "../components/wishlist/WishlistModal";
 import { useSessionStorage } from "../hooks/useSessionStorage";
 
 type WishlistContextType = {
@@ -26,7 +26,7 @@ interface CartContextProviderProps {
   children: ReactNode;
 }
 
-const CartContextProvider = ({ children }: CartContextProviderProps) => {
+const WishlistContextProvider = ({ children }: CartContextProviderProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [wishlistItems, setWishlistItems] = useSessionStorage<
     WishlistItemType[]
@@ -53,7 +53,7 @@ const CartContextProvider = ({ children }: CartContextProviderProps) => {
   }
 
   function clearWishlist() {
-    localStorage.removeItem("wishlist");
+    setWishlistItems([]);
   }
 
   function openWishlist() {
@@ -75,8 +75,9 @@ const CartContextProvider = ({ children }: CartContextProviderProps) => {
       }}
     >
       {children}
+      <WishlistModal isOpen={isOpen} />
     </WishlistContext.Provider>
   );
 };
 
-export default CartContextProvider;
+export default WishlistContextProvider;

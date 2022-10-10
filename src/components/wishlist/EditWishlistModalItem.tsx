@@ -1,34 +1,37 @@
-import React, { useState } from "react";
-import Button from "@mui/material/Button";
+import React from "react";
 import {
   Card,
   CardActionArea,
   CardActions,
   CardContent,
   CardMedia,
+  IconButton,
   Typography,
 } from "@mui/material";
+import { AxiosRequestConfig } from "axios";
+import useFetchData from "../../hooks/useFetchData";
 import { useNavigate } from "react-router-dom";
 
+import { MdDelete } from "react-icons/md";
 import { stockDefiner } from "../../utils/Utilities";
-import { useCartContext } from "../../context/CartContext";
-import { useWishlistContext } from "../../context/WishlistContext";
 
-interface Boardgame {
+interface EditWishlistModalItemProps {
   boardgame: {
     id: number;
     image: string | null;
     name: string;
     releaseYear: number;
-    price: number;
     quantity: number;
+    price: number;
   };
+  localRemoveWishlistItem: (id: number) => void;
 }
 
-export default function BoardgameCard({ boardgame }: Boardgame) {
+export function EditWishlistModalItem({
+  boardgame,
+  localRemoveWishlistItem,
+}: EditWishlistModalItemProps) {
   const navigate = useNavigate();
-  const { increaseCartItemQuantity } = useCartContext();
-  const { addWishlistItem } = useWishlistContext();
 
   return (
     <Card
@@ -36,16 +39,19 @@ export default function BoardgameCard({ boardgame }: Boardgame) {
       sx={{
         display: "flex",
         flexDirection: "column",
-        gap: "clamp(0px, (100% - 360px + 32px) * 999, 16px)",
-        transition: "transform 0.3s, border 0.3s",
-        "&:hover": {
-          borderColor: "inherit",
-          transform: "translateY(-2px)",
-        },
-        "& > *": { minWidth: "clamp(0px, (360px - 100%) * 999,100%)" },
         bgcolor: "common.customDirtyWhite",
+        width: 200,
+        height: "100%",
       }}
     >
+      <CardActions>
+        <IconButton
+          sx={{ marginLeft: "auto", color: "red" }}
+          onClick={() => localRemoveWishlistItem(boardgame.id)}
+        >
+          <MdDelete size={30} />
+        </IconButton>
+      </CardActions>
       <CardActionArea onClick={() => navigate(`/boardgames/${boardgame.id}`)}>
         <CardMedia
           component="img"
@@ -61,7 +67,7 @@ export default function BoardgameCard({ boardgame }: Boardgame) {
           <Typography variant="body1">{boardgame.releaseYear}</Typography>
           <Typography
             variant="h5"
-            sx={{ mt: "2%", mb: "2%" }}
+            sx={{ mt: "5%", mb: "5%" }}
             color="text.secondary"
           >
             {boardgame.price} RON
@@ -71,23 +77,6 @@ export default function BoardgameCard({ boardgame }: Boardgame) {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions
-        sx={{
-          bottom: 0,
-          justifyContent: "center",
-          alignItems: "flex-end",
-        }}
-      >
-        <Button size="large" onClick={() => addWishlistItem(boardgame.id)}>
-          Add to wishlist
-        </Button>
-        <Button
-          size="large"
-          onClick={() => increaseCartItemQuantity(boardgame.id)}
-        >
-          Buy now
-        </Button>
-      </CardActions>
     </Card>
   );
 }

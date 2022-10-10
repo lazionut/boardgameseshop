@@ -1,14 +1,13 @@
 import React from "react";
-import Card from "@mui/joy/Card";
 import {
   Box,
+  Card,
   CardActions,
-  CardMedia,
   Chip,
   Divider,
   Typography,
 } from "@mui/material";
-import { orderStatusDefiner } from "../../utils/Utilities";
+import { orderStatusDefiner, trimDateTime } from "../../utils/Utilities";
 import OrderBoardgameCard from "./OrderBoardgameCard";
 
 interface OrderItem {
@@ -32,11 +31,12 @@ export default function OrderItemsCard({ order }: OrderItem) {
   return (
     <Card
       variant="outlined"
-      row
       sx={{
         width: "100%",
         display: "flex",
         flexDirection: "row",
+        bgcolor: "common.customDirtyWhite",
+        p: "2%",
       }}
     >
       <Box flexDirection="row" width="100%">
@@ -50,7 +50,9 @@ export default function OrderItemsCard({ order }: OrderItem) {
             <Typography> {order.fullName}</Typography>
             <Typography>Address: </Typography>
             <Typography> {order.address}</Typography>
-            <Typography mt={"5%"}>Ordered on: {order.creationDate}</Typography>
+            <Typography mt={"5%"}>
+              Ordered on: {trimDateTime(order.creationDate)}
+            </Typography>
             <Chip
               variant="outlined"
               color="primary"

@@ -1,12 +1,11 @@
 import React from "react";
-import CardOverflow from "@mui/joy/CardOverflow";
-import { Grid, Box, Card, Container, Divider } from "@mui/material";
+import { Box, Card, Container, Divider } from "@mui/material";
 import { useParams } from "react-router-dom";
 
 import BoardgameDetailsCard from "../components/boardgame/BoardgameDetailsCard";
-import BoardgameContentCard from "../components/boardgame/BoardgameContentCard";
 import ReviewTemplate from "../components/boardgame/review/ReviewTemplate";
 import useFetchData from "../hooks/useFetchData";
+import BoardgameContentCard from "../components/boardgame/BoardgameContentCard";
 
 export default function SingleBoardgamePage() {
   const { boardgameId } = useParams();
@@ -26,47 +25,37 @@ export default function SingleBoardgamePage() {
     <>
       {boardgameData.id !== undefined && (
         <Container>
-          <Card sx={{ mb: "10%" }}>
-            <CardOverflow
-              variant="soft"
-              color="primary"
+          <Card
+            sx={{
+              bgcolor: "common.customDirtyWhite",
+              p: { xs: "4%", sm: "2%" },
+            }}
+          >
+            <Box
+              display="flex"
               sx={{
-                px: 0.2,
-                textAlign: "center",
-                fontSize: "xs2",
-                fontWeight: "xl2",
-                letterSpacing: "1px",
+                flexDirection: "column",
+                justifyContent: "center",
+                mb: "4%",
               }}
             >
               <Box
                 display="flex"
-                sx={{
-                  flexDirection: { xs: "column", sm: "column", md: "row" },
-                  justifyContent: "center",
-                  mb: "4%",
-                  mr: { xs: "auto", lg: "10%" },
-                }}
+                flexDirection="column"
+                alignItems="center"
+                sx={{ mt: { xs: "5%", md: "3%" }, mb: "-10%" }}
               >
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  alignItems="center"
-                  sx={{ mt: { xs: "5%", md: "3%" } }}
-                >
-                  <BoardgameContentCard boardgame={boardgameData} />
-                </Box>
-                <Box flexDirection="column">
-                  <BoardgameDetailsCard
-                    description={boardgameData.description}
-                    link={boardgameData.link}
-                  />
-                </Box>
+                <BoardgameContentCard boardgame={boardgameData} />
               </Box>
-              <Divider />
-              {boardgameId && (
-                <ReviewTemplate boardgameId={Number(boardgameId)} />
-              )}
-            </CardOverflow>
+              <Box flexDirection="column">
+                <BoardgameDetailsCard
+                  description={boardgameData.description}
+                  link={boardgameData.link}
+                />
+              </Box>
+            </Box>
+            <Divider />
+            <ReviewTemplate boardgameId={Number(boardgameId)} />
           </Card>
         </Container>
       )}

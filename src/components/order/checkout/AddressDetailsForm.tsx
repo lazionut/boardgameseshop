@@ -45,8 +45,6 @@ export default function AddressDetails({
   } = useFetchData(accountRequestConfig);
 
   useEffect(() => {
-    console.log("Account data is: " + JSON.stringify(accountData));
-
     setShownFirstName(accountData.firstName);
     setShownLastName(accountData.lastName);
 
@@ -56,19 +54,29 @@ export default function AddressDetails({
       setShownCounty(accountData.address.county);
       setShownCountry(accountData.address.country);
       setShownPhone(accountData.address.phone);
-
-      setNameDetails(accountData.firstName + " " + accountData.lastName);
-      setAddressDetails(
-        Object.values({
-          details: accountData.address.details,
-          city: accountData.address.city,
-          county: accountData.address.county,
-          country: accountData.address.country,
-          phone: accountData.address.phone,
-        }).join(", ")
-      );
     }
   }, [accountData]);
+
+  useEffect(() => {
+    setNameDetails(shownFirstName + " " + shownLastName);
+    setAddressDetails(
+      Object.values({
+        details: shownStreet,
+        city: shownCity,
+        county: shownCounty,
+        country: shownCountry,
+        phone: shownPhone,
+      }).join(", ")
+    );
+  }, [
+    shownFirstName,
+    shownLastName,
+    shownStreet,
+    shownCity,
+    shownCounty,
+    shownCountry,
+    shownPhone,
+  ]);
 
   const handleFormSubmission = async (data: { [key: string]: string }) => {
     console.log("Intra");

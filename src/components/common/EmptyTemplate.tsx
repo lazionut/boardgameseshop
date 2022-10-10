@@ -8,7 +8,7 @@ export default function ErrorTemplate() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "75vh",
+        height: "20vh",
       }}
     >
       <Container maxWidth="md">

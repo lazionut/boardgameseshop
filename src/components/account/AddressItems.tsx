@@ -25,6 +25,7 @@ export default function AddressItems({
         <TextField
           type="text"
           variant="filled"
+          sx={{ bgcolor: "common.customDirtyWhite" }}
           InputProps={{
             readOnly: true,
           }}
@@ -38,6 +39,7 @@ export default function AddressItems({
         <TextField
           type="text"
           variant="filled"
+          sx={{ bgcolor: "common.customDirtyWhite" }}
           InputProps={{
             readOnly: true,
           }}
@@ -51,6 +53,7 @@ export default function AddressItems({
         <TextField
           type="text"
           variant="filled"
+          sx={{ bgcolor: "common.customDirtyWhite" }}
           InputProps={{
             readOnly: true,
           }}
@@ -64,6 +67,7 @@ export default function AddressItems({
         <TextField
           type="text"
           variant="filled"
+          sx={{ bgcolor: "common.customDirtyWhite" }}
           InputProps={{
             readOnly: true,
           }}
@@ -77,6 +81,7 @@ export default function AddressItems({
         <TextField
           type="text"
           variant="filled"
+          sx={{ bgcolor: "common.customDirtyWhite" }}
           InputProps={{
             readOnly: true,
           }}

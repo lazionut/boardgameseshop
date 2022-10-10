@@ -1,16 +1,23 @@
-import React from "react";
-import { Card } from "@mui/joy";
+import React, { useState } from "react";
 import {
   Box,
   CardActions,
-  CardMedia,
   Container,
   Divider,
   Grid,
   Typography,
   Button,
+  Card,
+  IconButton,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { MdDelete } from "react-icons/md";
+import { GrEdit } from "react-icons/gr";
+
+import { stockDefiner, trimDateTime } from "../../utils/Utilities";
+import sendDataService from "../../services/sendDataService";
+import { Configs } from "../../constants/Configs";
+import EditWishlistModal from "./EditWishlistModal";
 
 interface WishlistCardProp {
   wishlist: {
@@ -22,6 +29,7 @@ interface WishlistCardProp {
       id: number;
       image: null;
       name: string;
+      quantity: number;
       releaseYear: number;
       description: string;
       price: number;
@@ -31,30 +39,85 @@ interface WishlistCardProp {
 }
 
 export default function WishlistCard({ wishlist }: WishlistCardProp) {
+  const authToken: string | null = localStorage.getItem("token");
   const navigate = useNavigate();
+
+  const [isEditWishlistOpen, setIsEditWishlistOpen] = useState<boolean>(false);
+
+  const handleWishlistDelete = async (id: number) => {
+    const deleteWishlistResponse = await sendDataService.execute({
+      url: `/accounts/wishlists/${id}`,
+      method: "delete",
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+
+    if (deleteWishlistResponse.status === Configs.OK_RESPONSE) {
+      window.location.reload();
+    }
+  };
 
   return (
     <Container sx={{ mt: "2%" }} maxWidth="xs">
-      <Card variant="outlined">
+      <Card variant="outlined" sx={{ bgcolor: "common.customDirtyWhite" }}>
+        <CardActions>
+          <IconButton
+            sx={{ marginLeft: "auto" }}
+            onClick={() => setIsEditWishlistOpen(true)}
+          >
+            <GrEdit size={25} />
+          </IconButton>
+          <IconButton
+            sx={{ marginLeft: "auto", color: "red" }}
+            onClick={() => handleWishlistDelete(wishlist.id)}
+          >
+            <MdDelete size={30} />
+          </IconButton>
+        </CardActions>
         <Box>
-          <Typography> {wishlist.name}</Typography>
+          <Typography variant="h5"> {wishlist.name}</Typography>
         </Box>
         <Divider />
-        <Grid container flexDirection="row" justifyContent="center">
-          {wishlist.boardgames.map((boardgame: any) => (
-            <Box key={boardgame.id}>
-              <CardActions sx={{ flexDirection: "column" }}>
-                <CardMedia
-                  component="img"
-                  image={require("../../assets/images/no_image.jpg")}
-                  alt="no image"
-                  sx={{ width: 90, height: 70 }}
+        <Grid
+          container
+          flexDirection="row"
+          justifyContent="center"
+          alignContent="center"
+          alignItems="center"
+        >
+          {wishlist.boardgames.map((boardgame: any, index: number) => (
+            <Grid item key={boardgame.id} sx={{ p: "2%" }}>
+              <Box
+                sx={{
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <img
+                  src={
+                    boardgame.image !== null
+                      ? boardgame.image
+                      : require("../../assets/images/no_image.jpg")
+                  }
+                  alt="boardgame image"
+                  width="90"
+                  height="70"
                 />
-                <Typography fontSize="lg">{boardgame.name}</Typography>
-                <Typography fontSize="lg">{boardgame.price}</Typography>
-                <Button variant="contained" size="small" onClick={() => navigate(`/boardgames/${boardgame.id}`)}>View details</Button>
-              </CardActions>
-            </Box>
+              </Box>
+              <Typography fontSize="lg">{boardgame.name}</Typography>
+              <Typography fontSize="lg">{boardgame.price}</Typography>
+              <Typography fontSize="lg">{stockDefiner(boardgame.quantity)}</Typography>
+              <Button
+                variant="contained"
+                size="small"
+                onClick={() => navigate(`/boardgames/${boardgame.id}`)}
+              >
+                View details
+              </Button>
+            </Grid>
           ))}
         </Grid>
         <Divider />
@@ -64,11 +127,20 @@ export default function WishlistCard({ wishlist }: WishlistCardProp) {
               flexDirection: "column",
             }}
           >
-            <Typography mt={2}>Created at: {wishlist.creationDate}</Typography>
-            <Typography mt={2}>Updated at: {wishlist.updateDate}</Typography>
+            <Typography mt={2}>
+              Created at: {trimDateTime(wishlist.creationDate)}
+            </Typography>
+            <Typography mt={2}>
+              Updated at: {trimDateTime(wishlist.updateDate)}
+            </Typography>
           </CardActions>
         </Grid>
       </Card>
+      <EditWishlistModal
+        wishlist={wishlist}
+        isOpen={isEditWishlistOpen}
+        setIsOpen={setIsEditWishlistOpen}
+      />
     </Container>
   );
 }

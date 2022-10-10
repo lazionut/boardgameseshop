@@ -72,6 +72,7 @@ export function ReviewForm({ boardgameId }: ReviewFormProps) {
             variant="outlined"
             type="text"
             label="Title"
+            sx={{ bgcolor: "common.customDirtyWhite" }}
             error={!!errors["title"]}
             helperText={
               errors["title"]?.message !== undefined &&
@@ -87,6 +88,7 @@ export function ReviewForm({ boardgameId }: ReviewFormProps) {
             rows={4}
             variant="outlined"
             label="Content"
+            sx={{ bgcolor: "common.customDirtyWhite" }}
             error={!!errors["content"]}
             helperText={
               errors["content"]?.message !== undefined &&

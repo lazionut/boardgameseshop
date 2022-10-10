@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig } from "axios";
 
 import WishlistCard from "../components/wishlist/WishlistCard";
 import useFetchData from "../hooks/useFetchData";
+import { NotificationToast } from "../components/common/NotificationToast";
 
 export default function WishlistsPage() {
   const authToken: string | null = localStorage.getItem("token");

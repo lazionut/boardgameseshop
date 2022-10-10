@@ -43,7 +43,7 @@ export default function CategoriesMenu() {
     >
       <Button
         sx={{
-          backgroundColor: "white",
+          bgcolor: "white",
           color: "black",
           display: "block",
         }}

@@ -1,6 +1,5 @@
 import React from "react";
 import { Box, Card, Rating, Typography } from "@mui/material";
-import { CardOverflow } from "@mui/joy";
 
 interface ReviewCardProps {
   review: {
@@ -17,20 +16,18 @@ interface ReviewCardProps {
 
 export default function ReviewCard({ review }: ReviewCardProps) {
   return (
-    <Card variant="outlined">
-      <CardOverflow>
-        <Box sx={{ mt: "3%", mb: { xs: "5%", md: "2%" }, ml: "2%" }}>
-          <Typography align="justify" paragraph={true}>
-            <Rating value={review.score} readOnly />
-          </Typography>
-          <Typography align="justify" paragraph={true}>
-            {review.title} | {review.author}
-          </Typography>
-          <Typography align="justify" paragraph={true}>
-            {review.content}
-          </Typography>
-        </Box>
-      </CardOverflow>
+    <Card variant="outlined" sx={{ bgcolor: "common.customDirtyWhite" }}>
+      <Box sx={{ mt: "3%", mb: { xs: "5%", md: "2%" }, ml: "2%" }}>
+        <Typography align="justify" paragraph={true}>
+          <Rating value={review.score} readOnly />
+        </Typography>
+        <Typography align="justify" paragraph={true}>
+          {review.title} | {review.author}
+        </Typography>
+        <Typography align="justify" paragraph={true}>
+          {review.content}
+        </Typography>
+      </Box>
     </Card>
   );
 }

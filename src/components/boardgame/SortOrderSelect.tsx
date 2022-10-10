@@ -20,7 +20,6 @@ export default function SortOrderSelect({
   setSortOrder,
 }: PageSizeSelectProps) {
   const handleChange = (event: SelectChangeEvent) => {
-    console.log("Handle change is: " + event.target.value);
     setSortOrder(Number(event.target.value));
   };
 

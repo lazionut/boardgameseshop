@@ -24,7 +24,7 @@ export default function Footer() {
           py: "2%",
           px: "2%",
           mt: "auto",
-          backgroundColor: (theme) =>
+          bgcolor: (theme) =>
             theme.palette.mode === "light"
               ? theme.palette.grey[200]
               : theme.palette.grey[800],

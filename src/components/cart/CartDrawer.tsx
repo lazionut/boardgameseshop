@@ -1,16 +1,24 @@
 import React, { useState } from "react";
-import { Box, Button, Drawer, Grid, List, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Drawer,
+  Grid,
+  IconButton,
+  List,
+  Typography,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { IoClose } from "react-icons/io5";
 
-import { useCartContext } from "../../../context/CartContext";
+import { useCartContext } from "../../context/CartContext";
 import { CartItem } from "./CartItem";
 
 interface CartProps {
   isOpen: boolean;
-  getCartTotal?: () => void;
 }
 
-export default function CartDrawer({ isOpen, getCartTotal }: CartProps) {
+export default function CartDrawer({ isOpen }: CartProps) {
   const navigate = useNavigate();
   const { closeCart, cartItems } = useCartContext();
   const [localCartItems, setLocalCartItems] = useState<any>([{}]);
@@ -29,8 +37,6 @@ export default function CartDrawer({ isOpen, getCartTotal }: CartProps) {
     return total;
   }, 0);
 
-  console.log("Local cart items are: " + JSON.stringify(localCartItems));
-
   return (
     <Grid
       container
@@ -38,9 +44,29 @@ export default function CartDrawer({ isOpen, getCartTotal }: CartProps) {
       flexDirection="column"
       justifyContent="center"
     >
-      <Drawer anchor="right" open={isOpen} onClose={closeCart}>
-        <Box width="270" textAlign="center" role="presentation">
-          <List sx={{ width: "100%" }}>
+      <Drawer
+        anchor="right"
+        open={isOpen}
+        onClose={closeCart}
+        PaperProps={{
+          sx: {
+            bgcolor: "common.customDirtyWhite",
+          },
+        }}
+      >
+        <Box
+          sx={{
+            width: { sm: 600 },
+          }}
+          textAlign="center"
+          role="presentation"
+        >
+          <List>
+            <Box textAlign="right">
+              <IconButton onClick={closeCart}>
+                <IoClose size={40} />
+              </IconButton>
+            </Box>
             <Typography variant="h4" mb="7%">
               Cart
             </Typography>
@@ -56,7 +82,7 @@ export default function CartDrawer({ isOpen, getCartTotal }: CartProps) {
                     setLocalCartItems={setLocalCartItems}
                   />
                 ))}
-                <Box mt="5%">
+                <Box mt="10%">
                   <Typography variant="h4">Total: {cartTotal} RON</Typography>
                   <Button
                     variant="contained"

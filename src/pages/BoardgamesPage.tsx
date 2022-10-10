@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Grid } from "@mui/material";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import { AxiosRequestConfig } from "axios";
 
 import useFetchData from "../hooks/useFetchData";
@@ -13,6 +13,8 @@ import SortOrderSelect from "../components/boardgame/SortOrderSelect";
 
 export default function BoardgamesPage() {
   const { categoryId } = useParams();
+  const [searchParams] = useSearchParams();
+  const keywords: string | null = searchParams.get("keywords");
   const { state } = useLocation();
 
   const [pageIndex, setPageIndex] = useState<number>(
@@ -33,6 +35,11 @@ export default function BoardgamesPage() {
       url: `/boardgames/category/${categoryId}?pageIndex=${pageIndex}&pageSize=${pageSize}&sortOrder=${sortOrder}`,
       method: "GET",
     };
+  } else if (keywords !== null) {
+    boardgameRequestConfig = {
+      url: `/boardgames/search?keywords=${keywords}&pageIndex=${pageIndex}&pageSize=${pageSize}&sortOrder=${sortOrder}`,
+      method: "GET",
+    };
   }
 
   const {
@@ -40,8 +47,6 @@ export default function BoardgamesPage() {
     loading,
     error,
   } = useFetchData(boardgameRequestConfig);
-
-  console.log("The mighty error is: " + error);
 
   return (
     <>
@@ -73,14 +78,21 @@ export default function BoardgamesPage() {
             container
             sx={{
               flexDirection: { xs: "column", sm: "row" },
-              alignItems: { xs: "center", sm: "normal" },
+              alignItems: { xs: "center", sm: "stretch" },
               justifyContent: "center",
             }}
             spacing={"3%"}
             p={"2%"}
           >
             {boardgamesData.boardgames.map((boardgame: any) => (
-              <Grid item key={boardgame.id} xs={9} sm={6} md={3}>
+              <Grid
+                item
+                key={boardgame.id}
+                xs={9}
+                sm={6}
+                md={3}
+                sx={{ display: "flex" }}
+              >
                 <BoardgameCard boardgame={boardgame} />
               </Grid>
             ))}

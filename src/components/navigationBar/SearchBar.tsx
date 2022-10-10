@@ -1,21 +1,14 @@
 import React, { useState } from "react";
-import {
-  Stack,
-  Autocomplete,
-  TextField,
-  IconButton,
-  Box,
-  InputAdornment,
-} from "@mui/material";
+import { Autocomplete, TextField, Box, InputAdornment } from "@mui/material";
 import { AxiosRequestConfig } from "axios";
-import { useNavigate } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 
 import useFetchData from "../../hooks/useFetchData";
-import sendDataService from "../../services/sendDataService";
+import useNavigateSearch from "../../hooks/useNavigateSearch";
+import { Constants, ConstantsArrays } from "../../constants/Constants";
 
 export default function SearchBar() {
-  const navigate = useNavigate();
+  const navigateSearch = useNavigateSearch();
 
   const [searchedCharacters, setSearchedCharacters] = useState<string>();
 
@@ -35,17 +28,27 @@ export default function SearchBar() {
       <Autocomplete
         freeSolo
         options={boardgamesNamesData.names}
-        inputValue={searchedCharacters}
+        value={searchedCharacters}
         onInputChange={(e, value) => {
           setSearchedCharacters(value);
         }}
         renderInput={(params) => (
           <TextField
             {...params}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                navigateSearch(`/boardgames/search`, {
+                  keywords: searchedCharacters,
+                  pageIndex: Constants.DEFAULT_PAGE_INDEX,
+                  pageSize: Constants.DEFAULT_PAGE_SIZE,
+                  sortOrder: ConstantsArrays.SORT_OPTIONS[0],
+                });
+              }
+            }}
             InputProps={{
               ...params.InputProps,
               startAdornment: (
-                <InputAdornment position="end">
+                <InputAdornment position="start">
                   <FaSearch />
                 </InputAdornment>
               ),

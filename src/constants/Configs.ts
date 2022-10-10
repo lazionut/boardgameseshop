@@ -3,4 +3,5 @@ export const Configs: { [key: string]: string | number } = {
   REQUEST_TIMEOUT: 15000,
   ALERT_TIMEOUT: 3000,
   NO_CONTENT_RESPONSE: 204,
+  OK_RESPONSE: 200,
 };

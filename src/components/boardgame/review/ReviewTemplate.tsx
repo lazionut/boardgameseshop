@@ -7,6 +7,7 @@ import useFetchData from "../../../hooks/useFetchData";
 import { Constants } from "../../../constants/Constants";
 import PaginationOutlined from "../../common/PaginationOutlined";
 import { ReviewForm } from "./ReviewForm";
+import EmptyTemplate from "../../common/EmptyTemplate";
 
 interface ReviewTemplateProps {
   boardgameId: number;
@@ -30,27 +31,29 @@ export default function ReviewTemplate({ boardgameId }: ReviewTemplateProps) {
   } = useFetchData(reviewRequestConfig);
 
   return (
-    <>
-      {reviewData.boardgames && (
-        <Card
-          sx={{
-            display: "flex",
-            flexDirection: { xs: "column", md: "row" },
-          }}
-        >
-          <Box
-            sx={{
-              width: { xs: "80%", md: "90%" },
-              height: { xs: "50%", md: "80%" },
-              alignSelf: { xs: "center" },
-              ml: { md: "5%" },
-            }}
-          >
-            <ReviewForm boardgameId={Number(boardgameId)} />
-            <Grid item mt="5%">
-              <Typography variant="h5" sx={{ textDecoration: "underline" }}>
-                What people say:
-              </Typography>
+    <Card
+      sx={{
+        display: "flex",
+        flexDirection: { xs: "column", md: "row" },
+        bgcolor: "common.customDirtyWhite",
+        mt: "5%"
+      }}
+    >
+      <Box
+        sx={{
+          width: { xs: "80%", md: "90%" },
+          height: { xs: "50%", md: "80%" },
+          alignSelf: { xs: "center" },
+          ml: { md: "5%" },
+        }}
+      >
+        <ReviewForm boardgameId={Number(boardgameId)} />
+        <Typography variant="h5" sx={{ textDecoration: "underline", mt: "5%" }}>
+          What people say:
+        </Typography>
+        {reviewData.boardgames ? (
+          <>
+            <Grid item>
               <Box
                 sx={{ mt: { xs: "5%", md: "2%" }, mb: { xs: "5%", md: "3%" } }}
               >
@@ -66,9 +69,11 @@ export default function ReviewTemplate({ boardgameId }: ReviewTemplateProps) {
               pageSize={pageSize}
               setPageSize={setPageSize}
             />
-          </Box>
-        </Card>
-      )}
-    </>
+          </>
+        ) : (
+          <EmptyTemplate />
+        )}
+      </Box>
+    </Card>
   );
 }
