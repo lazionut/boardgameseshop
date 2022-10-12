@@ -8,6 +8,8 @@ import {
   Divider,
 } from "@mui/material";
 
+import useFetchData from "../../hooks/useFetchData";
+
 interface OrderBoardgameCardProps {
   boardgame: {
     image: string;
@@ -20,6 +22,22 @@ interface OrderBoardgameCardProps {
 export default function OrderBoardgameCard({
   boardgame,
 }: OrderBoardgameCardProps) {
+  const imageType: any = "arraybuffer";
+
+  const imageRequestConfig = {
+    url: `/blobs/${boardgame.image}`,
+    method: "GET",
+    responseType: imageType,
+  };
+
+  const {
+    data: imageData,
+    imageLoading,
+    imageError,
+  } = useFetchData(imageRequestConfig);
+
+  const blobImage = new Blob([new Uint8Array(imageData)], { type: "image" });
+
   return (
     <Box sx={{ ml: "0.5%" }}>
       <CardActions
@@ -31,12 +49,12 @@ export default function OrderBoardgameCard({
         <CardMedia
           component="img"
           image={
-            boardgame.image !== null
-              ? boardgame.image
+            blobImage && boardgame.image !== null
+              ? window.URL.createObjectURL(blobImage)
               : require("../../assets/images/no_image.jpg")
           }
           alt="boardgame image"
-          sx={{ width: 90, height: 70 }}
+          sx={{ width: 130, height: 150, objectFit: "contain" }}
         />
         <Typography fontSize="lg" ml={"2%"} sx={{ marginRight: "auto" }}>
           {boardgame.name}

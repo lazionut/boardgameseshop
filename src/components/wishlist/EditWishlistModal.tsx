@@ -108,7 +108,12 @@ export default function EditWishlistModal({
       >
         <CardHeader
           action={
-            <IconButton onClick={() => setIsOpen(false)}>
+            <IconButton
+              onClick={() => {
+                setLocalWishlistItems(wishlist.boardgames);
+                setIsOpen(false);
+              }}
+            >
               <IoClose size={40} />
             </IconButton>
           }

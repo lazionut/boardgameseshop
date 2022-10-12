@@ -12,11 +12,21 @@ import {
 import { MdMenu } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { GiTabletopPlayers } from "react-icons/gi";
+import jwt_decode from "jwt-decode";
 
 import authenticationService from "../../services/authenticationService";
+import { useWishlistContext } from "../../context/WishlistContext";
 
 export default function SwipeableTemporaryDrawer() {
   const navigate = useNavigate();
+  const authToken: string | null = localStorage.getItem("token");
+  let accountDecoded: { [key: string]: any } | null = null;
+
+  if (authToken !== null) {
+    accountDecoded = jwt_decode(authToken);
+  }
+
+  const { clearWishlist } = useWishlistContext();
 
   const [open, setOpen] = useState<boolean>(false);
 
@@ -70,10 +80,13 @@ export default function SwipeableTemporaryDrawer() {
               </ListItemButton>
             </ListItem>
             <Divider />
+            {accountDecoded?.Role === "Admin" && <></>}
+            <Divider />
             <ListItem disablePadding>
               <ListItemButton
                 onClick={() => {
                   authenticationService.logout();
+                  clearWishlist();
                   navigate("/");
                 }}
               >

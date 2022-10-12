@@ -1,0 +1,66 @@
+import React, { useState } from "react";
+import { Box, CardHeader, IconButton, Modal } from "@mui/material";
+import { IoClose } from "react-icons/io5";
+
+import AdminBoardgameTemplate from "./AdminBoardgameTemplate";
+
+interface AdminBoardgameModalProps {
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  boardgame?: {
+    id: number;
+    image: string | null;
+    name: string;
+    releaseYear: number;
+    price: number;
+    quantity: number;
+    description: string | null;
+    link: string | null;
+    categoryId: number;
+  };
+}
+
+export default function AdminBoardgameModal({
+  isOpen,
+  setIsOpen,
+  boardgame,
+}: AdminBoardgameModalProps) {
+  return (
+    <Modal hideBackdrop open={isOpen} onClose={() => setIsOpen(false)}>
+      <Box
+        sx={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          overflow: "scroll",
+          transform: "translate(-50%, -50%)",
+          width: "45%",
+          bgcolor: "background.paper",
+          border: "2px solid #000",
+          boxShadow: 24,
+          pt: 2,
+          px: 4,
+          pb: 3,
+          height: "90%",
+          mt: "2rem",
+        }}
+      >
+        <CardHeader
+          action={
+            <IconButton onClick={() => setIsOpen(false)}>
+              <IoClose size={40} />
+            </IconButton>
+          }
+        />
+        {boardgame === undefined ? (
+          <AdminBoardgameTemplate templateName="Create boardgame" />
+        ) : (
+          <AdminBoardgameTemplate
+            boardgame={boardgame}
+            templateName="Edit boardgame"
+          />
+        )}
+      </Box>
+    </Modal>
+  );
+}

@@ -1,5 +1,17 @@
-import React from "react";
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
+import React, { useState } from "react";
+import {
+  Box,
+  Button,
+  Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Grid,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AxiosRequestConfig } from "axios";
 
@@ -7,11 +19,16 @@ import useFetchData from "../hooks/useFetchData";
 import ProfileItems from "../components/account/ProfileItems";
 import AddressItems from "../components/account/AddressItems";
 import { NotificationToast } from "../components/common/NotificationToast";
+import { MdDelete } from "react-icons/md";
+import { Configs } from "../constants/Configs";
+import sendDataService from "../services/sendDataService";
 
 export default function AccountPage() {
   const { state } = useLocation();
   const navigate = useNavigate();
   const authToken: string | null = localStorage.getItem("token");
+
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const accountRequestConfig: AxiosRequestConfig = {
     url: "/accounts/me",
@@ -26,6 +43,20 @@ export default function AccountPage() {
     loading,
     error,
   } = useFetchData(accountRequestConfig);
+
+  const handleAccountArchive = async () => {
+    const archiveAccountResponse = await sendDataService.execute({
+      url: `/accounts/archive`,
+      method: "delete",
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+
+    if (archiveAccountResponse.status === Configs.OK_RESPONSE) {
+      navigate("/", { state: { isBoardgameDeleted: true } });
+    }
+  };
 
   return (
     <>
@@ -42,6 +73,38 @@ export default function AccountPage() {
               alignItems: "center",
             }}
           >
+            <Button
+              variant="outlined"
+              color="error"
+              sx={{ marginLeft: "auto", color: "red", mb: "5%" }}
+              onClick={() => setIsOpen(true)}
+            >
+              <Typography>Delete account </Typography>
+              <MdDelete size={30} />
+            </Button>
+            <div>
+              <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
+                <DialogTitle>Confirm delete</DialogTitle>
+                <DialogContent>
+                  <DialogContentText>
+                    This action can't be reverted so make sure that you proceed
+                    carefully.
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+                  <Button
+                    onClick={() => {
+                      handleAccountArchive();
+                      setIsOpen(false);
+                    }}
+                    autoFocus
+                  >
+                    Confirm
+                  </Button>
+                </DialogActions>
+              </Dialog>
+            </div>
             <Typography variant="h5">My account</Typography>
             <Grid container spacing={"3%"} sx={{ mt: { xs: "3%" } }}>
               <ProfileItems

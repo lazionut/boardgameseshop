@@ -13,7 +13,7 @@ import EditAccountPage from "./pages/EditProfilePage";
 import EditAddressPage from "./pages/EditAddressPage";
 import SingleBoardGamePage from "./pages/SingleBoardgamePage";
 import OrderHistoryPage from "./pages/OrderHistoryPage";
-import AuthenticatedRoute from "./routes/AuthenticatedRoute";
+import CostumerAuthenticatedRoute from "./routes/CostumerAuthenticatedRoute";
 import OrderDetailsPage from "./pages/OrderDetailsPage";
 import ErrorPage from "./pages/ErrorPage";
 import WishlistsPage from "./pages/WishlistsPage";
@@ -22,6 +22,7 @@ import CheckoutOrderPage from "./pages/CheckoutOrderPage";
 import Footer from "./components/footer/Footer";
 import { theme } from "./theme/Theme";
 import WishlistContextProvider from "./context/WishlistContext";
+import AdminAuthenticatedRoute from "./routes/AdminAuthenticatedRoute";
 
 function App() {
   return (
@@ -46,64 +47,61 @@ function App() {
                 path={`/categories/:categoryId/boardgames`}
                 element={<BoardgamesPage />}
               />
-              <Route
-                path={`/boardgames/search`}
-                element={<BoardgamesPage />}
-              />
+              <Route path={`/boardgames/search`} element={<BoardgamesPage />} />
               <Route
                 path="/account"
                 element={
-                  <AuthenticatedRoute>
+                  <CostumerAuthenticatedRoute>
                     <AccountPage />
-                  </AuthenticatedRoute>
+                  </CostumerAuthenticatedRoute>
                 }
               />
               <Route
                 path="/account/profile/edit"
                 element={
-                  <AuthenticatedRoute>
+                  <CostumerAuthenticatedRoute>
                     <EditAccountPage />
-                  </AuthenticatedRoute>
+                  </CostumerAuthenticatedRoute>
                 }
               />
               <Route
                 path="/account/address/edit"
                 element={
-                  <AuthenticatedRoute>
+                  <CostumerAuthenticatedRoute>
                     <EditAddressPage />
-                  </AuthenticatedRoute>
+                  </CostumerAuthenticatedRoute>
                 }
               />
               <Route
                 path="/wishlists"
                 element={
-                  <AuthenticatedRoute>
+                  <CostumerAuthenticatedRoute>
                     <WishlistsPage />
-                  </AuthenticatedRoute>
+                  </CostumerAuthenticatedRoute>
                 }
               />
               <Route
                 path="/orders"
                 element={
-                  <AuthenticatedRoute>
+                  <CostumerAuthenticatedRoute>
                     <OrderHistoryPage />
-                  </AuthenticatedRoute>
+                  </CostumerAuthenticatedRoute>
                 }
               />
               <Route
                 path="/orders/:id"
                 element={
-                  <AuthenticatedRoute>
+                  <CostumerAuthenticatedRoute>
                     <OrderDetailsPage />
-                  </AuthenticatedRoute>
+                  </CostumerAuthenticatedRoute>
                 }
               />
               <Route
                 path="/orders/checkout"
                 element={
-                  <AuthenticatedRoute>
+                  <CostumerAuthenticatedRoute>
                     <CheckoutOrderPage />
-                  </AuthenticatedRoute>
+                  </CostumerAuthenticatedRoute>
                 }
               />
             </Routes>

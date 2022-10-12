@@ -61,7 +61,7 @@ export default function EditProfilePage() {
       },
     });
 
-    if (editProfileResponse?.status === Configs.NO_CONTENT_RESPONSE) {
+    if (editProfileResponse.status === Configs.OK_RESPONSE) {
       navigate("/account", { state: { isEditedProfile: true } });
     } else {
       setShowAlert(true);

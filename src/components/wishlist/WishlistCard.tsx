@@ -18,6 +18,8 @@ import { stockDefiner, trimDateTime } from "../../utils/Utilities";
 import sendDataService from "../../services/sendDataService";
 import { Configs } from "../../constants/Configs";
 import EditWishlistModal from "./EditWishlistModal";
+import useFetchData from "../../hooks/useFetchData";
+import { WishlistBoardgameCard } from "./WishlistBoardgameCard";
 
 interface WishlistCardProp {
   wishlist: {
@@ -40,7 +42,6 @@ interface WishlistCardProp {
 
 export default function WishlistCard({ wishlist }: WishlistCardProp) {
   const authToken: string | null = localStorage.getItem("token");
-  const navigate = useNavigate();
 
   const [isEditWishlistOpen, setIsEditWishlistOpen] = useState<boolean>(false);
 
@@ -86,38 +87,8 @@ export default function WishlistCard({ wishlist }: WishlistCardProp) {
           alignContent="center"
           alignItems="center"
         >
-          {wishlist.boardgames.map((boardgame: any, index: number) => (
-            <Grid item key={boardgame.id} sx={{ p: "2%" }}>
-              <Box
-                sx={{
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <img
-                  src={
-                    boardgame.image !== null
-                      ? boardgame.image
-                      : require("../../assets/images/no_image.jpg")
-                  }
-                  alt="boardgame image"
-                  width="90"
-                  height="70"
-                />
-              </Box>
-              <Typography fontSize="lg">{boardgame.name}</Typography>
-              <Typography fontSize="lg">{boardgame.price}</Typography>
-              <Typography fontSize="lg">{stockDefiner(boardgame.quantity)}</Typography>
-              <Button
-                variant="contained"
-                size="small"
-                onClick={() => navigate(`/boardgames/${boardgame.id}`)}
-              >
-                View details
-              </Button>
-            </Grid>
+          {wishlist.boardgames.map((boardgame: any) => (
+            <WishlistBoardgameCard key={boardgame.id} boardgame={boardgame} />
           ))}
         </Grid>
         <Divider />

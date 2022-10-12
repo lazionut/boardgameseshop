@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import { AxiosRequestConfig } from "axios";
+import jwt_decode from "jwt-decode";
+import { AiFillPlusSquare } from "react-icons/ai";
 
 import useFetchData from "../hooks/useFetchData";
 import BoardgameCard from "../components/boardgame/BoardgameCard";
@@ -10,12 +12,19 @@ import PaginationOutlined from "../components/common/PaginationOutlined";
 import { NotificationToast } from "../components/common/NotificationToast";
 import EmptyTemplate from "../components/common/EmptyTemplate";
 import SortOrderSelect from "../components/boardgame/SortOrderSelect";
+import AdminBoardgameModal from "../components/boardgame/AdminBoardgameModal";
 
 export default function BoardgamesPage() {
   const { categoryId } = useParams();
   const [searchParams] = useSearchParams();
   const keywords: string | null = searchParams.get("keywords");
   const { state } = useLocation();
+  const authToken: string | null = localStorage.getItem("token");
+  let accountDecoded: { [key: string]: any } | null = null;
+
+  if (authToken !== null) {
+    accountDecoded = jwt_decode(authToken);
+  }
 
   const [pageIndex, setPageIndex] = useState<number>(
     Constants.DEFAULT_PAGE_INDEX
@@ -24,6 +33,7 @@ export default function BoardgamesPage() {
   const [sortOrder, setSortOrder] = useState<number>(
     ConstantsArrays.SORT_OPTIONS[0]
   );
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   let boardgameRequestConfig: AxiosRequestConfig = {
     url: `/boardgames?pageIndex=${pageIndex}&pageSize=${pageSize}&sortOrder=${sortOrder}`,
@@ -56,10 +66,24 @@ export default function BoardgamesPage() {
             container
             sx={{
               flexDirection: { xs: "column", sm: "row" },
-              alignItems: { xs: "right" },
-              justifyContent: { xs: "right" },
+              justifyContent: "space-between",
             }}
           >
+            {accountDecoded?.Role === "Admin" && (
+              <Grid
+                item
+                sx={{
+                  ml: "2%",
+                  mt: { xs: "2%", sm: "auto" },
+                  mb: { xs: "5%", sm: "auto" },
+                }}
+              >
+                <Button variant="outlined" onClick={() => setIsOpen(true)}>
+                  <AiFillPlusSquare size={30} />
+                  Add boardgame
+                </Button>
+              </Grid>
+            )}
             <Grid
               item
               sx={{
@@ -108,6 +132,7 @@ export default function BoardgamesPage() {
       ) : (
         <EmptyTemplate />
       )}
+      <AdminBoardgameModal isOpen={isOpen} setIsOpen={setIsOpen} />
       {state?.isLoggedIn === true && (
         <NotificationToast
           toastText="Succesfully logged in"

@@ -1,5 +1,10 @@
 import React from "react";
-import { Box, Card, Rating, Typography } from "@mui/material";
+import { Box, Card, Grid, IconButton, Rating, Typography } from "@mui/material";
+import jwt_decode from "jwt-decode";
+import { MdDelete } from "react-icons/md";
+
+import sendDataService from "../../../services/sendDataService";
+import { Configs } from "../../../constants/Configs";
 
 interface ReviewCardProps {
   review: {
@@ -15,12 +20,47 @@ interface ReviewCardProps {
 }
 
 export default function ReviewCard({ review }: ReviewCardProps) {
+  const authToken: string | null = localStorage.getItem("token");
+  let accountDecoded: { [key: string]: any } | null = null;
+
+  if (authToken !== null) {
+    accountDecoded = jwt_decode(authToken);
+  }
+
+  const handleReviewDelete = async (id: number) => {
+    const createWishlistResponse = await sendDataService.execute({
+      url: `/reviews/${id}`,
+      method: "delete",
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+
+    if (createWishlistResponse.status === Configs.OK_RESPONSE) {
+      window.location.reload();
+    }
+  };
+
   return (
     <Card variant="outlined" sx={{ bgcolor: "common.customDirtyWhite" }}>
       <Box sx={{ mt: "3%", mb: { xs: "5%", md: "2%" }, ml: "2%" }}>
-        <Typography align="justify" paragraph={true}>
-          <Rating value={review.score} readOnly />
-        </Typography>
+        <Grid container justifyContent="space-between">
+          <Grid item>
+            <Typography align="justify" paragraph={true}>
+              <Rating value={review.score} readOnly />
+            </Typography>
+          </Grid>
+          <Grid item>
+            {accountDecoded?.Role === "Admin" && (
+              <IconButton
+                sx={{ marginLeft: "auto", color: "red" }}
+                onClick={() => handleReviewDelete(review.id)}
+              >
+                <MdDelete size={30} />
+              </IconButton>
+            )}
+          </Grid>
+        </Grid>
         <Typography align="justify" paragraph={true}>
           {review.title} | {review.author}
         </Typography>

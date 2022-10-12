@@ -51,7 +51,9 @@ const useFetchData = (requestConfig: AxiosRequestConfig): any => {
   };
 
   useEffect(() => {
-    fetchData();
+    if (requestConfig.url) {
+      fetchData();
+    }
   }, [requestConfig.url, JSON.stringify(requestConfig.data)]);
 
   return requestState;

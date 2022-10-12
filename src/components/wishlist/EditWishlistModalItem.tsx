@@ -8,7 +8,6 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-import { AxiosRequestConfig } from "axios";
 import useFetchData from "../../hooks/useFetchData";
 import { useNavigate } from "react-router-dom";
 
@@ -33,6 +32,18 @@ export function EditWishlistModalItem({
 }: EditWishlistModalItemProps) {
   const navigate = useNavigate();
 
+  const imageType: any = "arraybuffer";
+
+  const imageRequestConfig = {
+    url: `/blobs/${boardgame.image}`,
+    method: "GET",
+    responseType: imageType,
+  };
+
+  const { data: imageData, loading, error } = useFetchData(imageRequestConfig);
+
+  const blobImage = new Blob([new Uint8Array(imageData)], { type: "image" });
+
   return (
     <Card
       variant="outlined"
@@ -56,10 +67,11 @@ export function EditWishlistModalItem({
         <CardMedia
           component="img"
           image={
-            boardgame.image !== null
-              ? boardgame.image
+            blobImage && boardgame.image
+              ? window.URL.createObjectURL(blobImage)
               : require("../../assets/images/no_image.jpg")
           }
+          sx={{ width: "100%", height: 200, objectFit: "fill" }}
           alt="boardgame image"
         />
         <CardContent>

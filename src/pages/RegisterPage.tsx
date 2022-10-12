@@ -187,10 +187,6 @@ export default function RegisterPage() {
                         String(errors["country"]?.message)
                       }
                       {...register("country", { ...requiredFieldRule })}
-                      inputProps={{
-                        ...params.inputProps,
-                        autoComplete: "new-password",
-                      }}
                     />
                   )}
                 />

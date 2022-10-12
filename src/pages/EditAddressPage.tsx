@@ -76,7 +76,7 @@ export default function EditAddressPage() {
       },
     });
 
-    if (editAddressResponse?.status === Configs.NO_CONTENT_RESPONSE) {
+    if (editAddressResponse.status === Configs.OK_RESPONSE) {
       navigate("/account", { state: { isEditedAddress: true } });
     } else {
       setShowAlert(true);

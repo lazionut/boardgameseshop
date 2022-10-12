@@ -1,18 +1,26 @@
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
-import { Menu, MenuItem } from "@mui/material";
+import { IconButton, Menu } from "@mui/material";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { AxiosRequestConfig } from "axios";
+import jwt_decode from "jwt-decode";
+import { AiFillPlusSquare } from "react-icons/ai";
 
 import useFetchData from "../../hooks/useFetchData";
-import useNavigateSearch from "../../hooks/useNavigateSearch";
-
-import { Constants, ConstantsArrays } from "../../constants/Constants";
+import CategoryMenuItem from "./CategoryMenuItem";
+import AdminCategoryModal from "./AdminCategoryModal";
 
 export default function CategoriesMenu() {
-  const navigateSearch = useNavigateSearch();
+  const authToken: string | null = localStorage.getItem("token");
+  let accountDecoded: { [key: string]: any } | null = null;
+
+  if (authToken !== null) {
+    accountDecoded = jwt_decode(authToken);
+  }
 
   const [anchorElement, setAnchorElement] = useState<null | HTMLElement>(null);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
   const open = Boolean(anchorElement);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -53,22 +61,14 @@ export default function CategoriesMenu() {
         <MdKeyboardArrowDown size={20} style={{ verticalAlign: "middle" }} />
       </Button>
       <Menu anchorEl={anchorElement} open={open} onClose={handleClose}>
+        <IconButton color="primary" onClick={() => setIsOpen(true)}>
+          <AiFillPlusSquare size={35} />
+        </IconButton>
         {categories.map((category: any) => (
-          <MenuItem
-            key={category.id}
-            onClick={() => {
-              handleClose();
-              navigateSearch(`/categories/${category.id}/boardgames`, {
-                pageIndex: Constants.DEFAULT_PAGE_INDEX,
-                pageSize: Constants.DEFAULT_PAGE_SIZE,
-                sortOrder: ConstantsArrays.SORT_OPTIONS[0],
-              });
-            }}
-          >
-            {category.name}
-          </MenuItem>
+          <CategoryMenuItem category={category} />
         ))}
       </Menu>
+      <AdminCategoryModal isOpen={isOpen} setIsOpen={setIsOpen} />
     </div>
   );
 }

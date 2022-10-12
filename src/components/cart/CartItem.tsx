@@ -37,6 +37,9 @@ export function CartItem({
     getCartItemQuantity,
   } = useCartContext();
 
+  const [imageRequestConfig, setImageRequestConfig] =
+    useState<AxiosRequestConfig>({});
+
   const boardgameRequestConfig: AxiosRequestConfig = {
     url: `/boardgames/${id}`,
     method: "GET",
@@ -44,13 +47,31 @@ export function CartItem({
 
   const {
     data: boardgameData,
-    loading,
-    error,
+    boardgameLoading,
+    boardgameError,
   } = useFetchData(boardgameRequestConfig);
 
   useEffect(() => {
     setLocalCartItems([...localCartItems, boardgameData]);
+
+    if (boardgameData.image) {
+      setImageRequestConfig({
+        url: `/blobs/${boardgameData.image}`,
+        method: "GET",
+        responseType: imageType,
+      });
+    }
   }, [boardgameData]);
+
+  const imageType: any = "arraybuffer";
+
+  const {
+    data: imageData,
+    imageLoading,
+    imageError,
+  } = useFetchData(imageRequestConfig);
+
+  const blobImage = new Blob([new Uint8Array(imageData)], { type: "image" });
 
   return (
     <Stack
@@ -63,12 +84,12 @@ export function CartItem({
       <Box marginTop="5%">
         <img
           src={
-            boardgameData.image
-              ? boardgameData.image
+            blobImage && boardgameData.image
+              ? window.URL.createObjectURL(blobImage)
               : require("../../assets/images/no_image.jpg")
           }
-          width="110"
-          height="80"
+          width="90"
+          height="100"
         />
       </Box>
       <Box width="35%">

@@ -18,9 +18,6 @@ import { AxiosRequestConfig } from "axios";
 import useFetchData from "../../hooks/useFetchData";
 import { useNavigate } from "react-router-dom";
 
-import { useCartContext } from "../../context/CartContext";
-import { FaMinusCircle } from "react-icons/fa";
-import { BsPlusCircleFill } from "react-icons/bs";
 import { MdDelete } from "react-icons/md";
 import { useWishlistContext } from "../../context/WishlistContext";
 import { stockDefiner } from "../../utils/Utilities";
@@ -33,6 +30,9 @@ export function WishlistModalItem({ id }: WishlistModalItemProps) {
   const navigate = useNavigate();
   const { removeWishlistItem, wishlistItems } = useWishlistContext();
 
+  const [imageRequestConfig, setImageRequestConfig] =
+    useState<AxiosRequestConfig>({});
+
   const boardgameRequestConfig: AxiosRequestConfig = {
     url: `/boardgames/${id}`,
     method: "GET",
@@ -40,9 +40,29 @@ export function WishlistModalItem({ id }: WishlistModalItemProps) {
 
   const {
     data: boardgameData,
-    loading,
-    error,
+    boardgameLoading,
+    boardgameError,
   } = useFetchData(boardgameRequestConfig);
+
+  useEffect(() => {
+    if (boardgameData.image) {
+      setImageRequestConfig({
+        url: `/blobs/${boardgameData.image}`,
+        method: "GET",
+        responseType: imageType,
+      });
+    }
+  }, [boardgameData]);
+
+  const imageType: any = "arraybuffer";
+
+  const {
+    data: imageData,
+    imageLoading,
+    imageError,
+  } = useFetchData(imageRequestConfig);
+
+  const blobImage = new Blob([new Uint8Array(imageData)], { type: "image" });
 
   return (
     <Card
@@ -69,10 +89,11 @@ export function WishlistModalItem({ id }: WishlistModalItemProps) {
         <CardMedia
           component="img"
           image={
-            boardgameData.image !== null
-              ? boardgameData.image
+            blobImage && boardgameData.image
+              ? window.URL.createObjectURL(blobImage)
               : require("../../assets/images/no_image.jpg")
           }
+          sx={{ width: "100%", height: 200, objectFit: "fill" }}
           alt="boardgame image"
         />
         <CardContent>

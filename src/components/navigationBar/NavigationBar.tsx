@@ -8,12 +8,12 @@ import {
   Typography,
 } from "@mui/material";
 import { MdAccountCircle } from "react-icons/md";
-import { Gi3DMeeple, GiMineralHeart } from "react-icons/gi";
+import { Gi3DMeeple } from "react-icons/gi";
 import { FaHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { HiShoppingBag } from "react-icons/hi";
 
-import CategoriesMenu from "./CategoriesMenu";
+import CategoriesMenu from "../category/CategoriesMenu";
 import SwipeableTemporaryDrawer from "./SwipeableTemporaryDrawer";
 import SearchBar from "./SearchBar";
 import { useCartContext } from "../../context/CartContext";
@@ -45,7 +45,15 @@ export default function NavigationBar() {
               marginLeft: "auto",
             }}
           >
-            <IconButton onClick={openWishlist}>
+            <IconButton
+              onClick={() => {
+                if (authToken) {
+                  openWishlist();
+                } else {
+                  navigate("login");
+                }
+              }}
+            >
               <Badge badgeContent={wishlistItems?.length} color="secondary">
                 <FaHeart color="white" size={30} />
               </Badge>
