@@ -43,7 +43,6 @@ export default function ProfileItems({
           }}
           value={lastName}
           fullWidth
-          autoFocus
           label="Last Name *"
         />
       </Grid>
@@ -57,7 +56,6 @@ export default function ProfileItems({
           }}
           value={email}
           fullWidth
-          autoFocus
           label="Email *"
         />
       </Grid>

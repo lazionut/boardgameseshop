@@ -19,7 +19,8 @@ import { useCartContext } from "../../context/CartContext";
 import { useWishlistContext } from "../../context/WishlistContext";
 import useFetchData from "../../hooks/useFetchData";
 import sendDataService from "../../services/sendDataService";
-import EditBoardgameModal from "./AdminBoardgameModal";
+import AdminBoardgameModal from "./AdminBoardgameModal";
+import { Constants } from "../../constants/Constants";
 
 interface Boardgame {
   boardgame: {
@@ -94,7 +95,7 @@ export default function BoardgameCard({ boardgame }: Boardgame) {
           bgcolor: "common.customDirtyWhite",
         }}
       >
-        {accountDecoded?.Role === "Admin" && (
+        {accountDecoded?.Role === Constants.ADMIN && (
           <CardActions>
             <IconButton
               sx={{ marginLeft: "auto" }}
@@ -164,8 +165,9 @@ export default function BoardgameCard({ boardgame }: Boardgame) {
           </Button>
         </CardActions>
       </Card>
-      <EditBoardgameModal
+      <AdminBoardgameModal
         boardgame={boardgame}
+        blobImage={blobImage}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
       />

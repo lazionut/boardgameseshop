@@ -82,14 +82,18 @@ export function CartItem({
       paddingX="5%"
     >
       <Box marginTop="5%">
-        <img
+        <Box
+          component="img"
+          sx={{
+            width: 90,
+            height: 100,
+          }}
           src={
             blobImage && boardgameData.image
               ? window.URL.createObjectURL(blobImage)
               : require("../../assets/images/no_image.jpg")
           }
-          width="90"
-          height="100"
+          alt="boardgame image"
         />
       </Box>
       <Box width="35%">

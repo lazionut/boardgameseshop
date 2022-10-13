@@ -87,7 +87,7 @@ export default function AccountPage() {
                 <DialogTitle>Confirm delete</DialogTitle>
                 <DialogContent>
                   <DialogContentText>
-                    This action can't be reverted so make sure that you proceed
+                    This action can`t be reverted so make sure that you proceed
                     carefully.
                   </DialogContentText>
                 </DialogContent>

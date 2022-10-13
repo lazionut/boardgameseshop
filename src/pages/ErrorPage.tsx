@@ -17,11 +17,14 @@ export default function ErrorPage() {
       <Container maxWidth="md">
         <Grid container spacing={"2%"}>
           <Grid item xs={12}>
-            <img
+            <Box
+              component="img"
+              sx={{
+                width: 350,
+                height: 250,
+              }}
               src={require("../assets/images/error_404.png")}
-              alt=""
-              width={350}
-              height={250}
+              alt="error image"
             />
             <Typography variant="h6">
               The page you`re looking for doesn`t exist

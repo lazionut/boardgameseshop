@@ -42,16 +42,19 @@ export function WishlistBoardgameCard({
           alignItems: "center",
         }}
       >
-        <img
+        <Box
+          component="img"
+          sx={{
+            width: 150,
+            height: 180,
+            objectFit: "contain",
+          }}
           src={
             blobImage && boardgame.image
               ? window.URL.createObjectURL(blobImage)
               : require("../../assets/images/no_image.jpg")
           }
           alt="boardgame image"
-          width="150"
-          height="180"
-          style={{ objectFit: "contain" }}
         />
       </Box>
       <Typography fontSize="lg">{boardgame.name}</Typography>

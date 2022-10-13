@@ -56,7 +56,7 @@ export default function CategoryMenuItem({ category }: CategoryMenuItemProps) {
       >
         {category.name}
       </MenuItem>
-      {accountDecoded?.Role === "Admin" && (
+      {accountDecoded?.Role === Constants.ADMIN && (
         <>
           <Box justifyContent="center">
             <IconButton

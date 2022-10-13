@@ -19,7 +19,11 @@ export default function AdminCategoryModal({
   category,
 }: EditCategoryModalProps) {
   return (
-    <Modal hideBackdrop open={isOpen} onClose={() => setIsOpen(false)}>
+    <Modal
+      hideBackdrop
+      open={isOpen}
+      onClose={() => setIsOpen(false)}
+    >
       <Box
         sx={{
           position: "absolute",
@@ -27,7 +31,7 @@ export default function AdminCategoryModal({
           left: "50%",
           overflow: "scroll",
           transform: "translate(-50%, -50%)",
-          width: "80%",
+          width: "50%",
           bgcolor: "background.paper",
           border: "2px solid #000",
           boxShadow: 24,

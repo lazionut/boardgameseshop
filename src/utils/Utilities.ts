@@ -1,4 +1,4 @@
-import { Constants } from "../constants/Constants";
+import { Constants, ORDER_STATUS_OPTIONS } from "../constants/Constants";
 import { CountryType } from "../constants/Countries";
 
 export function stockDefiner(stockQuantity: number): string | undefined {
@@ -16,15 +16,15 @@ export function stockDefiner(stockQuantity: number): string | undefined {
 export function orderStatusDefiner(orderStatus: number): string | undefined {
   switch (orderStatus) {
     case 0:
-      return "Created";
+      return ORDER_STATUS_OPTIONS[0].label;
     case 1:
-      return "Processing";
+      return ORDER_STATUS_OPTIONS[1].label;
     case 2:
-      return "Shipping";
+      return ORDER_STATUS_OPTIONS[2].label;
     case 3:
-      return "Completed";
+      return ORDER_STATUS_OPTIONS[3].label;
     case 4:
-      return "Cancelled";
+      return ORDER_STATUS_OPTIONS[4].label;
   }
 }
 

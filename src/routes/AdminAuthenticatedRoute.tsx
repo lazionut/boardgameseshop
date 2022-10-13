@@ -2,6 +2,8 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
+import { Constants } from "../constants/Constants";
+
 const CostumerAuthenticatedRoute = ({ children }: any) => {
   const authToken: string | null = localStorage.getItem("token");
   let accountDecoded: { [key: string]: any } | null = null;
@@ -10,7 +12,7 @@ const CostumerAuthenticatedRoute = ({ children }: any) => {
     accountDecoded = jwt_decode(authToken);
   }
 
-  return accountDecoded?.Role === "Admin" ? children : <Navigate to={"/error"} />;
+  return accountDecoded?.Role === Constants.ADMIN ? children : <Navigate to={"/error"} />;
 };
 
 export default CostumerAuthenticatedRoute;

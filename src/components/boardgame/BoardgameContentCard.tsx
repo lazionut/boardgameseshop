@@ -18,8 +18,9 @@ import jwt_decode from "jwt-decode";
 import { MdDelete } from "react-icons/md";
 import { GrEdit } from "react-icons/gr";
 import sendDataService from "../../services/sendDataService";
-import EditBoardgameModal from "./AdminBoardgameModal";
 import { Configs } from "../../constants/Configs";
+import { Constants } from "../../constants/Constants";
+import AdminBoardgameModal from "./AdminBoardgameModal";
 
 interface BoardgameContentCardProps {
   boardgame: {
@@ -86,7 +87,7 @@ export default function BoardgameContentCard({
         sx={{ mt: { xs: "-5%", sm: "auto" }, mb: { xs: "-5%", sm: "auto" } }}
       >
         <Grid item xs={12}>
-          {accountDecoded?.Role === "Admin" && (
+          {accountDecoded?.Role === Constants.ADMIN && (
             <CardActions>
               <IconButton
                 sx={{ marginLeft: "auto" }}
@@ -110,7 +111,10 @@ export default function BoardgameContentCard({
                 : require("../../assets/images/no_image.jpg")
             }
             alt="boardgame image"
-            sx={{ height: 500, objectFit: "contain" }}
+            sx={{
+              maxHeight: 500,
+              objectFit: "contain",
+            }}
           />
         </Grid>
         <Grid item xs={12} sx={{ mt: "1.5%" }}>
@@ -154,10 +158,11 @@ export default function BoardgameContentCard({
           </CardActions>
         </Grid>
       </Grid>
-      <EditBoardgameModal
-        boardgame={boardgame}
+      <AdminBoardgameModal
         isOpen={isOpen}
         setIsOpen={setIsOpen}
+        blobImage={blobImage}
+        boardgame={boardgame}
       />
     </>
   );

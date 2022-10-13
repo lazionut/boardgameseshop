@@ -7,11 +7,16 @@ import {
   Divider,
   Typography,
 } from "@mui/material";
+import jwt_decode from "jwt-decode";
+
 import { orderStatusDefiner, trimDateTime } from "../../utils/Utilities";
 import OrderBoardgameCard from "./OrderBoardgameCard";
+import OrderDialog from "./OrderDialog";
+import { Constants } from "../../constants/Constants";
 
 interface OrderItem {
   order: {
+    id: number;
     fullName: string;
     address: string;
     total: number;
@@ -28,6 +33,13 @@ interface OrderItem {
 }
 
 export default function OrderItemsCard({ order }: OrderItem) {
+  const authToken: string | null = localStorage.getItem("token");
+  let accountDecoded: { [key: string]: any } | null = null;
+
+  if (authToken !== null) {
+    accountDecoded = jwt_decode(authToken);
+  }
+
   return (
     <Card
       variant="outlined"
@@ -40,6 +52,15 @@ export default function OrderItemsCard({ order }: OrderItem) {
       }}
     >
       <Box flexDirection="row" width="100%">
+        {accountDecoded?.Role === Constants.ADMIN && (
+          <Box
+            sx={{
+              marginLeft: "auto",
+            }}
+          >
+            <OrderDialog id={order.id} currentOrderStatus={order.status} />
+          </Box>
+        )}
         <CardActions
           sx={{
             display: "flex",

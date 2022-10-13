@@ -3,10 +3,8 @@ import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import Container from "@mui/material/Container";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { AxiosRequestConfig } from "axios";
 
 import { emailFieldRule, requiredFieldRule } from "../constants/Rules";
-import useFetchData from "../hooks/useFetchData";
 import NavigateBackButton from "../components/common/NavigateBackButton";
 import { Configs } from "../constants/Configs";
 import sendDataService from "../services/sendDataService";
@@ -116,7 +114,6 @@ export default function EditProfilePage() {
                   sx={{ bgcolor: "common.customDirtyWhite" }}
                   value={shownLastName}
                   fullWidth
-                  autoFocus
                   label="Last Name *"
                   error={!!errors["last-name"]}
                   helperText={
@@ -133,7 +130,6 @@ export default function EditProfilePage() {
                   variant="filled"
                   sx={{ bgcolor: "common.customDirtyWhite" }}
                   fullWidth
-                  autoFocus
                   value={shownEmail}
                   label="Email *"
                   error={!!errors["email"]}

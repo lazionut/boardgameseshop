@@ -69,7 +69,7 @@ export default function BoardgamesPage() {
               justifyContent: "space-between",
             }}
           >
-            {accountDecoded?.Role === "Admin" && (
+            {accountDecoded?.Role === Constants.ADMIN && (
               <Grid
                 item
                 sx={{
@@ -90,6 +90,7 @@ export default function BoardgamesPage() {
                 mr: "3%",
                 mt: { xs: "2%", sm: "auto" },
                 mb: { xs: "5%", sm: "auto" },
+                marginLeft: "auto",
               }}
             >
               <SortOrderSelect

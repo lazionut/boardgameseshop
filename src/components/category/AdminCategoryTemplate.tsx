@@ -20,12 +20,11 @@ export default function AdminCategoryTemplate({
 }: CategoryAdminTemplateProps) {
   const authToken: string | null = localStorage.getItem("token");
 
-  const [name, setName] = useState<string | undefined>();
+  const [name, setName] = useState<string | undefined>(category?.name);
 
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm();
 
@@ -45,9 +44,7 @@ export default function AdminCategoryTemplate({
       });
 
       if (createCategoryResponse?.data !== undefined) {
-        reset({
-          name: "",
-        });
+        window.location.reload();
       }
     } else {
       const editCategoryInput = {
@@ -64,9 +61,7 @@ export default function AdminCategoryTemplate({
       });
 
       if (updateCategoryResponse.status === Configs.OK_RESPONSE) {
-        reset({
-          name: "",
-        });
+        window.location.reload();
       }
     }
   };
@@ -80,9 +75,9 @@ export default function AdminCategoryTemplate({
         <Grid container spacing={3} maxWidth="sm">
           <Grid item xs={12}>
             <TextField
-              label="Name"
+              label="Name *"
               value={name}
-              autoComplete="given-name"
+              autoFocus
               fullWidth
               variant="outlined"
               error={!!errors["name"]}

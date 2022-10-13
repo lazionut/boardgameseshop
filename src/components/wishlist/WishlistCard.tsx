@@ -9,17 +9,22 @@ import {
   Button,
   Card,
   IconButton,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
 import { GrEdit } from "react-icons/gr";
+import { BsCartPlusFill } from "react-icons/bs";
 
-import { stockDefiner, trimDateTime } from "../../utils/Utilities";
+import { trimDateTime } from "../../utils/Utilities";
 import sendDataService from "../../services/sendDataService";
 import { Configs } from "../../constants/Configs";
 import EditWishlistModal from "./EditWishlistModal";
-import useFetchData from "../../hooks/useFetchData";
 import { WishlistBoardgameCard } from "./WishlistBoardgameCard";
+import { useCartContext } from "../../context/CartContext";
 
 interface WishlistCardProp {
   wishlist: {
@@ -43,6 +48,9 @@ interface WishlistCardProp {
 export default function WishlistCard({ wishlist }: WishlistCardProp) {
   const authToken: string | null = localStorage.getItem("token");
 
+  const { clearCart, increaseCartItemQuantity } = useCartContext();
+
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isEditWishlistOpen, setIsEditWishlistOpen] = useState<boolean>(false);
 
   const handleWishlistDelete = async (id: number) => {
@@ -59,16 +67,54 @@ export default function WishlistCard({ wishlist }: WishlistCardProp) {
     }
   };
 
+  const handleAddWishlistToCart = (boardgames: any) => {
+    clearCart();
+
+    const boardgamesLength = boardgames.length;
+    for (let index = 0; index < boardgamesLength; ++index) {
+      increaseCartItemQuantity(boardgames[index].id);
+    }
+  };
+
   return (
     <Container sx={{ mt: "2%" }} maxWidth="xs">
       <Card variant="outlined" sx={{ bgcolor: "common.customDirtyWhite" }}>
         <CardActions>
           <IconButton
             sx={{ marginLeft: "auto" }}
+            onClick={() => setIsOpen(true)}
+          >
+            <BsCartPlusFill size={30} />
+          </IconButton>
+          <IconButton
+            sx={{ marginLeft: "auto" }}
             onClick={() => setIsEditWishlistOpen(true)}
           >
             <GrEdit size={25} />
           </IconButton>
+          <div>
+            <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
+              <DialogTitle>Add wishlist boardgames to cart</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  You current cart will be emptied and replaced with the items
+                  from the wishlist.
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+                <Button
+                  onClick={() => {
+                    handleAddWishlistToCart(wishlist.boardgames);
+                    setIsOpen(false);
+                  }}
+                  autoFocus
+                >
+                  Confirm
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </div>
           <IconButton
             sx={{ marginLeft: "auto", color: "red" }}
             onClick={() => handleWishlistDelete(wishlist.id)}

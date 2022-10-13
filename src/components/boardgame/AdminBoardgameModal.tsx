@@ -7,6 +7,7 @@ import AdminBoardgameTemplate from "./AdminBoardgameTemplate";
 interface AdminBoardgameModalProps {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  blobImage?: Blob;
   boardgame?: {
     id: number;
     image: string | null;
@@ -23,6 +24,7 @@ interface AdminBoardgameModalProps {
 export default function AdminBoardgameModal({
   isOpen,
   setIsOpen,
+  blobImage,
   boardgame,
 }: AdminBoardgameModalProps) {
   return (
@@ -34,7 +36,7 @@ export default function AdminBoardgameModal({
           left: "50%",
           overflow: "scroll",
           transform: "translate(-50%, -50%)",
-          width: "45%",
+          width: { xs: "100%", lg: "50%" },
           bgcolor: "background.paper",
           border: "2px solid #000",
           boxShadow: 24,
@@ -56,6 +58,7 @@ export default function AdminBoardgameModal({
           <AdminBoardgameTemplate templateName="Create boardgame" />
         ) : (
           <AdminBoardgameTemplate
+            blobImage={blobImage}
             boardgame={boardgame}
             templateName="Edit boardgame"
           />

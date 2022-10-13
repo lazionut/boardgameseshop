@@ -88,7 +88,6 @@ export default function LoginPage() {
                 <TextField
                   type="password"
                   fullWidth
-                  autoFocus
                   label="Password *"
                   error={!!errors["password"]}
                   helperText={

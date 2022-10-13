@@ -5,6 +5,7 @@ import { MdDelete } from "react-icons/md";
 
 import sendDataService from "../../../services/sendDataService";
 import { Configs } from "../../../constants/Configs";
+import { Constants } from "../../../constants/Constants";
 
 interface ReviewCardProps {
   review: {
@@ -51,7 +52,7 @@ export default function ReviewCard({ review }: ReviewCardProps) {
             </Typography>
           </Grid>
           <Grid item>
-            {accountDecoded?.Role === "Admin" && (
+            {accountDecoded?.Role === Constants.ADMIN && (
               <IconButton
                 sx={{ marginLeft: "auto", color: "red" }}
                 onClick={() => handleReviewDelete(review.id)}

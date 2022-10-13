@@ -17,6 +17,7 @@ import sendDataService from "../../services/sendDataService";
 import { Configs } from "../../constants/Configs";
 
 interface AdminBoardgameTemplateProps {
+  blobImage?: Blob;
   boardgame?: {
     id: number;
     image: string | null;
@@ -32,16 +33,21 @@ interface AdminBoardgameTemplateProps {
 }
 
 type CategoryType = {
-  id: number;
+  id: number | null;
   name: string;
 };
 
 export default function AdminBoardgameTemplate({
+  blobImage,
   boardgame,
   templateName,
 }: AdminBoardgameTemplateProps) {
   const authToken: string | null = localStorage.getItem("token");
 
+  const [file, setFile] = useState<Blob | undefined>(blobImage);
+  const [fileName, setFileName] = useState<string | null | undefined>(
+    boardgame?.image
+  );
   const [name, setName] = useState<string | undefined>(boardgame?.name);
   const [price, setPrice] = useState<number | undefined>(boardgame?.price);
   const [releaseYear, setReleaseYear] = useState<number | undefined>(
@@ -54,11 +60,9 @@ export default function AdminBoardgameTemplate({
   const [quantity, setQuantity] = useState<number | undefined>(
     boardgame?.quantity
   );
-  const [category, setCategory] = useState<number | undefined>(
+  const [categoryId, setCategoryId] = useState<number | undefined>(
     boardgame?.categoryId
   );
-
-  console.log("Boardgame category is: " + boardgame?.categoryId);
 
   const getCategoriesRequestConfig: AxiosRequestConfig = {
     url: "/categories",
@@ -74,20 +78,46 @@ export default function AdminBoardgameTemplate({
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm();
+
+  const handleBrowseFile = async (e: any) => {
+    setFile(e.target.files[0]);
+    setFileName(e.target.files[0].name);
+  };
+
+  const handleUploadFile = async () => {
+    if (file !== undefined && fileName !== undefined && fileName !== null) {
+      const formData = new FormData();
+      formData.append("formFile", file);
+      formData.append("fileName", fileName);
+
+      const addImageResponse = await sendDataService.execute({
+        url: "/blobs",
+        method: "post",
+        data: formData,
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+
+      if (addImageResponse.status === Configs.OK_RESPONSE) {
+        window.location.reload();
+      }
+    }
+  };
 
   const handleFormSubmission = async (data: { [key: string]: string }) => {
     if (boardgame?.id === undefined) {
       const boardgameInput = {
+        image: fileName,
         name: data["name"],
         releaseYear: data["release-year"],
         description: data["description"],
         price: data["price"],
         link: data["link"],
         quantity: data["quantity"],
-        categoryId: data["category-id"],
+        categoryId: data["categoryId-id"],
       };
 
       const createBoardgameResponse = await sendDataService.execute({
@@ -100,25 +130,17 @@ export default function AdminBoardgameTemplate({
       });
 
       if (createBoardgameResponse?.data !== undefined) {
-        reset({
-          name: "",
-          "release-year": "",
-          description: "",
-          price: "",
-          link: "",
-          quantity: "",
-          "category-id": "",
-        });
       }
     } else {
       const editedBoardgameInput = {
+        image: fileName,
         name: data["name"],
         releaseYear: data["release-year"],
         description: data["description"],
         price: data["price"],
         link: data["link"],
         quantity: data["quantity"],
-        categoryId: data["category-id"],
+        categoryId: data["categoryId-id"],
       };
 
       const updateBoardgameResponse = await sendDataService.execute({
@@ -130,32 +152,72 @@ export default function AdminBoardgameTemplate({
         },
       });
 
-      if (updateBoardgameResponse.status === Configs.OK_RESPONSE) {
-        reset({
-          name: "",
-          "release-year": "",
-          description: "",
-          price: "",
-          link: "",
-          quantity: "",
-          "category-id": "",
-        });
+      if (updateBoardgameResponse.status === Configs.NO_CONTENT_RESPONSE) {
+        if (boardgame.image !== fileName) {
+          await handleUploadFile();
+        } else {
+          window.location.reload();
+        }
       }
     }
   };
 
   return (
-    <Container maxWidth="sm" sx={{ bgcolor: "common.customDirtyWhite" }}>
-      <Typography variant="h4" mb="5%">
-        {templateName}
-      </Typography>
+    <Container
+      maxWidth="sm"
+      sx={{
+        bgcolor: "common.customDirtyWhite",
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
       <form onSubmit={handleSubmit(handleFormSubmission)}>
         <Grid container spacing={3}>
+          <Grid item xs={12} display="flex" justifyContent="center">
+            <Typography variant="h4" mb="5%">
+              {templateName}
+            </Typography>
+          </Grid>
+          <Grid item xs={12} display="flex" justifyContent="center">
+            <Box
+              component="img"
+              sx={{
+                width: { xs: 260, lg: "auto" },
+                maxWidth: { lg: 500 },
+                height: 350,
+              }}
+              src={
+                file
+                  ? window.URL.createObjectURL(file)
+                  : require("../../assets/images/no_image.jpg")
+              }
+              alt="boardgame image"
+            />
+          </Grid>
+          <Grid item xs={12} mx="15%" display="flex" justifyContent="center">
+            <Button variant="contained" component="label">
+              Choose image
+              <input type="file" onChange={handleBrowseFile} hidden />
+            </Button>
+          </Grid>
           <Grid item xs={12}>
             <TextField
-              label="Name"
+              label="Image"
+              value={fileName ? fileName : boardgame?.image}
+              fullWidth
+              variant="outlined"
+              InputProps={{
+                readOnly: true,
+              }}
+              InputLabelProps={{ shrink: true }}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Name *"
               value={name}
               fullWidth
+              autoFocus
               variant="outlined"
               error={!!errors["name"]}
               helperText={
@@ -170,11 +232,10 @@ export default function AdminBoardgameTemplate({
           </Grid>
           <Grid item xs={12}>
             <TextField
-              type="number"
+              type="tel"
               value={price}
-              label="Price"
+              label="Price *"
               fullWidth
-              autoFocus
               variant="outlined"
               error={!!errors["price"]}
               helperText={
@@ -193,9 +254,8 @@ export default function AdminBoardgameTemplate({
             <TextField
               type="number"
               value={releaseYear}
-              label="Release year"
+              label="Release year *"
               fullWidth
-              autoFocus
               variant="outlined"
               error={!!errors["release-year"]}
               helperText={
@@ -217,7 +277,6 @@ export default function AdminBoardgameTemplate({
               multiline
               rows="5"
               fullWidth
-              autoFocus
               error={!!errors["description"]}
               helperText={
                 errors["description"]?.message !== undefined &&
@@ -234,7 +293,6 @@ export default function AdminBoardgameTemplate({
               value={link}
               label="Link"
               fullWidth
-              autoFocus
               error={!!errors["link"]}
               helperText={
                 errors["link"]?.message !== undefined &&
@@ -250,8 +308,7 @@ export default function AdminBoardgameTemplate({
               variant="outlined"
               value={quantity}
               fullWidth
-              autoFocus
-              label="Quantity"
+              label="Quantity *"
               error={!!errors["quantity"]}
               helperText={
                 errors["quantity"]?.message !== undefined &&
@@ -266,8 +323,10 @@ export default function AdminBoardgameTemplate({
           <Grid item xs={12}>
             <Autocomplete
               options={categories}
-              disablePortal
-              autoHighlight
+              defaultValue={{
+                id: categoryId ? Number(categoryId) : 0,
+                name: "",
+              }}
               getOptionLabel={(option: CategoryType) => String(option.id)}
               renderOption={(props, option: CategoryType) => (
                 <Box component="li" {...props}>
@@ -279,24 +338,23 @@ export default function AdminBoardgameTemplate({
                   {...params}
                   type="text"
                   variant="outlined"
-                  value={category}
+                  value={categoryId}
                   fullWidth
-                  autoFocus
-                  label="Category *"
-                  error={!!errors["category-id"]}
+                  label="Category Id *"
+                  error={!!errors["categoryId-id"]}
                   helperText={
-                    errors["category-id"]?.message !== undefined &&
-                    String(errors["category-id"]?.message)
+                    errors["categoryId-id"]?.message !== undefined &&
+                    String(errors["categoryId-id"]?.message)
                   }
-                  {...register("category-id", {
+                  {...register("categoryId-id", {
                     ...requiredFieldRule,
                   })}
-                  onChange={(e) => setCategory(Number(e.target.value))}
+                  onChange={(e) => setCategoryId(Number(e.target.value))}
                 />
               )}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} display="flex" justifyContent="center">
             <Button type="submit" variant="contained" sx={{ mb: "3%" }}>
               Submit
             </Button>

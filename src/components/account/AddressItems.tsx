@@ -45,7 +45,6 @@ export default function AddressItems({
           }}
           value={city}
           fullWidth
-          autoFocus
           label="City *"
         />
       </Grid>
@@ -59,7 +58,6 @@ export default function AddressItems({
           }}
           value={county}
           fullWidth
-          autoFocus
           label="County *"
         />
       </Grid>
@@ -73,7 +71,6 @@ export default function AddressItems({
           }}
           value={country}
           fullWidth
-          autoFocus
           label="Country *"
         />
       </Grid>
@@ -87,7 +84,6 @@ export default function AddressItems({
           }}
           value={phone}
           fullWidth
-          autoFocus
           label="Phone *"
         />
       </Grid>

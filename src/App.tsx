@@ -22,7 +22,8 @@ import CheckoutOrderPage from "./pages/CheckoutOrderPage";
 import Footer from "./components/footer/Footer";
 import { theme } from "./theme/Theme";
 import WishlistContextProvider from "./context/WishlistContext";
-import AdminAuthenticatedRoute from "./routes/AdminAuthenticatedRoute";
+import AdminOrdersHistoryPage from "./pages/AdminOrdersHistoryPage";
+import AdminAccountsPage from "./pages/AdminAccountsPage";
 
 function App() {
   return (
@@ -101,6 +102,22 @@ function App() {
                 element={
                   <CostumerAuthenticatedRoute>
                     <CheckoutOrderPage />
+                  </CostumerAuthenticatedRoute>
+                }
+              />
+              <Route
+                path="/orders/all"
+                element={
+                  <CostumerAuthenticatedRoute>
+                    <AdminOrdersHistoryPage />
+                  </CostumerAuthenticatedRoute>
+                }
+              />
+              <Route
+                path="/accounts"
+                element={
+                  <CostumerAuthenticatedRoute>
+                    <AdminAccountsPage />
                   </CostumerAuthenticatedRoute>
                 }
               />

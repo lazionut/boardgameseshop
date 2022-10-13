@@ -102,7 +102,6 @@ export default function RegisterPage() {
                 <TextField
                   type="text"
                   fullWidth
-                  autoFocus
                   label="Last Name *"
                   error={!!errors["last-name"]}
                   helperText={
@@ -116,7 +115,6 @@ export default function RegisterPage() {
                 <TextField
                   type="text"
                   fullWidth
-                  autoFocus
                   label="Street *"
                   error={!!errors["details"]}
                   helperText={
@@ -130,7 +128,6 @@ export default function RegisterPage() {
                 <TextField
                   type="text"
                   fullWidth
-                  autoFocus
                   error={!!errors["city"]}
                   helperText={
                     errors["city"]?.message !== undefined &&
@@ -144,7 +141,6 @@ export default function RegisterPage() {
                 <TextField
                   type="text"
                   fullWidth
-                  autoFocus
                   error={!!errors["county"]}
                   helperText={
                     errors["county"]?.message !== undefined &&
@@ -179,7 +175,6 @@ export default function RegisterPage() {
                       {...params}
                       type="text"
                       fullWidth
-                      autoFocus
                       label="Country *"
                       error={!!errors["country"]}
                       helperText={
@@ -195,7 +190,6 @@ export default function RegisterPage() {
                 <TextField
                   type="text"
                   fullWidth
-                  autoFocus
                   label="Phone *"
                   error={!!errors["phone"]}
                   helperText={
@@ -212,7 +206,6 @@ export default function RegisterPage() {
                 <TextField
                   type="text"
                   fullWidth
-                  autoFocus
                   label="Email *"
                   error={!!errors["email"]}
                   helperText={
@@ -229,7 +222,6 @@ export default function RegisterPage() {
                 <TextField
                   type="password"
                   fullWidth
-                  autoFocus
                   label="Password *"
                   error={!!errors["password"]}
                   helperText={PASSWORD_MESSAGE}
@@ -243,7 +235,6 @@ export default function RegisterPage() {
                 <TextField
                   type="password"
                   fullWidth
-                  autoFocus
                   label="Confirm password *"
                   error={!!errors["confirm-password"]}
                   helperText={

@@ -7,6 +7,7 @@ import {
   Chip,
   Divider,
 } from "@mui/material";
+import jwt_decode from "jwt-decode";
 
 import useFetchData from "../../hooks/useFetchData";
 
@@ -22,6 +23,13 @@ interface OrderBoardgameCardProps {
 export default function OrderBoardgameCard({
   boardgame,
 }: OrderBoardgameCardProps) {
+  const authToken: string | null = localStorage.getItem("token");
+  let accountDecoded: { [key: string]: any } | null = null;
+
+  if (authToken !== null) {
+    accountDecoded = jwt_decode(authToken);
+  }
+
   const imageType: any = "arraybuffer";
 
   const imageRequestConfig = {

@@ -129,7 +129,6 @@ export default function EditAddressPage() {
                   sx={{ bgcolor: "common.customDirtyWhite" }}
                   value={shownCity}
                   fullWidth
-                  autoFocus
                   error={!!errors["city"]}
                   helperText={
                     errors["city"]?.message !== undefined &&
@@ -147,7 +146,6 @@ export default function EditAddressPage() {
                   sx={{ bgcolor: "common.customDirtyWhite" }}
                   value={shownCounty}
                   fullWidth
-                  autoFocus
                   error={!!errors["county"]}
                   helperText={
                     errors["county"]?.message !== undefined &&
@@ -190,7 +188,6 @@ export default function EditAddressPage() {
                       sx={{ bgcolor: "common.customDirtyWhite" }}
                       value={shownCountry}
                       fullWidth
-                      autoFocus
                       label="Country *"
                       error={!!errors["country"]}
                       helperText={
@@ -210,7 +207,6 @@ export default function EditAddressPage() {
                   sx={{ bgcolor: "common.customDirtyWhite" }}
                   value={shownPhone}
                   fullWidth
-                  autoFocus
                   label="Phone *"
                   error={!!errors["phone"]}
                   helperText={

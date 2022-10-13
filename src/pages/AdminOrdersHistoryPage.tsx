@@ -3,11 +3,11 @@ import { Container, Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig } from "axios";
 
 import useFetchData from "../hooks/useFetchData";
-import { Constants, ConstantsArrays } from "../constants/Constants";
+import { Constants } from "../constants/Constants";
 import PaginationOutlined from "../components/common/PaginationOutlined";
 import OrderHistoryCard from "../components/order/OrderHistoryCard";
 
-export default function OrderHistoryPage() {
+export default function AdminOrdersHistoryPage() {
   const authToken: string | null = localStorage.getItem("token");
 
   const [pageIndex, setPageIndex] = useState<number>(
@@ -16,7 +16,7 @@ export default function OrderHistoryPage() {
   const [pageSize, setPageSize] = useState<number>(Constants.DEFAULT_PAGE_SIZE);
 
   const ordersRequestConfig: AxiosRequestConfig = {
-    url: `/accounts/orders?pageIndex=${pageIndex}&pageSize=${pageSize}`,
+    url: `/orders?pageIndex=${pageIndex}&pageSize=${pageSize}`,
     method: "GET",
     headers: {
       Authorization: `Bearer ${authToken}`,

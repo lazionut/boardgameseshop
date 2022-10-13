@@ -16,6 +16,7 @@ import jwt_decode from "jwt-decode";
 
 import authenticationService from "../../services/authenticationService";
 import { useWishlistContext } from "../../context/WishlistContext";
+import { Constants } from "../../constants/Constants";
 
 export default function SwipeableTemporaryDrawer() {
   const navigate = useNavigate();
@@ -80,7 +81,20 @@ export default function SwipeableTemporaryDrawer() {
               </ListItemButton>
             </ListItem>
             <Divider />
-            {accountDecoded?.Role === "Admin" && <></>}
+            {accountDecoded?.Role === Constants.ADMIN && (
+              <>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={() => navigate("/accounts")}>
+                    <ListItemText primary={"All accounts"} />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={() => navigate("/orders/all")}>
+                    <ListItemText primary={"All orders"} />
+                  </ListItemButton>
+                </ListItem>
+              </>
+            )}
             <Divider />
             <ListItem disablePadding>
               <ListItemButton

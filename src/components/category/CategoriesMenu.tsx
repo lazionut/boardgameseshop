@@ -9,6 +9,7 @@ import { AiFillPlusSquare } from "react-icons/ai";
 import useFetchData from "../../hooks/useFetchData";
 import CategoryMenuItem from "./CategoryMenuItem";
 import AdminCategoryModal from "./AdminCategoryModal";
+import { Constants } from "../../constants/Constants";
 
 export default function CategoriesMenu() {
   const authToken: string | null = localStorage.getItem("token");
@@ -61,9 +62,11 @@ export default function CategoriesMenu() {
         <MdKeyboardArrowDown size={20} style={{ verticalAlign: "middle" }} />
       </Button>
       <Menu anchorEl={anchorElement} open={open} onClose={handleClose}>
-        <IconButton color="primary" onClick={() => setIsOpen(true)}>
-          <AiFillPlusSquare size={35} />
-        </IconButton>
+        {accountDecoded?.Role === Constants.ADMIN && (
+          <IconButton color="primary" onClick={() => setIsOpen(true)}>
+            <AiFillPlusSquare size={35} />
+          </IconButton>
+        )}
         {categories.map((category: any) => (
           <CategoryMenuItem category={category} />
         ))}
