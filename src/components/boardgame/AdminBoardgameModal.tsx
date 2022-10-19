@@ -36,7 +36,7 @@ export default function AdminBoardgameModal({
           left: "50%",
           overflow: "auto",
           transform: "translate(-50%, -50%)",
-          width: { xs: "100%", lg: "50%" },
+          width: { xs: "100%", sm: "70%", lg: "50%" },
           bgcolor: "common.customLightYellow",
           height: "90%",
           border: "2px solid #000",

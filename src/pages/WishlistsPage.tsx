@@ -4,6 +4,7 @@ import { AxiosRequestConfig } from "axios";
 
 import WishlistCard from "../components/wishlist/WishlistCard";
 import useFetchData from "../hooks/useFetchData";
+import EmptyTemplate from "../components/common/EmptyTemplate";
 
 export default function WishlistsPage() {
   const authToken: string | null = localStorage.getItem("token");
@@ -44,11 +45,19 @@ export default function WishlistsPage() {
           alignItems: { xs: "center", sm: "normal" },
         }}
       >
-        {wishlistData.map((wishlist: any) => (
-          <Grid item key={wishlist.id} mt="5%" mb="2%">
-            <WishlistCard wishlist={wishlist} />
-          </Grid>
-        ))}
+        <>
+          {wishlistData.length > 0 ? (
+            <>
+              {wishlistData.map((wishlist: any) => (
+                <Grid item key={wishlist.id} mt="5%" mb="2%">
+                  <WishlistCard wishlist={wishlist} />
+                </Grid>
+              ))}
+            </>
+          ) : (
+            <EmptyTemplate pageText="You have no wishlists right now" />
+          )}
+        </>
       </Grid>
     </Container>
   );

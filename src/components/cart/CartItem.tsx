@@ -106,6 +106,7 @@ export function CartItem({
             <TextField
               type="tel"
               size="small"
+              sx={{ minWidth: 40 }}
               value={getCartItemQuantity(boardgameData.id)}
               onChange={(e) => {
                 if (Number(e.target.value) > 0) {

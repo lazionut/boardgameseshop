@@ -1,7 +1,11 @@
 import React from "react";
 import { Grid, Box, Container, Typography } from "@mui/material";
 
-export default function ErrorTemplate() {
+interface ErrorTemplateProps {
+  pageText: string;
+}
+
+export default function ErrorTemplate({ pageText }: ErrorTemplateProps) {
   return (
     <Box
       sx={{
@@ -11,11 +15,18 @@ export default function ErrorTemplate() {
         height: "20vh",
       }}
     >
-      <Container maxWidth="md">
-        <Grid container spacing={"2%"}>
-          <Grid item xs={12}>
-            <Typography variant="h6">The page is empty right now</Typography>
-          </Grid>
+      <Container maxWidth="lg">
+        <Grid
+          container
+          item
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Typography variant="h6">{pageText}</Typography>
         </Grid>
       </Container>
     </Box>

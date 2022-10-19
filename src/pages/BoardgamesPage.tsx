@@ -13,6 +13,7 @@ import { NotificationToast } from "../components/common/NotificationToast";
 import EmptyTemplate from "../components/common/EmptyTemplate";
 import SortOrderSelect from "../components/boardgame/SortOrderSelect";
 import AdminBoardgameModal from "../components/boardgame/AdminBoardgameModal";
+import { Configs } from "../constants/Configs";
 
 export default function BoardgamesPage() {
   const { categoryId } = useParams();
@@ -60,7 +61,7 @@ export default function BoardgamesPage() {
 
   return (
     <>
-      {boardgamesData.boardgames && error?.status != 404 ? (
+      {boardgamesData.boardgames && error?.status != Configs.OK_RESPONSE ? (
         <div>
           <Grid
             container
@@ -131,7 +132,7 @@ export default function BoardgamesPage() {
           />
         </div>
       ) : (
-        <EmptyTemplate />
+        <EmptyTemplate pageText="No boardgames exist here" />
       )}
       <AdminBoardgameModal isOpen={isOpen} setIsOpen={setIsOpen} />
       {state?.isLoggedIn === true && (
@@ -140,18 +141,27 @@ export default function BoardgamesPage() {
           isSuccessful={true}
         />
       )}
+      {state?.isLoggedOut === true && (
+        <NotificationToast
+          toastText="Succesfully logged out"
+          isSuccessful={true}
+        />
+      )}
       {state?.isSuccessfullyCreated === true && (
         <NotificationToast
-          toastText="Succesfully created"
+          toastText="Boardgame succesfully created"
           isSuccessful={true}
         />
       )}
       {state?.isSuccessfullyEdited === true && (
-        <NotificationToast toastText="Succesfully edited" isSuccessful={true} />
+        <NotificationToast
+          toastText="Boardgame succesfully edited"
+          isSuccessful={true}
+        />
       )}
       {state?.isSuccessfullyDeleted === true && (
         <NotificationToast
-          toastText="Succesfully deleted"
+          toastText="Boardgame succesfully deleted"
           isSuccessful={true}
         />
       )}

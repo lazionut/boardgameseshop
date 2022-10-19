@@ -39,6 +39,7 @@ export function NotificationToast({
 
   return (
     <ToastContainer
+      toastStyle={{ backgroundColor: "#f7f1cf" }}
       position="top-right"
       autoClose={Number(Configs.ALERT_TIMEOUT)}
       hideProgressBar={false}

@@ -6,6 +6,7 @@ import sendDataService from "../../../services/sendDataService";
 import { requiredFieldRule } from "../../../constants/Rules";
 import useTimeout from "../../../hooks/useTimeout";
 import RatingOptions from "./RatingOptions";
+import { NotificationToast } from "../../common/NotificationToast";
 
 interface ReviewFormProps {
   boardgameId: number;
@@ -41,12 +42,17 @@ export function ReviewForm({ boardgameId }: ReviewFormProps) {
       },
     });
 
+    reset({ title: "", content: "" });
+    setRatingStars(null);
+
     if (createReviewResponse?.data !== undefined) {
-      reset({ title: "", content: "" });
-      setRatingStars(null);
       window.location.reload();
+    } else {
+      setShowAlert(true);
     }
   };
+
+  useTimeout(showAlert, setShowAlert);
 
   return (
     <>
@@ -92,7 +98,12 @@ export function ReviewForm({ boardgameId }: ReviewFormProps) {
           </Button>
         </Grid>
       </form>
-      {showAlert && <Alert>Review succesfully added</Alert>}
+      {showAlert && (
+        <NotificationToast
+          toastText="You already reviewed this game"
+          isSuccessful={false}
+        />
+      )}
     </>
   );
 }

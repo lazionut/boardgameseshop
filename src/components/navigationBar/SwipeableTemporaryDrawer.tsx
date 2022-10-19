@@ -176,7 +176,7 @@ export default function SwipeableTemporaryDrawer() {
                 onClick={() => {
                   authenticationService.logout();
                   clearWishlist();
-                  navigate("/");
+                  navigate("/", { state: { isLoggedOut: true } });
                 }}
               >
                 <Box

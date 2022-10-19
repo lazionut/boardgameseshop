@@ -52,7 +52,6 @@ export default function BoardgameContentCard({
 
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState<boolean>(false);
-  const [isBoardgameDeleted, setBoardgameIsDeleted] = useState<boolean>(false);
 
   const imageType: any = "arraybuffer";
 
@@ -76,8 +75,7 @@ export default function BoardgameContentCard({
     });
 
     if (deleteBoardgameResponse.status === Configs.OK_RESPONSE) {
-      navigate("/");
-      setBoardgameIsDeleted(true);
+      navigate("/", { state: { isSuccesfullyDeleted: true } });
     }
   };
 
@@ -171,12 +169,6 @@ export default function BoardgameContentCard({
         blobImage={blobImage}
         boardgame={boardgame}
       />
-      {isBoardgameDeleted === true && (
-        <NotificationToast
-          toastText="Boardgame succesfully deleted"
-          isSuccessful={true}
-        />
-      )}
     </>
   );
 }

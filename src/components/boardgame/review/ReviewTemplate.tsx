@@ -73,7 +73,7 @@ export default function ReviewTemplate({ boardgameId }: ReviewTemplateProps) {
             />
           </>
         ) : (
-          <EmptyTemplate />
+          <EmptyTemplate pageText="There are no reviews right now" />
         )}
       </Box>
     </Card>

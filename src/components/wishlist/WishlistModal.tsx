@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { IoClose } from "react-icons/io5";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 import { useWishlistContext } from "../../context/WishlistContext";
 import { WishlistModalItem } from "./WishlistModalItem";
@@ -22,6 +23,7 @@ interface WishlistModalProps {
 }
 
 export default function WishlistModal({ isOpen }: WishlistModalProps) {
+  const navigate = useNavigate();
   const authToken: string | null = localStorage.getItem("token");
   const { wishlistItems, closeWishlist, clearWishlist } = useWishlistContext();
 

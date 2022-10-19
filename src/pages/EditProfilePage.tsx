@@ -59,7 +59,7 @@ export default function EditProfilePage() {
       },
     });
 
-    if (editProfileResponse.status === Configs.OK_RESPONSE) {
+    if (editProfileResponse.status === Configs.NO_CONTENT_RESPONSE) {
       navigate("/account", { state: { isEditedProfile: true } });
     } else {
       setShowAlert(true);
@@ -157,7 +157,7 @@ export default function EditProfilePage() {
       </form>
       {showAlert === true && (
         <NotificationToast
-          toastText="Email already exists"
+          toastText="Profile couldn't be updated"
           isSuccessful={false}
         />
       )}

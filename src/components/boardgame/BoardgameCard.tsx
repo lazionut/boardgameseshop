@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import {
+  Box,
   Card,
   CardActionArea,
   CardActions,
@@ -20,6 +21,7 @@ import AdminBoardgameModal from "./AdminBoardgameModal";
 import { Constants } from "../../constants/Constants";
 import AdminBoardgameActions from "./AdminBoardgameActions";
 import { LoadingCircle } from "../common/LoadingCircle";
+import { Configs } from "../../constants/Configs";
 
 interface Boardgame {
   boardgame: {
@@ -63,7 +65,7 @@ export default function BoardgameCard({ boardgame }: Boardgame) {
   const blobImage = new Blob([new Uint8Array(imageData)], { type: "image" });
 
   const handleBoardgameArchive = async (id: number) => {
-    const createWishlistResponse = await sendDataService.execute({
+    const archiveBoardgameResponse = await sendDataService.execute({
       url: `/boardgames/${id}/archive`,
       method: "delete",
       headers: {
@@ -71,8 +73,8 @@ export default function BoardgameCard({ boardgame }: Boardgame) {
       },
     });
 
-    if (createWishlistResponse?.data !== undefined) {
-      window.location.reload();
+    if (archiveBoardgameResponse.status === Configs.OK_RESPONSE) {
+      navigate("/");
     }
   };
 
@@ -85,7 +87,6 @@ export default function BoardgameCard({ boardgame }: Boardgame) {
           display: "flex",
           flexDirection: "column",
           width: 500,
-          gap: "clamp(0px, (100% - 360px + 32px) * 999, 16px)",
           transition: "transform 0.3s, border 0.3s",
           "&:hover": {
             borderColor: "inherit",
@@ -105,6 +106,7 @@ export default function BoardgameCard({ boardgame }: Boardgame) {
             onConfirmationClick={() => {
               handleBoardgameArchive(boardgame.id);
               setIsDeleteDialogOpen(false);
+              window.location.reload();
             }}
             onDeleteClick={() => setIsDeleteDialogOpen(true)}
           />

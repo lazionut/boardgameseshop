@@ -19,6 +19,7 @@ import {
 import useFetchData from "../../hooks/useFetchData";
 import sendDataService from "../../services/sendDataService";
 import { Configs } from "../../constants/Configs";
+import { useNavigate } from "react-router-dom";
 
 interface AdminBoardgameTemplateProps {
   blobImage?: Blob;
@@ -46,6 +47,7 @@ export default function AdminBoardgameTemplate({
   boardgame,
   templateName,
 }: AdminBoardgameTemplateProps) {
+  const navigate = useNavigate();
   const authToken: string | null = localStorage.getItem("token");
 
   const [file, setFile] = useState<Blob | undefined>(blobImage);
@@ -101,10 +103,6 @@ export default function AdminBoardgameTemplate({
           Authorization: `Bearer ${authToken}`,
         },
       });
-
-      if (addImageResponse.status === Configs.OK_RESPONSE) {
-        window.location.reload();
-      }
     }
   };
 
@@ -135,8 +133,9 @@ export default function AdminBoardgameTemplate({
       if (createBoardgameResponse?.data !== undefined) {
         if (boardgame?.image !== fileName) {
           await handleUploadFile();
+          navigate(`/boardgames/${createBoardgameResponse?.data.id}`);
         } else {
-          window.location.reload();
+          navigate(`/boardgames/${createBoardgameResponse?.data.id}`);
         }
       }
     } else {
@@ -165,6 +164,7 @@ export default function AdminBoardgameTemplate({
       if (updateBoardgameResponse.status === Configs.NO_CONTENT_RESPONSE) {
         if (boardgame.image !== fileName) {
           await handleUploadFile();
+          window.location.reload();
         } else {
           window.location.reload();
         }

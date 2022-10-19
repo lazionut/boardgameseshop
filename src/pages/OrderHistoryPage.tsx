@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Container, Grid, Typography } from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig } from "axios";
 
 import useFetchData from "../hooks/useFetchData";
 import { Constants, ConstantsArrays } from "../constants/Constants";
 import PaginationOutlined from "../components/common/PaginationOutlined";
 import OrderHistoryCard from "../components/order/OrderHistoryCard";
+import EmptyTemplate from "../components/common/EmptyTemplate";
 
 export default function OrderHistoryPage() {
   const authToken: string | null = localStorage.getItem("token");
@@ -33,17 +34,23 @@ export default function OrderHistoryPage() {
     <Container sx={{ mb: { xs: "5%", md: "auto" }, mt: "3%" }}>
       <Grid container display="flex" sx={{ flexDirection: "column" }}>
         <Typography variant="h5">Order history</Typography>
-        {ordersData.orders &&
-          ordersData.orders.map((order: any) => (
-            <OrderHistoryCard key={order.id} order={order} />
-          ))}
-        <PaginationOutlined
-          pageCount={ordersData.pageCount}
-          pageIndex={pageIndex}
-          setPageIndex={setPageIndex}
-          pageSize={pageSize}
-          setPageSize={setPageSize}
-        />
+        {ordersData.orders && ordersData.orders.length > 0 ? (
+          <>
+            {ordersData.orders &&
+              ordersData.orders.map((order: any) => (
+                <OrderHistoryCard key={order.id} order={order} />
+              ))}
+            <PaginationOutlined
+              pageCount={ordersData.pageCount}
+              pageIndex={pageIndex}
+              setPageIndex={setPageIndex}
+              pageSize={pageSize}
+              setPageSize={setPageSize}
+            />
+          </>
+        ) : (
+          <EmptyTemplate pageText="You have no orders right now" />
+        )}
       </Grid>
     </Container>
   );
