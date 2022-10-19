@@ -25,12 +25,32 @@ export const emailFieldRule: {
   },
 };
 
+export const PASSWORD_MESSAGE: string =
+  "Minimum six characters, at least one uppercase letter, one lowercase letter, one digit and one special character";
+
 export const passwordFieldRule: {
   [key: string]: { [key: string]: RegExp | string };
 } = {
   pattern: {
-    value: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
-    message:
-      "Minimum eight characters, at least one uppercase letter, one lowercase letter, one digit and one special character",
+    value: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/,
+    message: PASSWORD_MESSAGE,
+  },
+};
+
+export const positiveNumberFieldRule: {
+  [key: string]: { [key: string]: RegExp | string };
+} = {
+  pattern: {
+    value: /^(0|[1-9][0-9]*)$/,
+    message: "Please enter a valid positive number higher than 0",
+  },
+};
+
+export const minimumPriceFieldRule: {
+  [key: string]: { [key: string]: number | string };
+} = {
+  min: {
+    value: 0.5,
+    message: "Minimum price must be 0.5",
   },
 };
