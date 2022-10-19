@@ -93,7 +93,6 @@ export default function EditProfilePage() {
                 <TextField
                   type="text"
                   variant="filled"
-                  sx={{ bgcolor: "common.customDirtyWhite" }}
                   value={shownFirstName}
                   fullWidth
                   autoFocus
@@ -111,7 +110,6 @@ export default function EditProfilePage() {
                 <TextField
                   type="text"
                   variant="filled"
-                  sx={{ bgcolor: "common.customDirtyWhite" }}
                   value={shownLastName}
                   fullWidth
                   label="Last Name *"
@@ -128,7 +126,6 @@ export default function EditProfilePage() {
                 <TextField
                   type="text"
                   variant="filled"
-                  sx={{ bgcolor: "common.customDirtyWhite" }}
                   fullWidth
                   value={shownEmail}
                   label="Email *"

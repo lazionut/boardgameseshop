@@ -47,8 +47,9 @@ export default function OrderItemsCard({ order }: OrderItem) {
         width: "100%",
         display: "flex",
         flexDirection: "row",
-        bgcolor: "common.customDirtyWhite",
+        bgcolor: "common.customLightYellow",
         p: "2%",
+        mb: "10%",
       }}
     >
       <Box flexDirection="row" width="100%">

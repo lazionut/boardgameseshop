@@ -53,13 +53,13 @@ export default function LoginPage() {
   return (
     <>
       <form onSubmit={handleSubmit(handleFormSubmission)}>
-        <Container maxWidth="xs">
+        <Container maxWidth="xs" sx={{ mt: { xs: 20, sm: 15 } }}>
           <Box
             sx={{
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              mb: { xs: "40vh", sm: "30vh", md: "40vh" },
+              mb: { xs: "40vh", sm: "30vh" },
             }}
           >
             <Avatar sx={{ bgcolor: "primary.main" }}>

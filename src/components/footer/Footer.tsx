@@ -1,41 +1,26 @@
-export default function Footer() {
-  return <></>;
-}
-
-/*
 import React from "react";
-import { Box, CssBaseline, Container, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 
 import Copyright from "./Copyright";
 
 export default function Footer() {
   return (
     <Box
+      component="footer"
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        minHeight: "100%",
-        mt: { xs: "10%", sm: "3%" },
+        position: "absolute",
+        bottom: 0,
+        mb: { xs: -8.5, sm: -10.5, md: -12.7, lg: -9 },
+        width: "100%",
+        py: { xs: "3%", lg: "1%" },
+        bgcolor: "common.customCavernClay",
+        color: "common.customDarkTurqoise",
       }}
     >
-      <Box
-        component="footer"
-        sx={{
-          py: "2%",
-          px: "2%",
-          mt: "auto",
-          bgcolor: (theme) =>
-            theme.palette.mode === "light"
-              ? theme.palette.grey[200]
-              : theme.palette.grey[800],
-        }}
-      >
-        <Container maxWidth="sm">
-          <Typography variant="body1">Moving meeples since</Typography>
-          <Copyright />
-        </Container>
-      </Box>
+      <Container>
+        <Typography variant="body1">Hoarding boardgames since</Typography>
+        <Copyright />
+      </Container>
     </Box>
   );
 }
-*/

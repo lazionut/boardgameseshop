@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  Box,
-  TextField,
-  Grid,
-  Button,
-  Rating,
-  Typography,
-  Alert,
-} from "@mui/material";
+import { Box, TextField, Grid, Button, Alert } from "@mui/material";
 import { useForm } from "react-hook-form";
 
 import sendDataService from "../../../services/sendDataService";
@@ -52,11 +44,9 @@ export function ReviewForm({ boardgameId }: ReviewFormProps) {
     if (createReviewResponse?.data !== undefined) {
       reset({ title: "", content: "" });
       setRatingStars(null);
-      setShowAlert(true);
+      window.location.reload();
     }
   };
-
-  useTimeout(showAlert, setShowAlert);
 
   return (
     <>
@@ -72,7 +62,7 @@ export function ReviewForm({ boardgameId }: ReviewFormProps) {
             variant="outlined"
             type="text"
             label="Title"
-            sx={{ bgcolor: "common.customDirtyWhite" }}
+            sx={{ paddingTop: "5" }}
             error={!!errors["title"]}
             helperText={
               errors["title"]?.message !== undefined &&
@@ -88,7 +78,6 @@ export function ReviewForm({ boardgameId }: ReviewFormProps) {
             rows={4}
             variant="outlined"
             label="Content"
-            sx={{ bgcolor: "common.customDirtyWhite" }}
             error={!!errors["content"]}
             helperText={
               errors["content"]?.message !== undefined &&

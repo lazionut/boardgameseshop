@@ -6,14 +6,8 @@ import {
   Divider,
   Grid,
   Typography,
-  Button,
   Card,
   IconButton,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
 } from "@mui/material";
 import { MdDelete } from "react-icons/md";
 import { GrEdit } from "react-icons/gr";
@@ -25,6 +19,7 @@ import { Configs } from "../../constants/Configs";
 import EditWishlistModal from "./EditWishlistModal";
 import { WishlistBoardgameCard } from "./WishlistBoardgameCard";
 import { useCartContext } from "../../context/CartContext";
+import ConfirmationDialog from "../common/ConfirmationDialog";
 
 interface WishlistCardProp {
   wishlist: {
@@ -51,6 +46,7 @@ export default function WishlistCard({ wishlist }: WishlistCardProp) {
   const { clearCart, increaseCartItemQuantity } = useCartContext();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState<boolean>(false);
   const [isEditWishlistOpen, setIsEditWishlistOpen] = useState<boolean>(false);
 
   const handleWishlistDelete = async (id: number) => {
@@ -78,7 +74,7 @@ export default function WishlistCard({ wishlist }: WishlistCardProp) {
 
   return (
     <Container sx={{ mt: "2%" }} maxWidth="xs">
-      <Card variant="outlined" sx={{ bgcolor: "common.customDirtyWhite" }}>
+      <Card variant="outlined" sx={{ bgcolor: "common.customLightYellow" }}>
         <CardActions>
           <IconButton
             sx={{ marginLeft: "auto" }}
@@ -92,35 +88,34 @@ export default function WishlistCard({ wishlist }: WishlistCardProp) {
           >
             <GrEdit size={25} />
           </IconButton>
-          <div>
-            <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
-              <DialogTitle>Add wishlist boardgames to cart</DialogTitle>
-              <DialogContent>
-                <DialogContentText>
-                  You current cart will be emptied and replaced with the items
-                  from the wishlist.
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={() => setIsOpen(false)}>Cancel</Button>
-                <Button
-                  onClick={() => {
-                    handleAddWishlistToCart(wishlist.boardgames);
-                    setIsOpen(false);
-                  }}
-                  autoFocus
-                >
-                  Confirm
-                </Button>
-              </DialogActions>
-            </Dialog>
-          </div>
+          <ConfirmationDialog
+            title="Add wishlist boardgames to cart"
+            content="You current cart will be emptied and replaced with the item from the wishlist."
+            deleteAlertText="Wishlist succesfully deleted"
+            onClick={() => {
+              handleAddWishlistToCart(wishlist.boardgames);
+              setIsOpen(false);
+            }}
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+          />
           <IconButton
             sx={{ marginLeft: "auto", color: "red" }}
-            onClick={() => handleWishlistDelete(wishlist.id)}
+            onClick={() => setIsDeleteDialogOpen(true)}
           >
             <MdDelete size={30} />
           </IconButton>
+          <ConfirmationDialog
+            title="Delete wishlist"
+            content="Are you sure you want to delete the wishlist?"
+            deleteAlertText="Wishlist succesfully deleted"
+            onClick={() => {
+              handleWishlistDelete(wishlist.id);
+              setIsOpen(false);
+            }}
+            isOpen={isDeleteDialogOpen}
+            setIsOpen={setIsDeleteDialogOpen}
+          />
         </CardActions>
         <Box>
           <Typography variant="h5"> {wishlist.name}</Typography>

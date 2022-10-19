@@ -22,6 +22,7 @@ import { NotificationToast } from "../components/common/NotificationToast";
 import { MdDelete } from "react-icons/md";
 import { Configs } from "../constants/Configs";
 import sendDataService from "../services/sendDataService";
+import ConfirmationDialog from "../components/common/ConfirmationDialog";
 
 export default function AccountPage() {
   const { state } = useLocation();
@@ -64,6 +65,7 @@ export default function AccountPage() {
         <Container
           sx={{
             maxWidth: { xs: "xs", sm: "sm", md: "xs" },
+            mb: "5%",
           }}
         >
           <Box
@@ -82,29 +84,17 @@ export default function AccountPage() {
               <Typography>Delete account </Typography>
               <MdDelete size={30} />
             </Button>
-            <div>
-              <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
-                <DialogTitle>Confirm delete</DialogTitle>
-                <DialogContent>
-                  <DialogContentText>
-                    This action can`t be reverted so make sure that you proceed
-                    carefully.
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={() => setIsOpen(false)}>Cancel</Button>
-                  <Button
-                    onClick={() => {
-                      handleAccountArchive();
-                      setIsOpen(false);
-                    }}
-                    autoFocus
-                  >
-                    Confirm
-                  </Button>
-                </DialogActions>
-              </Dialog>
-            </div>
+            <ConfirmationDialog
+              title="Confirm delete"
+              content="This action can`t be reverted so make sure that you proceed carefully."
+              deleteAlertText="Account succesfully deleted"
+              onClick={() => {
+                handleAccountArchive();
+                setIsOpen(false);
+              }}
+              isOpen={isOpen}
+              setIsOpen={setIsOpen}
+            />
             <Typography variant="h5">My account</Typography>
             <Grid container spacing={"3%"} sx={{ mt: { xs: "3%" } }}>
               <ProfileItems

@@ -28,6 +28,8 @@ const sendDataService = {
     } catch (error) {
       const apiError = error as AxiosError;
       console.log(apiError.response?.data);
+      
+      return apiError.response?.data;
     }
   },
 };

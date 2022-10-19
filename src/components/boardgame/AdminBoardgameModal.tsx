@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, CardHeader, IconButton, Modal } from "@mui/material";
 import { IoClose } from "react-icons/io5";
 
@@ -34,16 +34,13 @@ export default function AdminBoardgameModal({
           position: "absolute",
           top: "50%",
           left: "50%",
-          overflow: "scroll",
+          overflow: "auto",
           transform: "translate(-50%, -50%)",
           width: { xs: "100%", lg: "50%" },
-          bgcolor: "background.paper",
+          bgcolor: "common.customLightYellow",
+          height: "90%",
           border: "2px solid #000",
           boxShadow: 24,
-          pt: 2,
-          px: 4,
-          pb: 3,
-          height: "90%",
           mt: "2rem",
         }}
       >

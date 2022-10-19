@@ -6,6 +6,8 @@ import { MdDelete } from "react-icons/md";
 import sendDataService from "../../../services/sendDataService";
 import { Configs } from "../../../constants/Configs";
 import { Constants } from "../../../constants/Constants";
+import { StyledRating } from "./RatingOptions";
+import { GiMeeple } from "react-icons/gi";
 
 interface ReviewCardProps {
   review: {
@@ -48,7 +50,12 @@ export default function ReviewCard({ review }: ReviewCardProps) {
         <Grid container justifyContent="space-between">
           <Grid item>
             <Typography align="justify" paragraph={true}>
-              <Rating value={review.score} readOnly />
+              <StyledRating
+                value={review.score}
+                icon={<GiMeeple fontSize="inherit" />}
+                emptyIcon={<GiMeeple fontSize="inherit" />}
+                readOnly
+              />
             </Typography>
           </Grid>
           <Grid item>

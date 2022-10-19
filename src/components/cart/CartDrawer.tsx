@@ -50,7 +50,7 @@ export default function CartDrawer({ isOpen }: CartProps) {
         onClose={closeCart}
         PaperProps={{
           sx: {
-            bgcolor: "common.customDirtyWhite",
+            bgcolor: "common.customLightYellow",
           },
         }}
       >

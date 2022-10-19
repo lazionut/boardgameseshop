@@ -32,7 +32,7 @@ export default function OrderHistoryCard({ order }: OrderHistoryCardProps) {
         variant="outlined"
         sx={{
           gap: "clamp(0px, (100% - 360px + 32px) * 999, 16px)",
-          bgcolor: "common.customDirtyWhite",
+          bgcolor: "common.customLightYellow",
           p: "2%",
         }}
       >

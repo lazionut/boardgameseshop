@@ -36,3 +36,21 @@ export const passwordFieldRule: {
     message: PASSWORD_MESSAGE,
   },
 };
+
+export const positiveNumberFieldRule: {
+  [key: string]: { [key: string]: RegExp | string };
+} = {
+  pattern: {
+    value: /^(0|[1-9][0-9]*)$/,
+    message: "Please enter a valid positive number higher than 0",
+  },
+};
+
+export const minimumPriceFieldRule: {
+  [key: string]: { [key: string]: number | string };
+} = {
+  min: {
+    value: 0.5,
+    message: "Minimum price must be 0.5",
+  },
+};

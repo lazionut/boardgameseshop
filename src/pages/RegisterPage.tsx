@@ -158,7 +158,9 @@ export default function RegisterPage() {
                   renderOption={(props, option) => (
                     <Box
                       component="li"
-                      sx={{ "& > img": { mr: "5%" } }}
+                      sx={{
+                        "& > img": { mr: "5%" },
+                      }}
                       {...props}
                     >
                       <img

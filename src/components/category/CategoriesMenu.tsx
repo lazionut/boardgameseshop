@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
-import { IconButton, Menu } from "@mui/material";
+import { Box, IconButton, makeStyles, Menu, Paper, Theme } from "@mui/material";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { AxiosRequestConfig } from "axios";
 import jwt_decode from "jwt-decode";
@@ -43,7 +43,7 @@ export default function CategoriesMenu() {
   } = useFetchData(getCategoriesRequestConfig);
 
   return (
-    <div
+    <Box
       style={{
         display: "flex",
         alignItems: "center",
@@ -52,7 +52,7 @@ export default function CategoriesMenu() {
     >
       <Button
         sx={{
-          bgcolor: "white",
+          bgcolor: "common.customLightYellow",
           color: "black",
           display: "block",
         }}
@@ -72,6 +72,6 @@ export default function CategoriesMenu() {
         ))}
       </Menu>
       <AdminCategoryModal isOpen={isOpen} setIsOpen={setIsOpen} />
-    </div>
+    </Box>
   );
 }

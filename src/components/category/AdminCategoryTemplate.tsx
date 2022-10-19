@@ -60,14 +60,14 @@ export default function AdminCategoryTemplate({
         },
       });
 
-      if (updateCategoryResponse.status === Configs.OK_RESPONSE) {
+      if (updateCategoryResponse.status === Configs.NO_CONTENT_RESPONSE) {
         window.location.reload();
       }
     }
   };
 
   return (
-    <Container maxWidth="sm" sx={{ bgcolor: "common.customDirtyWhite" }}>
+    <Container sx={{ bgcolor: "common.customDarkLight" }}>
       <Typography variant="h4" mb="5%">
         {templateName}
       </Typography>

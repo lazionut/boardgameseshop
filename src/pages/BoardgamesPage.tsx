@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import { AxiosRequestConfig } from "axios";
 import jwt_decode from "jwt-decode";
@@ -78,9 +78,9 @@ export default function BoardgamesPage() {
                   mb: { xs: "5%", sm: "auto" },
                 }}
               >
-                <Button variant="outlined" onClick={() => setIsOpen(true)}>
+                <Button variant="contained" onClick={() => setIsOpen(true)}>
                   <AiFillPlusSquare size={30} />
-                  Add boardgame
+                  <Typography sx={{ ml: 1.5 }}>Add boardgame</Typography>
                 </Button>
               </Grid>
             )}
@@ -137,6 +137,21 @@ export default function BoardgamesPage() {
       {state?.isLoggedIn === true && (
         <NotificationToast
           toastText="Succesfully logged in"
+          isSuccessful={true}
+        />
+      )}
+      {state?.isSuccessfullyCreated === true && (
+        <NotificationToast
+          toastText="Succesfully created"
+          isSuccessful={true}
+        />
+      )}
+      {state?.isSuccessfullyEdited === true && (
+        <NotificationToast toastText="Succesfully edited" isSuccessful={true} />
+      )}
+      {state?.isSuccessfullyDeleted === true && (
+        <NotificationToast
+          toastText="Succesfully deleted"
           isSuccessful={true}
         />
       )}

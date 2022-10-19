@@ -51,6 +51,7 @@ export default function OrderBoardgameCard({
       <CardActions
         sx={{
           display: "flex",
+          flexDirection: { xs: "column", sm: "row" },
           justifyContent: "space-between",
         }}
       >
@@ -64,12 +65,14 @@ export default function OrderBoardgameCard({
           alt="boardgame image"
           sx={{ width: 130, height: 150, objectFit: "contain" }}
         />
-        <Typography fontSize="lg" ml={"2%"} sx={{ marginRight: "auto" }}>
-          {boardgame.name}
-        </Typography>
+        <Box sx={{ marginRight: { xs: 0, sm: "auto" } }}>
+          <Typography fontSize="lg" ml={"2%"}>
+            {boardgame.name}
+          </Typography>
+        </Box>
         <Box>
           <Typography mb={"5%"}>Quantity: {boardgame.quantity}</Typography>
-          <Chip variant="outlined" label={`Price / unit: ${boardgame.price}`} />
+          <Chip variant="outlined" label={`Price: ${boardgame.price}`} />
         </Box>
       </CardActions>
       <Divider />

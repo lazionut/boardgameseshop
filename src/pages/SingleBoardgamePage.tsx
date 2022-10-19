@@ -27,8 +27,11 @@ export default function SingleBoardgamePage() {
         <Container>
           <Card
             sx={{
-              bgcolor: "common.customDirtyWhite",
               p: { xs: "4%", sm: "2%" },
+              border: 1,
+              bgcolor: "common.customLightYellow",
+              mb: "3%",
+              boxShadow: 12,
             }}
           >
             <Box
@@ -37,6 +40,7 @@ export default function SingleBoardgamePage() {
                 flexDirection: "column",
                 justifyContent: "center",
                 mb: "4%",
+                color: "black",
               }}
             >
               <Box

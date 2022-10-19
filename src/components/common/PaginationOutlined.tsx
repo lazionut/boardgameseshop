@@ -37,7 +37,6 @@ export default function PaginationOutlined({
         flexDirection: { xs: "column", sm: "row" },
         alignItems: { xs: "center", sm: "normal" },
         justifyContent: { xs: "center" },
-  
       }}
     >
       <Grid item sx={{ ml: "3%", mt: { xs: "5%", sm: "auto" }, mb: "1.5%" }}>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {
   Box,
+  Chip,
   Divider,
   IconButton,
   List,
@@ -9,10 +10,19 @@ import {
   ListItemText,
   SwipeableDrawer,
 } from "@mui/material";
-import { MdMenu } from "react-icons/md";
+import {
+  MdMenu,
+  MdOutlineAccountBox,
+  MdOutlineDocumentScanner,
+  MdOutlineManageAccounts,
+} from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import { GiTabletopPlayers } from "react-icons/gi";
+import { GiOpenChest } from "react-icons/gi";
 import jwt_decode from "jwt-decode";
+import { AiFillHome } from "react-icons/ai";
+import { BsBoxSeam } from "react-icons/bs";
+import { RiBillLine } from "react-icons/ri";
+import { FaSignOutAlt } from "react-icons/fa";
 
 import authenticationService from "../../services/authenticationService";
 import { useWishlistContext } from "../../context/WishlistContext";
@@ -40,7 +50,9 @@ export default function SwipeableTemporaryDrawer() {
         sx={{ mr: "5%" }}
         onClick={() => setOpen(true)}
       >
-        <MdMenu />
+        <Box sx={{ color: "common.customDarkTurqoise" }}>
+          <MdMenu size={35} />
+        </Box>
       </IconButton>
       <SwipeableDrawer
         open={open}
@@ -48,54 +60,117 @@ export default function SwipeableTemporaryDrawer() {
         onOpen={() => setOpen(true)}
         PaperProps={{
           sx: {
-            bgcolor: "#e8e4c9",
+            bgcolor: "common.customLightYellow",
           },
         }}
       >
         <Box
-          sx={{ width: { xs: 150, sm: 250 } }}
+          sx={{ width: { xs: 200, sm: 250 } }}
           onClick={() => setOpen(false)}
         >
           <List>
             <ListItem sx={{ ml: "-0.5vw", justifyContent: "center" }}>
-              <GiTabletopPlayers size={100} />
+              <Box sx={{ color: "common.customCavernClay" }}>
+                <GiOpenChest size={100} />
+              </Box>
             </ListItem>
             <ListItem disablePadding>
               <ListItemButton onClick={() => navigate("/")}>
-                <ListItemText primary={"Home"} />
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <AiFillHome size={30} />
+                  <ListItemText primary={"Home"} sx={{ ml: 1 }} />
+                </Box>
               </ListItemButton>
             </ListItem>
+            <Divider sx={{ borderBottomWidth: 4 }} />
             <ListItem disablePadding>
               <ListItemButton onClick={() => navigate("/account")}>
-                <ListItemText primary={"My account"} />
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <MdOutlineAccountBox size={30} />
+                  <ListItemText primary={"My account"} sx={{ ml: 1 }} />
+                </Box>
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
               <ListItemButton onClick={() => navigate("/wishlists")}>
-                <ListItemText primary={"My wishlists"} />
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <BsBoxSeam size={30} />
+                  <ListItemText primary={"My wishlists"} sx={{ ml: 1 }} />
+                </Box>
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
               <ListItemButton onClick={() => navigate("/orders")}>
-                <ListItemText primary={"Order history"} />
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <RiBillLine size={30} />
+                  <ListItemText primary={"Order history"} sx={{ ml: 1 }} />
+                </Box>
               </ListItemButton>
             </ListItem>
-            <Divider />
             {accountDecoded?.Role === Constants.ADMIN && (
               <>
+                <Divider sx={{ borderBottomWidth: 4 }} />
+                <Box display="flex" justifyContent="center" mt={1}>
+                  <Chip
+                    label="ADMIN"
+                    sx={{ bgcolor: "common.customCavernClay", color: "white" }}
+                  />
+                </Box>
                 <ListItem disablePadding>
                   <ListItemButton onClick={() => navigate("/accounts")}>
-                    <ListItemText primary={"All accounts"} />
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                      }}
+                    >
+                      <MdOutlineManageAccounts size={30} />
+                      <ListItemText primary={"All accounts"} sx={{ ml: 1 }} />
+                    </Box>
                   </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
                   <ListItemButton onClick={() => navigate("/orders/all")}>
-                    <ListItemText primary={"All orders"} />
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                      }}
+                    >
+                      <MdOutlineDocumentScanner size={30} />
+                      <ListItemText primary={"All orders"} sx={{ ml: 1 }} />
+                    </Box>
                   </ListItemButton>
                 </ListItem>
               </>
             )}
-            <Divider />
+            <Divider sx={{ borderBottomWidth: 4 }} />
             <ListItem disablePadding>
               <ListItemButton
                 onClick={() => {
@@ -104,7 +179,16 @@ export default function SwipeableTemporaryDrawer() {
                   navigate("/");
                 }}
               >
-                <ListItemText primary={"Sign out"} />
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <FaSignOutAlt size={30} />
+                  <ListItemText primary={"Sign out"} sx={{ ml: 1 }} />
+                </Box>
               </ListItemButton>
             </ListItem>
           </List>

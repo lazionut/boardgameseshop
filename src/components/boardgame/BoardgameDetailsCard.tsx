@@ -17,7 +17,7 @@ export default function BoardgameDetailsCard({
       {description && (
         <Typography
           variant="h6"
-          style={{ wordWrap: "break-word" }}
+          sx={{ wordWrap: "break-word", textAlign: "center" }}
           mt={link ? "15%" : "15vh"}
         >
           {description}

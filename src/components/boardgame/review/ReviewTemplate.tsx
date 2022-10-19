@@ -14,6 +14,8 @@ interface ReviewTemplateProps {
 }
 
 export default function ReviewTemplate({ boardgameId }: ReviewTemplateProps) {
+  const authToken: string | null = localStorage.getItem("token");
+
   const [pageIndex, setPageIndex] = useState<number>(
     Constants.DEFAULT_PAGE_INDEX
   );
@@ -35,8 +37,8 @@ export default function ReviewTemplate({ boardgameId }: ReviewTemplateProps) {
       sx={{
         display: "flex",
         flexDirection: { xs: "column", md: "row" },
+        mt: "5%",
         bgcolor: "common.customDirtyWhite",
-        mt: "5%"
       }}
     >
       <Box
@@ -47,17 +49,17 @@ export default function ReviewTemplate({ boardgameId }: ReviewTemplateProps) {
           ml: { md: "5%" },
         }}
       >
-        <ReviewForm boardgameId={Number(boardgameId)} />
+        {authToken && <ReviewForm boardgameId={Number(boardgameId)} />}
         <Typography variant="h5" sx={{ textDecoration: "underline", mt: "5%" }}>
           What people say:
         </Typography>
-        {reviewData.boardgames ? (
+        {reviewData.reviews ? (
           <>
             <Grid item>
               <Box
                 sx={{ mt: { xs: "5%", md: "2%" }, mb: { xs: "5%", md: "3%" } }}
               >
-                {reviewData.boardgames.map((review: any) => (
+                {reviewData.reviews.map((review: any) => (
                   <ReviewCard key={review.id} review={review} />
                 ))}
               </Box>

@@ -23,13 +23,11 @@ export default function ProfileItems({
         <TextField
           type="text"
           variant="filled"
-          sx={{ bgcolor: "common.customDirtyWhite" }}
           InputProps={{
             readOnly: true,
           }}
           value={firstName}
           fullWidth
-          autoFocus
           label="First Name *"
         />
       </Grid>
@@ -37,7 +35,6 @@ export default function ProfileItems({
         <TextField
           type="text"
           variant="filled"
-          sx={{ bgcolor: "common.customDirtyWhite" }}
           InputProps={{
             readOnly: true,
           }}
@@ -50,7 +47,6 @@ export default function ProfileItems({
         <TextField
           type="text"
           variant="filled"
-          sx={{ bgcolor: "common.customDirtyWhite" }}
           InputProps={{
             readOnly: true,
           }}

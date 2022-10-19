@@ -6,12 +6,9 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-  IconButton,
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { MdDelete } from "react-icons/md";
-import { GrEdit } from "react-icons/gr";
 import jwt_decode from "jwt-decode";
 
 import { stockDefiner } from "../../utils/Utilities";
@@ -21,6 +18,8 @@ import useFetchData from "../../hooks/useFetchData";
 import sendDataService from "../../services/sendDataService";
 import AdminBoardgameModal from "./AdminBoardgameModal";
 import { Constants } from "../../constants/Constants";
+import AdminBoardgameActions from "./AdminBoardgameActions";
+import { LoadingCircle } from "../common/LoadingCircle";
 
 interface Boardgame {
   boardgame: {
@@ -48,7 +47,8 @@ export default function BoardgameCard({ boardgame }: Boardgame) {
   const { increaseCartItemQuantity } = useCartContext();
   const { addWishlistItem } = useWishlistContext();
 
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState<boolean>(false);
 
   const imageType: any = "arraybuffer";
 
@@ -92,36 +92,41 @@ export default function BoardgameCard({ boardgame }: Boardgame) {
             transform: "translateY(-2px)",
           },
           "& > *": { minWidth: "clamp(0px, (360px - 100%) * 999,100%)" },
-          bgcolor: "common.customDirtyWhite",
+          bgcolor: "common.customLightYellow",
+          boxShadow: 12,
         }}
       >
         {accountDecoded?.Role === Constants.ADMIN && (
-          <CardActions>
-            <IconButton
-              sx={{ marginLeft: "auto" }}
-              onClick={() => setIsOpen(true)}
-            >
-              <GrEdit size={25} />
-            </IconButton>
-            <IconButton
-              sx={{ marginLeft: "auto", color: "red" }}
-              onClick={() => handleBoardgameArchive(boardgame.id)}
-            >
-              <MdDelete size={30} />
-            </IconButton>
-          </CardActions>
-        )}
-        <CardActionArea onClick={() => navigate(`/boardgames/${boardgame.id}`)}>
-          <CardMedia
-            component="img"
-            image={
-              blobImage && boardgame.image !== null
-                ? window.URL.createObjectURL(blobImage)
-                : require("../../assets/images/no_image.jpg")
-            }
-            sx={{ objectFit: "fill", width: "100%", height: 400 }}
-            alt="boardgame image"
+          <AdminBoardgameActions
+            isDeleteOpen={isDeleteDialogOpen}
+            setIsEditOpen={setIsEditModalOpen}
+            onEditClick={() => setIsEditModalOpen(true)}
+            setIsDeleteOpen={setIsDeleteDialogOpen}
+            onConfirmationClick={() => {
+              handleBoardgameArchive(boardgame.id);
+              setIsDeleteDialogOpen(false);
+            }}
+            onDeleteClick={() => setIsDeleteDialogOpen(true)}
           />
+        )}
+        <CardActionArea
+          sx={{ color: "black" }}
+          onClick={() => navigate(`/boardgames/${boardgame.id}`)}
+        >
+          {loading === false ? (
+            <CardMedia
+              component="img"
+              image={
+                blobImage && boardgame.image !== null
+                  ? window.URL.createObjectURL(blobImage)
+                  : require("../../assets/images/no_image.jpg")
+              }
+              sx={{ objectFit: "fill", width: "100%", height: 400 }}
+              alt="boardgame image"
+            />
+          ) : (
+            <LoadingCircle widthParam="100%" heightParam="400" />
+          )}
           <CardContent>
             <Typography variant="h5">{boardgame.name}</Typography>
             <Typography variant="body1">{boardgame.releaseYear}</Typography>
@@ -133,7 +138,9 @@ export default function BoardgameCard({ boardgame }: Boardgame) {
               {boardgame.price} RON
             </Typography>
             <Typography variant="h6">
-              {stockDefiner(boardgame.quantity)}
+              {accountDecoded?.Role !== "Admin"
+                ? stockDefiner(boardgame.quantity)
+                : "Quantity: " + boardgame.quantity}
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -161,15 +168,15 @@ export default function BoardgameCard({ boardgame }: Boardgame) {
             sx={{ mt: "5%" }}
             onClick={() => increaseCartItemQuantity(boardgame.id)}
           >
-            Buy now
+            Add to cart
           </Button>
         </CardActions>
       </Card>
       <AdminBoardgameModal
         boardgame={boardgame}
         blobImage={blobImage}
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
+        isOpen={isEditModalOpen}
+        setIsOpen={setIsEditModalOpen}
       />
     </>
   );

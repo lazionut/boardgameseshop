@@ -24,7 +24,14 @@ export default function SearchBar() {
   } = useFetchData(boardgameNamesRequestConfig);
 
   return (
-    <Box ml="5%" width="20%" flexDirection="row" sx={{ bgcolor: "white" }}>
+    <Box
+      ml="5%"
+      width="20%"
+      flexDirection="row"
+      sx={{
+        color: "common.customCavernClay",
+      }}
+    >
       <Autocomplete
         freeSolo
         options={boardgamesNamesData.names}
@@ -33,27 +40,30 @@ export default function SearchBar() {
           setSearchedCharacters(value);
         }}
         renderInput={(params) => (
-          <TextField
-            {...params}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                navigateSearch(`/boardgames/search`, {
-                  keywords: searchedCharacters,
-                  pageIndex: Constants.DEFAULT_PAGE_INDEX,
-                  pageSize: Constants.DEFAULT_PAGE_SIZE,
-                  sortOrder: ConstantsArrays.SORT_OPTIONS[0],
-                });
-              }
-            }}
-            InputProps={{
-              ...params.InputProps,
-              startAdornment: (
-                <InputAdornment position="start">
-                  <FaSearch />
-                </InputAdornment>
-              ),
-            }}
-          />
+          <Box sx={{ bgcolor: "common.customLightYellow" }}>
+            <TextField
+              {...params}
+              size="medium"
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  navigateSearch(`/boardgames/search`, {
+                    keywords: searchedCharacters,
+                    pageIndex: Constants.DEFAULT_PAGE_INDEX,
+                    pageSize: Constants.DEFAULT_PAGE_SIZE,
+                    sortOrder: ConstantsArrays.SORT_OPTIONS[0],
+                  });
+                }
+              }}
+              InputProps={{
+                ...params.InputProps,
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <FaSearch />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Box>
         )}
       />
     </Box>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, IconButton, MenuItem } from "@mui/material";
+import { Box, IconButton, MenuItem, Typography } from "@mui/material";
 import jwt_decode from "jwt-decode";
 
 import useNavigateSearch from "../../hooks/useNavigateSearch";
@@ -46,39 +46,46 @@ export default function CategoryMenuItem({ category }: CategoryMenuItemProps) {
     <>
       <MenuItem
         key={category.id}
-        onClick={() => {
-          navigateSearch(`/categories/${category.id}/boardgames`, {
-            pageIndex: Constants.DEFAULT_PAGE_INDEX,
-            pageSize: Constants.DEFAULT_PAGE_SIZE,
-            sortOrder: ConstantsArrays.SORT_OPTIONS[0],
-          });
+        sx={{
+          justifyContent: "space-between",
+          minWidth: 130,
         }}
       >
-        {category.name}
+        <Typography
+          onClick={() => {
+            navigateSearch(`/categories/${category.id}/boardgames`, {
+              pageIndex: Constants.DEFAULT_PAGE_INDEX,
+              pageSize: Constants.DEFAULT_PAGE_SIZE,
+              sortOrder: ConstantsArrays.SORT_OPTIONS[0],
+            });
+          }}
+        >
+          {category.name}
+        </Typography>
+        {accountDecoded?.Role === Constants.ADMIN && (
+          <>
+            <Box justifyContent="center">
+              <IconButton
+                sx={{ marginLeft: "auto" }}
+                onClick={() => setIsOpen(true)}
+              >
+                <GrEdit size={25} />
+              </IconButton>
+              <IconButton
+                sx={{ marginLeft: "auto", color: "red" }}
+                onClick={() => handleCategoryDelete(category.id)}
+              >
+                <MdDelete size={30} />
+              </IconButton>
+            </Box>
+            <AdminCategoryModal
+              isOpen={isOpen}
+              setIsOpen={setIsOpen}
+              category={category}
+            />
+          </>
+        )}
       </MenuItem>
-      {accountDecoded?.Role === Constants.ADMIN && (
-        <>
-          <Box justifyContent="center">
-            <IconButton
-              sx={{ marginLeft: "auto" }}
-              onClick={() => setIsOpen(true)}
-            >
-              <GrEdit size={25} />
-            </IconButton>
-            <IconButton
-              sx={{ marginLeft: "auto", color: "red" }}
-              onClick={() => handleCategoryDelete(category.id)}
-            >
-              <MdDelete size={30} />
-            </IconButton>
-          </Box>
-          <AdminCategoryModal
-            isOpen={isOpen}
-            setIsOpen={setIsOpen}
-            category={category}
-          />
-        </>
-      )}
     </>
   );
 }

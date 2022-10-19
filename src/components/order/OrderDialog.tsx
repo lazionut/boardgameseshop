@@ -50,45 +50,47 @@ export default function OrderDialog({
         Change status
       </Button>
       <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
-        <DialogTitle>Select order status</DialogTitle>
-        <DialogContent>
-          <Box
-            noValidate
-            component="form"
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              m: "auto",
-              width: "fit-content",
-            }}
-          >
-            <FormControl sx={{ mt: "10%", width: 160 }}>
-              <InputLabel>Status</InputLabel>
-              <Select
-                autoFocus
-                label="Status"
-                defaultValue={currentOrderStatus}
-                onChange={(e) => setOrderStatus(Number(e.target.value))}
-              >
-                {ORDER_STATUS_OPTIONS.map((order: any) => (
-                  <MenuItem
-                    key={order.value}
-                    value={order.value}
-                    onChange={() => setOrderStatus(order.value)}
-                  >
-                    {order.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Box>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setIsOpen(false)}>Close</Button>
-          <Button onClick={() => handleStatusSubmit(orderStatus)}>
-            Submit
-          </Button>
-        </DialogActions>
+        <Box sx={{ bgcolor: "common.customLightYellow" }}>
+          <DialogTitle>Select order status</DialogTitle>
+          <DialogContent>
+            <Box
+              noValidate
+              component="form"
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                m: "auto",
+                width: "fit-content",
+              }}
+            >
+              <FormControl sx={{ mt: "10%", width: 160 }}>
+                <InputLabel>Status</InputLabel>
+                <Select
+                  autoFocus
+                  label="Status"
+                  defaultValue={currentOrderStatus}
+                  onChange={(e) => setOrderStatus(Number(e.target.value))}
+                >
+                  {ORDER_STATUS_OPTIONS.map((order: any) => (
+                    <MenuItem
+                      key={order.value}
+                      value={order.value}
+                      onChange={() => setOrderStatus(order.value)}
+                    >
+                      {order.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setIsOpen(false)}>Close</Button>
+            <Button onClick={() => handleStatusSubmit(orderStatus)}>
+              Submit
+            </Button>
+          </DialogActions>
+        </Box>
       </Dialog>
     </div>
   );

@@ -16,6 +16,8 @@ import AddressDetailsForm from "../components/order/checkout/AddressDetailsForm"
 import ReviewDetails from "../components/order/checkout/ReviewDetails";
 import { useCartContext } from "../context/CartContext";
 import sendDataService from "../services/sendDataService";
+import { GiMeepleKing } from "react-icons/gi";
+import { Configs } from "../constants/Configs";
 
 export default function CheckoutOrderPage() {
   const { state } = useLocation();
@@ -23,7 +25,7 @@ export default function CheckoutOrderPage() {
   const authToken: string | null = localStorage.getItem("token");
 
   const [activeStep, setActiveStep] = useState<number>(0);
-  const [orderId, setOrderId] = useState<number | null>(null);
+  const [orderId, setOrderId] = useState<number | undefined>();
   const [orderName, setOrderName] = useState<string>("");
   const [orderAddress, setOrderAddress] = useState<any>({});
 
@@ -86,7 +88,7 @@ export default function CheckoutOrderPage() {
         },
       });
 
-      setOrderId(placeOrderResponse.data.id);
+      setOrderId(placeOrderResponse?.data.id);
     };
 
     if (activeStep === steps.length) {
@@ -102,7 +104,7 @@ export default function CheckoutOrderPage() {
         sx={{
           my: { xs: 3, md: 6 },
           p: { xs: 2, md: 3 },
-          bgcolor: "common.customDirtyWhite",
+          bgcolor: "common.customLightYellow",
         }}
       >
         <Typography component="h1" variant="h4" align="center">
@@ -117,14 +119,23 @@ export default function CheckoutOrderPage() {
         </Stepper>
         <>
           {activeStep === steps.length && orderId !== null ? (
-            <React.Fragment>
-              <Typography variant="h5" gutterBottom>
-                Thank you for your order.
-              </Typography>
-              <Typography variant="subtitle1">
-                Your order number is #{orderId}.
-              </Typography>
-            </React.Fragment>
+            <>
+              {orderId !== undefined ? (
+                <>
+                  <GiMeepleKing size={75} />
+                  <Typography variant="h5" gutterBottom>
+                    Thank you for your order!
+                  </Typography>
+                  <Typography variant="subtitle1">
+                    Your order number is #{orderId}.
+                  </Typography>
+                </>
+              ) : (
+                <Typography color="red" variant="h5">
+                  There is not enough stock for one of your ordered boardgames!
+                </Typography>
+              )}
+            </>
           ) : (
             <>
               {getStepContent(activeStep)}

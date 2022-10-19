@@ -1,9 +1,10 @@
 import React from "react";
-import { Grid, Box, Typography, Button } from "@mui/material";
+import { Grid, Box, Typography, Button, CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 import { stockDefiner } from "../../utils/Utilities";
 import useFetchData from "../../hooks/useFetchData";
+import { LoadingCircle } from "../common/LoadingCircle";
 
 interface WishlistBoardgameCardProps {
   boardgame: {
@@ -42,20 +43,24 @@ export function WishlistBoardgameCard({
           alignItems: "center",
         }}
       >
-        <Box
-          component="img"
-          sx={{
-            width: 150,
-            height: 180,
-            objectFit: "contain",
-          }}
-          src={
-            blobImage && boardgame.image
-              ? window.URL.createObjectURL(blobImage)
-              : require("../../assets/images/no_image.jpg")
-          }
-          alt="boardgame image"
-        />
+        {loading === false ? (
+          <Box
+            component="img"
+            sx={{
+              width: 150,
+              height: 180,
+              objectFit: "contain",
+            }}
+            src={
+              blobImage && boardgame.image
+                ? window.URL.createObjectURL(blobImage)
+                : require("../../assets/images/no_image.jpg")
+            }
+            alt="boardgame image"
+          />
+        ) : (
+          <LoadingCircle widthParam="150" heightParam="180" />
+        )}
       </Box>
       <Typography fontSize="lg">{boardgame.name}</Typography>
       <Typography fontSize="lg">{boardgame.price}</Typography>
