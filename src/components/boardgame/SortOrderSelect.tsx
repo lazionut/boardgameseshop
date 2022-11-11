@@ -6,6 +6,7 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 import { sortOrderDefiner } from "../../utils/Utilities";
 import { ConstantsArrays } from "../../constants/Constants";
@@ -19,6 +20,8 @@ export default function SortOrderSelect({
   sortOrder,
   setSortOrder,
 }: PageSizeSelectProps) {
+  const { t } = useTranslation();
+
   const handleChange = (event: SelectChangeEvent) => {
     setSortOrder(Number(event.target.value));
   };
@@ -29,20 +32,18 @@ export default function SortOrderSelect({
         variant="standard"
         sx={{ m: { xs: "1%", md: "3%" }, minWidth: 120 }}
       >
-        <InputLabel id="standard-label">Sort by</InputLabel>
+        <InputLabel id="standard-label">{t("sort-by")}</InputLabel>
         <Select
           labelId="standard-label"
           value={String(sortOrder)}
           onChange={handleChange}
-          label="Sort by"
+          label={t("sort-by")}
         >
-          {ConstantsArrays.SORT_OPTIONS.map(
-            (sortNumber: number) => (
-              <MenuItem key={sortNumber} value={sortNumber}>
-                {sortOrderDefiner(sortNumber)}
-              </MenuItem>
-            )
-          )}
+          {ConstantsArrays.SORT_OPTIONS.map((sortNumber: number) => (
+            <MenuItem key={sortNumber} value={sortNumber}>
+              {sortOrderDefiner(sortNumber)}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
     </div>

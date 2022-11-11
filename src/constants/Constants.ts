@@ -1,3 +1,5 @@
+import i18n from "../localization/i18n";
+
 export const Constants: { [key: string]: any } = {
   DEFAULT_PAGE_INDEX: 1,
   DEFAULT_SORT_ORDER: 0,
@@ -12,9 +14,9 @@ export const ConstantsArrays: { [key: string]: number[] } = {
 };
 
 export const ORDER_STATUS_OPTIONS: { [key: string]: any } = [
-  { label: "Created", value: 0 },
-  { label: "Processing", value: 1 },
-  { label: "Shipping", value: 2 },
-  { label: "Completed", value: 3 },
-  { label: "Cancelled", value: 4 },
+  { label: `${i18n.t("created-status")}`, value: 0 },
+  { label: `${i18n.t("processing-status")}`, value: 1 },
+  { label: `${i18n.t("shipping-status")}`, value: 2 },
+  { label: `${i18n.t("completed-status")}`, value: 3 },
+  { label: `${i18n.t("cancelled-status")}`, value: 4 },
 ];

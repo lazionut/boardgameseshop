@@ -12,6 +12,7 @@ import {
 import { IoClose } from "react-icons/io5";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { useWishlistContext } from "../../context/WishlistContext";
 import { WishlistModalItem } from "./WishlistModalItem";
@@ -26,7 +27,7 @@ export default function WishlistModal({ isOpen }: WishlistModalProps) {
   const navigate = useNavigate();
   const authToken: string | null = localStorage.getItem("token");
   const { wishlistItems, closeWishlist, clearWishlist } = useWishlistContext();
-
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -90,14 +91,14 @@ export default function WishlistModal({ isOpen }: WishlistModalProps) {
               justifyContent: "center",
             }}
           >
-            <Typography variant="h4">Wishlist is empty.</Typography>
+            <Typography variant="h4">{t("empty-wishlist")}.</Typography>
           </Box>
         ) : (
           <form onSubmit={handleSubmit(handleFormSubmission)}>
             <Box justifyContent="center" display="flex" mb="3%">
               <TextField
                 variant="outlined"
-                label="Wishlist name *"
+                label={`${t("wishlist-name")} *`}
                 error={!!errors["wishlist-name"]}
                 helperText={
                   errors["wishlist-name"]?.message !== undefined &&
@@ -129,7 +130,7 @@ export default function WishlistModal({ isOpen }: WishlistModalProps) {
               mt="3%"
             >
               <Button size="large" type="submit" variant="contained">
-                Submit
+                {t("submit")}
               </Button>
             </Box>
           </form>

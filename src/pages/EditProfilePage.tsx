@@ -3,6 +3,7 @@ import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import Container from "@mui/material/Container";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import { emailFieldRule, requiredFieldRule } from "../constants/Rules";
 import NavigateBackButton from "../components/common/NavigateBackButton";
@@ -15,6 +16,7 @@ export default function EditProfilePage() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const authToken: string | null = localStorage.getItem("token");
+  const { t } = useTranslation();
 
   const [shownFirstName, setShownFirstName] = useState<string | undefined>(
     state?.firstName
@@ -96,7 +98,7 @@ export default function EditProfilePage() {
                   value={shownFirstName}
                   fullWidth
                   autoFocus
-                  label="First Name *"
+                  label={`${t("first-name")} *`}
                   error={!!errors["first-name"]}
                   helperText={
                     errors["first-name"]?.message !== undefined &&
@@ -112,7 +114,7 @@ export default function EditProfilePage() {
                   variant="filled"
                   value={shownLastName}
                   fullWidth
-                  label="Last Name *"
+                  label={`${t("last-name")} *`}
                   error={!!errors["last-name"]}
                   helperText={
                     errors["last-name"]?.message !== undefined &&
@@ -148,7 +150,7 @@ export default function EditProfilePage() {
                   size="medium"
                   sx={{ width: "25%", mt: 2 }}
                 >
-                  Submit
+                  {t("submit")}
                 </Button>
               </Grid>
             </Grid>
@@ -157,7 +159,7 @@ export default function EditProfilePage() {
       </form>
       {showAlert === true && (
         <NotificationToast
-          toastText="Profile couldn't be updated"
+          toastText={t("updated-profile-error")}
           isSuccessful={false}
         />
       )}

@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig } from "axios";
+import { useTranslation } from "react-i18next";
 
 import useFetchData from "../hooks/useFetchData";
-import { Constants, ConstantsArrays } from "../constants/Constants";
+import { Constants } from "../constants/Constants";
 import PaginationOutlined from "../components/common/PaginationOutlined";
 import OrderHistoryCard from "../components/order/OrderHistoryCard";
 import EmptyTemplate from "../components/common/EmptyTemplate";
 
 export default function OrderHistoryPage() {
   const authToken: string | null = localStorage.getItem("token");
+  const { t } = useTranslation();
 
   const [pageIndex, setPageIndex] = useState<number>(
     Constants.DEFAULT_PAGE_INDEX
@@ -33,7 +35,7 @@ export default function OrderHistoryPage() {
   return (
     <Container sx={{ mb: { xs: "5%", md: "auto" }, mt: "3%" }}>
       <Grid container display="flex" sx={{ flexDirection: "column" }}>
-        <Typography variant="h5">Order history</Typography>
+        <Typography variant="h5">{t("order-history")}</Typography>
         {ordersData.orders && ordersData.orders.length > 0 ? (
           <>
             {ordersData.orders &&
@@ -49,7 +51,7 @@ export default function OrderHistoryPage() {
             />
           </>
         ) : (
-          <EmptyTemplate pageText="You have no orders right now" />
+          <EmptyTemplate pageText={t("no-orders")} />
         )}
       </Grid>
     </Container>

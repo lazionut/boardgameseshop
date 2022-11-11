@@ -7,7 +7,6 @@ import { Constants } from "../constants/Constants";
 const CostumerAuthenticatedRoute = ({ children }: any) => {
   const authToken: string | null = localStorage.getItem("token");
   let accountDecoded: { [key: string]: any } | null = null;
-
   if (authToken !== null) {
     accountDecoded = jwt_decode(authToken);
   }

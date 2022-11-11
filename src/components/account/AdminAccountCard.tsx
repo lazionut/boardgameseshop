@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Grid, Card, ListItem, Button } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 import ConfirmationDialog from "../common/ConfirmationDialog";
 import sendDataService from "../../services/sendDataService";
@@ -16,6 +17,7 @@ interface AdminAccountProps {
 
 export default function AdminAccountCard({ account }: AdminAccountProps) {
   const authToken: string | null = localStorage.getItem("token");
+  const {t} = useTranslation();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -56,12 +58,12 @@ export default function AdminAccountCard({ account }: AdminAccountProps) {
             color="error"
             onClick={() => setIsOpen(true)}
           >
-            Delete account
+            {t("delete-account")}
           </Button>
           <ConfirmationDialog
-            title="Confirm delete"
-            content="This action can`t be reverted so make sure that you proceed carefully."
-            deleteAlertText="Account succesfully deleted"
+            title={t("confirm-delete")}
+            content={`${t("account-deleted")}.`}
+            deleteAlertText={t("account-deleted-message")}
             onClick={() => handleDeleteAccount(account.id)}
             isOpen={isOpen}
             setIsOpen={setIsOpen}

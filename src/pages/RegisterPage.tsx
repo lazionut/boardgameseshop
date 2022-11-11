@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import {
-  Alert,
   Autocomplete,
-  Avatar,
   Box,
   Button,
   Container,
@@ -12,6 +10,7 @@ import {
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import {
   emailFieldRule,
@@ -29,6 +28,7 @@ import { Countries } from "../constants/Countries";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const {
@@ -82,14 +82,14 @@ export default function RegisterPage() {
               marginTop: 2,
             }}
           >
-            <Typography variant="h5">Sign up</Typography>
+            <Typography variant="h5">{t("sign-up")}</Typography>
             <Grid container spacing={"2%"} sx={{ mt: "3%" }}>
               <Grid item xs={12} sm={6}>
                 <TextField
                   type="text"
                   fullWidth
                   autoFocus
-                  label="First Name *"
+                  label={`${t("first-name")} *`}
                   error={!!errors["first-name"]}
                   helperText={
                     errors["first-name"]?.message !== undefined &&
@@ -102,7 +102,7 @@ export default function RegisterPage() {
                 <TextField
                   type="text"
                   fullWidth
-                  label="Last Name *"
+                  label={`${t("last-name")} *`}
                   error={!!errors["last-name"]}
                   helperText={
                     errors["last-name"]?.message !== undefined &&
@@ -115,7 +115,7 @@ export default function RegisterPage() {
                 <TextField
                   type="text"
                   fullWidth
-                  label="Street *"
+                  label={`${t("street")} *`}
                   error={!!errors["details"]}
                   helperText={
                     errors["details"]?.message !== undefined &&
@@ -128,26 +128,26 @@ export default function RegisterPage() {
                 <TextField
                   type="text"
                   fullWidth
+                  label={`${t("city")} *`}
                   error={!!errors["city"]}
                   helperText={
                     errors["city"]?.message !== undefined &&
                     String(errors["city"]?.message)
                   }
                   {...register("city", { ...requiredFieldRule })}
-                  label="City *"
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   type="text"
                   fullWidth
+                  label={`${t("county")} *`}
                   error={!!errors["county"]}
                   helperText={
                     errors["county"]?.message !== undefined &&
                     String(errors["county"]?.message)
                   }
                   {...register("county", { ...requiredFieldRule })}
-                  label="County *"
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -177,7 +177,7 @@ export default function RegisterPage() {
                       {...params}
                       type="text"
                       fullWidth
-                      label="Country *"
+                      label={`${t("country")} *`}
                       error={!!errors["country"]}
                       helperText={
                         errors["country"]?.message !== undefined &&
@@ -192,7 +192,7 @@ export default function RegisterPage() {
                 <TextField
                   type="text"
                   fullWidth
-                  label="Phone *"
+                  label={`${t("phone")} *`}
                   error={!!errors["phone"]}
                   helperText={
                     errors["phone"]?.message !== undefined &&
@@ -224,7 +224,7 @@ export default function RegisterPage() {
                 <TextField
                   type="password"
                   fullWidth
-                  label="Password *"
+                  label={`${t("password")} *`}
                   error={!!errors["password"]}
                   helperText={PASSWORD_MESSAGE}
                   {...register("password", {
@@ -237,7 +237,7 @@ export default function RegisterPage() {
                 <TextField
                   type="password"
                   fullWidth
-                  label="Confirm password *"
+                  label={`${t("confirm-password")} *`}
                   error={!!errors["confirm-password"]}
                   helperText={
                     errors["confirm-password"]?.message !== undefined &&
@@ -247,7 +247,7 @@ export default function RegisterPage() {
                     ...requiredFieldRule,
                     validate: (passwordValue: string) => {
                       if (watch("password") !== passwordValue) {
-                        return "Your passwords do no match";
+                        return `${t("match-passwords")}`;
                       }
                     },
                   })}
@@ -261,11 +261,11 @@ export default function RegisterPage() {
               size="medium"
               sx={{ mt: "5%", mb: "3%" }}
             >
-              Sign up
+              {t("sign-up")}
             </Button>
             <Grid container justifyContent="flex-end" mb={"5%"}>
               <Grid item>
-                <Link to={"/login"}>Having an account already? Sign in</Link>
+                <Link to={"/login"}>{t("having-account")}</Link>
               </Grid>
             </Grid>
           </Box>
@@ -273,7 +273,7 @@ export default function RegisterPage() {
       </form>
       {showAlert === true && (
         <NotificationToast
-          toastText="Please choose a different email"
+          toastText={t("different-email")}
           isSuccessful={false}
         />
       )}

@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, CardHeader, IconButton, Modal } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 import AdminCategoryTemplate from "./AdminCategoryTemplate";
 import { IoClose } from "react-icons/io5";
@@ -18,6 +19,8 @@ export default function AdminCategoryModal({
   setIsOpen,
   category,
 }: EditCategoryModalProps) {
+  const {t} = useTranslation();
+
   return (
     <Modal hideBackdrop open={isOpen} onClose={() => setIsOpen(false)}>
       <Box
@@ -43,11 +46,11 @@ export default function AdminCategoryModal({
           }
         />
         {category === undefined ? (
-          <AdminCategoryTemplate templateName="Create category" />
+          <AdminCategoryTemplate templateName={t("create-category")} />
         ) : (
           <AdminCategoryTemplate
             category={category}
-            templateName="Edit category"
+            templateName={t("edit-category")} 
           />
         )}
       </Box>

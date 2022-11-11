@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Card, Grid, IconButton, Rating, Typography } from "@mui/material";
+import { Box, Card, Grid, IconButton, Typography } from "@mui/material";
 import jwt_decode from "jwt-decode";
 import { MdDelete } from "react-icons/md";
 
@@ -25,7 +25,6 @@ interface ReviewCardProps {
 export default function ReviewCard({ review }: ReviewCardProps) {
   const authToken: string | null = localStorage.getItem("token");
   let accountDecoded: { [key: string]: any } | null = null;
-
   if (authToken !== null) {
     accountDecoded = jwt_decode(authToken);
   }

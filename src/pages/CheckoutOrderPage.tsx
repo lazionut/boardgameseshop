@@ -10,19 +10,20 @@ import {
   Button,
 } from "@mui/material";
 import { useLocation } from "react-router-dom";
+import { GiMeepleKing } from "react-icons/gi";
+import { useTranslation } from "react-i18next";
 
 import PaymentShippingDetails from "../components/order/checkout/PaymentShippingDetails";
 import AddressDetailsForm from "../components/order/checkout/AddressDetailsForm";
 import ReviewDetails from "../components/order/checkout/ReviewDetails";
 import { useCartContext } from "../context/CartContext";
 import sendDataService from "../services/sendDataService";
-import { GiMeepleKing } from "react-icons/gi";
-import { Configs } from "../constants/Configs";
 
 export default function CheckoutOrderPage() {
   const { state } = useLocation();
   const { clearCart, cartItems } = useCartContext();
   const authToken: string | null = localStorage.getItem("token");
+  const { t } = useTranslation();
 
   const [activeStep, setActiveStep] = useState<number>(0);
   const [orderId, setOrderId] = useState<number | undefined>();
@@ -38,9 +39,9 @@ export default function CheckoutOrderPage() {
   };
 
   const steps = [
-    "Shipping address",
-    "Payment and shipping details",
-    "Review your order",
+    `${t("shipping-address")}`,
+    `${t("payment-and-shipping-details")}`,
+    `${t("review-order")}`,
   ];
 
   function getStepContent(step: number) {
@@ -108,7 +109,7 @@ export default function CheckoutOrderPage() {
         }}
       >
         <Typography component="h1" variant="h4" align="center">
-          Checkout
+          {t("checkout")}
         </Typography>
         <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
           {steps.map((label) => (
@@ -124,15 +125,15 @@ export default function CheckoutOrderPage() {
                 <>
                   <GiMeepleKing size={75} />
                   <Typography variant="h5" gutterBottom>
-                    Thank you for your order!
+                    {t("thanks-order")}!
                   </Typography>
                   <Typography variant="subtitle1">
-                    Your order number is #{orderId}.
+                  {t("order-number")} #{orderId}.
                   </Typography>
                 </>
               ) : (
                 <Typography color="red" variant="h5">
-                  There is not enough stock for one of your ordered boardgames!
+                  {t("no-enough-stock")}!
                 </Typography>
               )}
             </>
@@ -142,7 +143,7 @@ export default function CheckoutOrderPage() {
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                 {activeStep !== 0 && (
                   <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
-                    Back
+                    {t("back")}
                   </Button>
                 )}
                 {activeStep !== steps.length - 1 ? (
@@ -151,7 +152,7 @@ export default function CheckoutOrderPage() {
                     onClick={handleNext}
                     sx={{ mt: 3, ml: 1 }}
                   >
-                    Next
+                    {t("next")}
                   </Button>
                 ) : (
                   <Button
@@ -159,7 +160,7 @@ export default function CheckoutOrderPage() {
                     onClick={() => handleNext()}
                     sx={{ mt: 3, ml: 1 }}
                   >
-                    Place order
+                    {t("place-order")}
                   </Button>
                 )}
               </Box>

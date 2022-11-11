@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { List, Typography } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 import useFetchData from "../hooks/useFetchData";
 import { Constants } from "../constants/Constants";
@@ -7,6 +8,7 @@ import PaginationOutlined from "../components/common/PaginationOutlined";
 import AdminAccountCard from "../components/account/AdminAccountCard";
 
 export default function AdminAccountsPage() {
+  const {t} = useTranslation();
   const authToken: string | null = localStorage.getItem("token");
 
   const [pageIndex, setPageIndex] = useState<number>(
@@ -34,7 +36,7 @@ export default function AdminAccountsPage() {
         <>
           <List>
             <Typography variant="h5" sx={{ mb: "3%", mt: "1%" }}>
-              Accounts
+              {t("accounts")}
             </Typography>
             {accountsData.accounts.map((account: any) => (
               <AdminAccountCard key={account.id} account={account} />

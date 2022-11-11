@@ -11,6 +11,8 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
+
 import { ORDER_STATUS_OPTIONS } from "../../constants/Constants";
 import sendDataService from "../../services/sendDataService";
 import { Configs } from "../../constants/Configs";
@@ -25,6 +27,7 @@ export default function OrderDialog({
   currentOrderStatus,
 }: OrderDialogProps) {
   const authToken: string | null = localStorage.getItem("token");
+  const { t } = useTranslation();
 
   const [orderStatus, setOrderStatus] = useState<number>(0);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -47,11 +50,11 @@ export default function OrderDialog({
   return (
     <div>
       <Button variant="contained" onClick={() => setIsOpen(true)}>
-        Change status
+        {t("change-status")}
       </Button>
       <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
         <Box sx={{ bgcolor: "common.customLightYellow" }}>
-          <DialogTitle>Select order status</DialogTitle>
+          <DialogTitle>{t("select-order-status")}</DialogTitle>
           <DialogContent>
             <Box
               noValidate
@@ -87,7 +90,7 @@ export default function OrderDialog({
           <DialogActions>
             <Button onClick={() => setIsOpen(false)}>Close</Button>
             <Button onClick={() => handleStatusSubmit(orderStatus)}>
-              Submit
+              {t("submit")}
             </Button>
           </DialogActions>
         </Box>

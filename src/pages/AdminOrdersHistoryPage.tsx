@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Container, Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig } from "axios";
+import { useTranslation } from "react-i18next";
 
 import useFetchData from "../hooks/useFetchData";
 import { Constants } from "../constants/Constants";
@@ -9,6 +10,7 @@ import OrderHistoryCard from "../components/order/OrderHistoryCard";
 
 export default function AdminOrdersHistoryPage() {
   const authToken: string | null = localStorage.getItem("token");
+  const { t } = useTranslation();
 
   const [pageIndex, setPageIndex] = useState<number>(
     Constants.DEFAULT_PAGE_INDEX
@@ -32,7 +34,7 @@ export default function AdminOrdersHistoryPage() {
   return (
     <Container sx={{ mb: { xs: "5%", md: "auto" }, mt: "3%" }}>
       <Grid container display="flex" sx={{ flexDirection: "column" }}>
-        <Typography variant="h5">Order history</Typography>
+        <Typography variant="h5">{t("order-history")}</Typography>
         {ordersData.orders &&
           ordersData.orders.map((order: any) => (
             <OrderHistoryCard key={order.id} order={order} />

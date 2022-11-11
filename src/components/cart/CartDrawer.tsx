@@ -13,6 +13,7 @@ import { IoClose } from "react-icons/io5";
 
 import { useCartContext } from "../../context/CartContext";
 import { CartItem } from "./CartItem";
+import { useTranslation } from "react-i18next";
 
 interface CartProps {
   isOpen: boolean;
@@ -21,6 +22,8 @@ interface CartProps {
 export default function CartDrawer({ isOpen }: CartProps) {
   const navigate = useNavigate();
   const { closeCart, cartItems } = useCartContext();
+  const { t } = useTranslation();
+
   const [localCartItems, setLocalCartItems] = useState<any>([{}]);
 
   const cartTotal = cartItems.reduce((total, cartItem) => {
@@ -68,10 +71,10 @@ export default function CartDrawer({ isOpen }: CartProps) {
               </IconButton>
             </Box>
             <Typography variant="h4" mb="7%">
-              Cart
+              {t("cart")}
             </Typography>
             {cartItems.length === 0 ? (
-              <Typography variant="h5">No items in cart.</Typography>
+              <Typography variant="h5">{t("empty-cart")}.</Typography>
             ) : (
               <>
                 {cartItems.map((item) => (
@@ -93,7 +96,7 @@ export default function CartDrawer({ isOpen }: CartProps) {
                       });
                     }}
                   >
-                    Proceed to checkout
+                    {t("proceed-checkout")}
                   </Button>
                 </Box>
               </>

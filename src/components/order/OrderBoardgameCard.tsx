@@ -8,6 +8,7 @@ import {
   Divider,
 } from "@mui/material";
 import jwt_decode from "jwt-decode";
+import { useTranslation } from "react-i18next";
 
 import useFetchData from "../../hooks/useFetchData";
 
@@ -25,10 +26,10 @@ export default function OrderBoardgameCard({
 }: OrderBoardgameCardProps) {
   const authToken: string | null = localStorage.getItem("token");
   let accountDecoded: { [key: string]: any } | null = null;
-
   if (authToken !== null) {
     accountDecoded = jwt_decode(authToken);
   }
+  const {t} = useTranslation();
 
   const imageType: any = "arraybuffer";
 
@@ -71,8 +72,10 @@ export default function OrderBoardgameCard({
           </Typography>
         </Box>
         <Box>
-          <Typography mb={"5%"}>Quantity: {boardgame.quantity}</Typography>
-          <Chip variant="outlined" label={`Price: ${boardgame.price}`} />
+          <Typography mb={"5%"}>
+            {t("quantity")}: {boardgame.quantity}
+          </Typography>
+          <Chip variant="outlined" label={`${t("price")}: ${boardgame.price} RON`} />
         </Box>
       </CardActions>
       <Divider />

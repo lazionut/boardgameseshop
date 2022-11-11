@@ -6,14 +6,17 @@ import {
   FormControlLabel,
   Radio,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 export default function PaymentShippingDetails() {
+  const { t } = useTranslation();
+
   return (
     <div>
       <Grid container spacing={"5%"} flexDirection="column">
         <Grid item justifyContent="center">
           <Typography variant="h6" gutterBottom>
-            Payment details
+            {t("payment-details")}
           </Typography>
         </Grid>
         <Grid item xs={12} justifyContent="flex-start">
@@ -22,7 +25,7 @@ export default function PaymentShippingDetails() {
               <FormControl>
                 <FormControlLabel
                   control={<Radio checked={true} />}
-                  label="Pay cash"
+                  label={t("pay-cash")}
                 />
               </FormControl>
             </Grid>
@@ -32,17 +35,17 @@ export default function PaymentShippingDetails() {
       <Grid container spacing={"5%"} flexDirection="column" mt="5%">
         <Grid item justifyContent="center">
           <Typography variant="h6" gutterBottom>
-            Shipping details
+            {t("shipping-details")}
           </Typography>
         </Grid>
         <Grid item xs={12} justifyContent="flex-start">
-          <Typography> Shipping cost: Free</Typography>
+          <Typography>{t("shipping-cost")}</Typography>
           <Typography>
             <Grid item>
               <FormControl>
                 <FormControlLabel
                   control={<Radio checked={true} />}
-                  label="Delivery by courier"
+                  label={t("delivery-by-courier")}
                 />
               </FormControl>
             </Grid>

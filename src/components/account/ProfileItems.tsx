@@ -1,5 +1,6 @@
 import React from "react";
 import { Grid, TextField, Typography } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 interface ProfileItemsProps {
   firstName: string;
@@ -12,11 +13,13 @@ export default function ProfileItems({
   lastName,
   email,
 }: ProfileItemsProps) {
+  const { t } = useTranslation();
+
   return (
     <>
       <Grid item xs={12}>
         <Typography variant="h6" align="justify">
-          Profile:
+          {t("profile")}:
         </Typography>
       </Grid>
       <Grid item xs={12} sm={6}>
@@ -28,7 +31,7 @@ export default function ProfileItems({
           }}
           value={firstName}
           fullWidth
-          label="First Name *"
+          label={`${t("first-name")} *`}
         />
       </Grid>
       <Grid item xs={12} sm={6}>
@@ -40,7 +43,7 @@ export default function ProfileItems({
           }}
           value={lastName}
           fullWidth
-          label="Last Name *"
+          label={`${t("last-name")} *`}
         />
       </Grid>
       <Grid item xs={12}>

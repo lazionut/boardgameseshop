@@ -10,7 +10,7 @@ import {
 import Container from "@mui/material/Container";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { phoneFieldRule, requiredFieldRule } from "../constants/Rules";
+import { useTranslation } from "react-i18next";
 
 import NavigateBackButton from "../components/common/NavigateBackButton";
 import { Configs } from "../constants/Configs";
@@ -18,12 +18,14 @@ import sendDataService from "../services/sendDataService";
 import { NotificationToast } from "../components/common/NotificationToast";
 import { Countries } from "../constants/Countries";
 import { getCurrentCountryCode } from "../utils/Utilities";
+import { phoneFieldRule, requiredFieldRule } from "../constants/Rules";
 
 export default function EditAddressPage() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const authToken: string | null = localStorage.getItem("token");
   //const countryCode: string = getCurrentCountryCode();
+  const { t } = useTranslation();
 
   const [shownStreet, setShownStreet] = useState<string | undefined>(
     state?.details
@@ -111,7 +113,7 @@ export default function EditAddressPage() {
                   value={shownStreet}
                   fullWidth
                   autoFocus
-                  label="Street *"
+                  label={`${t("street")} *`}
                   error={!!errors["street"]}
                   helperText={
                     errors["street"]?.message !== undefined &&
@@ -127,13 +129,13 @@ export default function EditAddressPage() {
                   variant="filled"
                   value={shownCity}
                   fullWidth
+                  label={`${t("city")} *`}
                   error={!!errors["city"]}
                   helperText={
                     errors["city"]?.message !== undefined &&
                     String(errors["city"]?.message)
                   }
                   {...register("city", { ...requiredFieldRule })}
-                  label="City *"
                   onChange={(e) => setShownCity(e.target.value)}
                 />
               </Grid>
@@ -143,13 +145,13 @@ export default function EditAddressPage() {
                   variant="filled"
                   value={shownCounty}
                   fullWidth
+                  label={`${t("county")} *`}
                   error={!!errors["county"]}
                   helperText={
                     errors["county"]?.message !== undefined &&
                     String(errors["county"]?.message)
                   }
                   {...register("county", { ...requiredFieldRule })}
-                  label="County *"
                   onChange={(e) => setShownCounty(e.target.value)}
                 />
               </Grid>
@@ -184,7 +186,7 @@ export default function EditAddressPage() {
                       variant="filled"
                       value={shownCountry}
                       fullWidth
-                      label="Country *"
+                      label={`${t("country")} *`}
                       error={!!errors["country"]}
                       helperText={
                         errors["country"]?.message !== undefined &&
@@ -202,7 +204,7 @@ export default function EditAddressPage() {
                   variant="filled"
                   value={shownPhone}
                   fullWidth
-                  label="Phone *"
+                  label={`${t("phone")} *`}
                   error={!!errors["phone"]}
                   helperText={
                     errors["phone"]?.message !== undefined &&
@@ -223,7 +225,7 @@ export default function EditAddressPage() {
                   size="medium"
                   sx={{ width: "25%", mt: "3%" }}
                 >
-                  Submit
+                  {t("submit")}
                 </Button>
               </Grid>
             </Grid>
@@ -232,7 +234,7 @@ export default function EditAddressPage() {
       </form>
       {showAlert === true && (
         <NotificationToast
-          toastText="Address couldn't be updated"
+          toastText={t("updated-address-error")}
           isSuccessful={false}
         />
       )}

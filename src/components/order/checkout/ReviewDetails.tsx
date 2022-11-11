@@ -1,5 +1,6 @@
 import React from "react";
 import { Typography, List, ListItem, ListItemText, Grid } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 import { useCartContext } from "../../../context/CartContext";
 import ReviewDetailItem from "./ReviewDetailItem";
@@ -15,6 +16,7 @@ export default function ReviewDetails({
   orderName,
   orderAddress,
 }: ReviewDetailsProps) {
+  const { t } = useTranslation();
   const { cartItems } = useCartContext();
 
   const cartTotal = cartItems.reduce((total, cartItem) => {
@@ -34,7 +36,7 @@ export default function ReviewDetails({
   return (
     <>
       <Typography variant="h5" gutterBottom>
-        Order summary
+        {t("order-summary")}
       </Typography>
       <List disablePadding>
         {cartItems.map((cartItem) => (
@@ -50,26 +52,26 @@ export default function ReviewDetails({
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
-            Shipping
+            {t("shipping-address")}
           </Typography>
           <Typography gutterBottom>{orderName}</Typography>
           <Typography gutterBottom>{orderAddress}</Typography>
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
-            Payment details
+            {t("payment-details")}
           </Typography>
           <Grid container justifyContent="center">
             <Grid item>
-              <Typography gutterBottom>Pay cash</Typography>
+              <Typography gutterBottom>{t("pay-cash")}</Typography>
             </Grid>
           </Grid>
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
-            Shipping details
+            {t("shipping-details")}
           </Typography>
           <Grid container justifyContent="center">
             <Grid item>
-              <Typography gutterBottom>Delivery by courier</Typography>
+              <Typography gutterBottom> {t("delivery-by-courier")}</Typography>
             </Grid>
           </Grid>
         </Grid>

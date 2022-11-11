@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import {
-  Box,
   Card,
   CardActionArea,
   CardActions,
@@ -11,6 +10,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
+import { useTranslation } from "react-i18next";
 
 import { stockDefiner } from "../../utils/Utilities";
 import { useCartContext } from "../../context/CartContext";
@@ -41,11 +41,10 @@ export default function BoardgameCard({ boardgame }: Boardgame) {
   const navigate = useNavigate();
   const authToken: string | null = localStorage.getItem("token");
   let accountDecoded: { [key: string]: any } | null = null;
-
   if (authToken !== null) {
     accountDecoded = jwt_decode(authToken);
   }
-
+  const { t } = useTranslation();
   const { increaseCartItemQuantity } = useCartContext();
   const { addWishlistItem } = useWishlistContext();
 
@@ -142,7 +141,7 @@ export default function BoardgameCard({ boardgame }: Boardgame) {
             <Typography variant="h6">
               {accountDecoded?.Role !== "Admin"
                 ? stockDefiner(boardgame.quantity)
-                : "Quantity: " + boardgame.quantity}
+                : `${t("quantity")}: ` + boardgame.quantity}
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -163,14 +162,14 @@ export default function BoardgameCard({ boardgame }: Boardgame) {
               }
             }}
           >
-            Add to wishlist
+            {t("add-to-wishlist")}
           </Button>
           <Button
             size="large"
             sx={{ mt: "5%" }}
             onClick={() => increaseCartItemQuantity(boardgame.id)}
           >
-            Add to cart
+            {t("add-to-cart")}
           </Button>
         </CardActions>
       </Card>

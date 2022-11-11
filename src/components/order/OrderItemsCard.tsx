@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import jwt_decode from "jwt-decode";
+import { useTranslation } from "react-i18next";
 
 import { orderStatusDefiner, trimDateTime } from "../../utils/Utilities";
 import OrderBoardgameCard from "./OrderBoardgameCard";
@@ -35,10 +36,10 @@ interface OrderItem {
 export default function OrderItemsCard({ order }: OrderItem) {
   const authToken: string | null = localStorage.getItem("token");
   let accountDecoded: { [key: string]: any } | null = null;
-
   if (authToken !== null) {
     accountDecoded = jwt_decode(authToken);
   }
+  const { t } = useTranslation();
 
   return (
     <Card
@@ -70,10 +71,10 @@ export default function OrderItemsCard({ order }: OrderItem) {
         >
           <Box display="flex" flexDirection="column" alignItems="flex-start">
             <Typography> {order.fullName}</Typography>
-            <Typography>Address: </Typography>
+            <Typography>{t("address")}: </Typography>
             <Typography> {order.address}</Typography>
             <Typography mt={"5%"}>
-              Ordered on: {trimDateTime(order.creationDate)}
+              {t("ordered-at")}: {trimDateTime(order.creationDate)}
             </Typography>
             <Chip
               variant="outlined"

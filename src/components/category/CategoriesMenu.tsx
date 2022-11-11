@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
-import { Box, IconButton, makeStyles, Menu, Paper, Theme } from "@mui/material";
+import { Box, IconButton, Menu } from "@mui/material";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { AxiosRequestConfig } from "axios";
 import jwt_decode from "jwt-decode";
 import { AiFillPlusSquare } from "react-icons/ai";
+import { useTranslation } from "react-i18next";
 
 import useFetchData from "../../hooks/useFetchData";
 import CategoryMenuItem from "./CategoryMenuItem";
@@ -14,10 +15,10 @@ import { Constants } from "../../constants/Constants";
 export default function CategoriesMenu() {
   const authToken: string | null = localStorage.getItem("token");
   let accountDecoded: { [key: string]: any } | null = null;
-
   if (authToken !== null) {
     accountDecoded = jwt_decode(authToken);
   }
+  const { t } = useTranslation();
 
   const [anchorElement, setAnchorElement] = useState<null | HTMLElement>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -58,7 +59,7 @@ export default function CategoriesMenu() {
         }}
         onClick={handleClick}
       >
-        Categories
+        {t("categories")}
         <MdKeyboardArrowDown size={20} style={{ verticalAlign: "middle" }} />
       </Button>
       <Menu anchorEl={anchorElement} open={open} onClose={handleClose}>
@@ -68,7 +69,7 @@ export default function CategoriesMenu() {
           </IconButton>
         )}
         {categories.map((category: any) => (
-          <CategoryMenuItem category={category} />
+          <CategoryMenuItem key={category} category={category} />
         ))}
       </Menu>
       <AdminCategoryModal isOpen={isOpen} setIsOpen={setIsOpen} />

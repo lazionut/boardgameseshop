@@ -20,6 +20,7 @@ import useFetchData from "../../hooks/useFetchData";
 import sendDataService from "../../services/sendDataService";
 import { Configs } from "../../constants/Configs";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 interface AdminBoardgameTemplateProps {
   blobImage?: Blob;
@@ -49,6 +50,7 @@ export default function AdminBoardgameTemplate({
 }: AdminBoardgameTemplateProps) {
   const navigate = useNavigate();
   const authToken: string | null = localStorage.getItem("token");
+  const { t } = useTranslation();
 
   const [file, setFile] = useState<Blob | undefined>(blobImage);
   const [fileName, setFileName] = useState<string | null | undefined>(
@@ -235,13 +237,13 @@ export default function AdminBoardgameTemplate({
                 justifyContent="center"
               >
                 <Button variant="contained" component="label">
-                  <Typography>Choose image</Typography>
+                  <Typography>{t("choose-image")}</Typography>
                   <input type="file" onChange={handleBrowseFile} hidden />
                 </Button>
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  label="Image"
+                  label={t("image")}
                   value={fileName ? fileName : boardgame?.image}
                   fullWidth
                   variant="outlined"
@@ -253,7 +255,7 @@ export default function AdminBoardgameTemplate({
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  label="Name *"
+                  label={`${t("name")} *`}
                   value={name}
                   fullWidth
                   autoFocus
@@ -273,7 +275,7 @@ export default function AdminBoardgameTemplate({
                 <TextField
                   type="number"
                   value={price}
-                  label="Price *"
+                  label={`${t("price")} *`}
                   fullWidth
                   variant="outlined"
                   error={!!errors["price"]}
@@ -294,7 +296,7 @@ export default function AdminBoardgameTemplate({
                 <TextField
                   type="number"
                   value={releaseYear}
-                  label="Release year *"
+                  label={`${t("release-year")} *`}
                   fullWidth
                   variant="outlined"
                   error={!!errors["release-year"]}
@@ -314,7 +316,7 @@ export default function AdminBoardgameTemplate({
                   type="text"
                   variant="outlined"
                   value={description}
-                  label="Description"
+                  label={`${t("description")} *`}
                   multiline
                   rows="5"
                   fullWidth
@@ -349,7 +351,7 @@ export default function AdminBoardgameTemplate({
                   variant="outlined"
                   value={quantity}
                   fullWidth
-                  label="Quantity *"
+                  label={`${t("quantity")} *`}
                   error={!!errors["quantity"]}
                   helperText={
                     errors["quantity"]?.message !== undefined &&
@@ -381,7 +383,7 @@ export default function AdminBoardgameTemplate({
                       type="text"
                       variant="outlined"
                       fullWidth
-                      label="Category *"
+                      label={`${t("category")} *`}
                       error={!!errors["category"]}
                       helperText={
                         errors["category"]?.message !== undefined &&
@@ -396,7 +398,7 @@ export default function AdminBoardgameTemplate({
               </Grid>
               <Grid item xs={12} display="flex" justifyContent="center">
                 <Button type="submit" variant="contained" sx={{ mb: "3%" }}>
-                  Submit
+                  {t("submit")}
                 </Button>
               </Grid>
             </Grid>

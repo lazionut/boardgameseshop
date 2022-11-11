@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Container, Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig } from "axios";
+import { useTranslation } from "react-i18next";
 
 import WishlistCard from "../components/wishlist/WishlistCard";
 import useFetchData from "../hooks/useFetchData";
@@ -8,6 +9,7 @@ import EmptyTemplate from "../components/common/EmptyTemplate";
 
 export default function WishlistsPage() {
   const authToken: string | null = localStorage.getItem("token");
+  const { t } = useTranslation();
 
   const wishlistsRequestConfig: AxiosRequestConfig = {
     url: "/accounts/wishlists",
@@ -33,7 +35,7 @@ export default function WishlistsPage() {
         }}
       >
         <Grid item>
-          <Typography variant="h5">My wishlists</Typography>
+          <Typography variant="h5">{t("my-wishlists")}</Typography>
         </Grid>
       </Grid>
       <Grid
@@ -55,7 +57,7 @@ export default function WishlistsPage() {
               ))}
             </>
           ) : (
-            <EmptyTemplate pageText="You have no wishlists right now" />
+            <EmptyTemplate pageText={t("no-wishlists")} />
           )}
         </>
       </Grid>

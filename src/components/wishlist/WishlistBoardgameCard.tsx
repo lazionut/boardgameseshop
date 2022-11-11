@@ -1,6 +1,7 @@
 import React from "react";
-import { Grid, Box, Typography, Button, CircularProgress } from "@mui/material";
+import { Grid, Box, Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { stockDefiner } from "../../utils/Utilities";
 import useFetchData from "../../hooks/useFetchData";
@@ -20,6 +21,8 @@ export function WishlistBoardgameCard({
   boardgame,
 }: WishlistBoardgameCardProps) {
   const navigate = useNavigate();
+
+  const {t} = useTranslation();
 
   const imageType: any = "arraybuffer";
 
@@ -70,7 +73,7 @@ export function WishlistBoardgameCard({
         size="small"
         onClick={() => navigate(`/boardgames/${boardgame.id}`)}
       >
-        View details
+        {t("view-details")}
       </Button>
     </Grid>
   );

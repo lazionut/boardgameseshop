@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Container, Grid, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import { requiredFieldRule } from "../../constants/Rules";
 import sendDataService from "../../services/sendDataService";
@@ -19,6 +20,7 @@ export default function AdminCategoryTemplate({
   category,
 }: CategoryAdminTemplateProps) {
   const authToken: string | null = localStorage.getItem("token");
+  const { t } = useTranslation();
 
   const [name, setName] = useState<string | undefined>(category?.name);
 
@@ -75,7 +77,7 @@ export default function AdminCategoryTemplate({
         <Grid container spacing={3} maxWidth="sm">
           <Grid item xs={12}>
             <TextField
-              label="Name *"
+              label={`${t("name")} *`}
               value={name}
               autoFocus
               fullWidth
@@ -93,7 +95,7 @@ export default function AdminCategoryTemplate({
           </Grid>
           <Grid item xs={12}>
             <Button type="submit" variant="contained" sx={{ mb: "3%" }}>
-              Submit
+              {t("submit")}
             </Button>
           </Grid>
         </Grid>

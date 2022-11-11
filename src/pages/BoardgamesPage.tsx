@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button, Grid, Typography } from "@mui/material";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import { AxiosRequestConfig } from "axios";
 import jwt_decode from "jwt-decode";
 import { AiFillPlusSquare } from "react-icons/ai";
+import { useTranslation } from "react-i18next";
 
 import useFetchData from "../hooks/useFetchData";
 import BoardgameCard from "../components/boardgame/BoardgameCard";
@@ -22,10 +23,10 @@ export default function BoardgamesPage() {
   const { state } = useLocation();
   const authToken: string | null = localStorage.getItem("token");
   let accountDecoded: { [key: string]: any } | null = null;
-
   if (authToken !== null) {
     accountDecoded = jwt_decode(authToken);
   }
+  const { t } = useTranslation();
 
   const [pageIndex, setPageIndex] = useState<number>(
     Constants.DEFAULT_PAGE_INDEX
@@ -81,7 +82,7 @@ export default function BoardgamesPage() {
               >
                 <Button variant="contained" onClick={() => setIsOpen(true)}>
                   <AiFillPlusSquare size={30} />
-                  <Typography sx={{ ml: 1.5 }}>Add boardgame</Typography>
+                  <Typography sx={{ ml: 1.5 }}>{t("add-boardgame")}</Typography>
                 </Button>
               </Grid>
             )}
@@ -132,36 +133,36 @@ export default function BoardgamesPage() {
           />
         </div>
       ) : (
-        <EmptyTemplate pageText="No boardgames exist here" />
+        <EmptyTemplate pageText={t("no-boardgames")} />
       )}
       <AdminBoardgameModal isOpen={isOpen} setIsOpen={setIsOpen} />
       {state?.isLoggedIn === true && (
         <NotificationToast
-          toastText="Succesfully logged in"
+          toastText={t("successfully-logged-in")}
           isSuccessful={true}
         />
       )}
       {state?.isLoggedOut === true && (
         <NotificationToast
-          toastText="Succesfully logged out"
+          toastText={t("successfully-logged-out")}
           isSuccessful={true}
         />
       )}
       {state?.isSuccessfullyCreated === true && (
         <NotificationToast
-          toastText="Boardgame succesfully created"
+          toastText={t("boardgame-succesfully-created")}
           isSuccessful={true}
         />
       )}
       {state?.isSuccessfullyEdited === true && (
         <NotificationToast
-          toastText="Boardgame succesfully edited"
+          toastText={t("boardgame-succesfully-edited")}
           isSuccessful={true}
         />
       )}
       {state?.isSuccessfullyDeleted === true && (
         <NotificationToast
-          toastText="Boardgame succesfully deleted"
+          toastText={t("boardgame-succesfully-deleted")}
           isSuccessful={true}
         />
       )}

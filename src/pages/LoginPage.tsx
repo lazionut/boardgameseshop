@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  Alert,
   Avatar,
   Box,
   Button,
@@ -12,6 +11,7 @@ import {
 import { useForm } from "react-hook-form";
 import { IoMdLogIn } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { NotificationToast } from "../components/common/NotificationToast";
 import { emailFieldRule, requiredFieldRule } from "../constants/Rules";
@@ -22,7 +22,7 @@ import useTimeout from "../hooks/useTimeout";
 
 export default function LoginPage() {
   const navigate = useNavigate();
-
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -65,7 +65,7 @@ export default function LoginPage() {
             <Avatar sx={{ bgcolor: "primary.main" }}>
               <IoMdLogIn />
             </Avatar>
-            <Typography variant="h5">Sign in</Typography>
+            <Typography variant="h5">{t("sign-in")}</Typography>
             <Grid container spacing={"5%"} sx={{ mt: "5%" }}>
               <Grid item xs={12}>
                 <TextField
@@ -88,7 +88,7 @@ export default function LoginPage() {
                 <TextField
                   type="password"
                   fullWidth
-                  label="Password *"
+                  label={`${t("password")} *`}
                   error={!!errors["password"]}
                   helperText={
                     errors["password"]?.message !== undefined &&
@@ -107,13 +107,11 @@ export default function LoginPage() {
               size="medium"
               sx={{ mt: "5%", mb: "5%" }}
             >
-              Sign in
+              {t("sign-in")}
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link to={"/register"}>
-                  Don't have an account already? Sign up
-                </Link>
+                <Link to={"/register"}>{t("missing-account")}</Link>
               </Grid>
             </Grid>
           </Box>
@@ -121,7 +119,7 @@ export default function LoginPage() {
       </form>
       {showAlert === true && (
         <NotificationToast
-          toastText="Email or password are incorrect"
+          toastText={t("account-incorrect")}
           isSuccessful={false}
         />
       )}

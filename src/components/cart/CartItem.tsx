@@ -11,11 +11,12 @@ import {
 } from "@mui/material";
 import { AxiosRequestConfig } from "axios";
 import useFetchData from "../../hooks/useFetchData";
-
-import { useCartContext } from "../../context/CartContext";
 import { FaMinusCircle } from "react-icons/fa";
 import { BsPlusCircleFill } from "react-icons/bs";
 import { MdDelete } from "react-icons/md";
+import { useTranslation } from "react-i18next";
+
+import { useCartContext } from "../../context/CartContext";
 
 interface CartItemProps {
   id: number;
@@ -29,6 +30,7 @@ export function CartItem({
   localCartItems,
   setLocalCartItems,
 }: CartItemProps) {
+  const {t} = useTranslation();
   const {
     setCartItemQuantity,
     increaseCartItemQuantity,
@@ -132,7 +134,7 @@ export function CartItem({
         <Chip label={boardgameData.price + " RON"} sx={{ mb: "10%" }} />
         <Chip
           label={
-            "Price: " +
+            `${t("price")}: ` +
             (
               boardgameData.price * getCartItemQuantity(boardgameData.id)
             ).toFixed(2) +

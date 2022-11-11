@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Rating, styled, Typography } from "@mui/material";
 import { GiMeeple } from "react-icons/gi";
+import { useTranslation } from "react-i18next";
 
 interface RatingOptionsProps {
   ratingStars: number | null;
@@ -20,13 +21,15 @@ export default function RatingOptions({
   ratingStars,
   setRatingStars,
 }: RatingOptionsProps) {
+  const { t } = useTranslation();
+
   return (
     <Box
       sx={{
         "& > legend": { mt: "2%" },
       }}
     >
-      <Typography component="legend">Rate this game:</Typography>
+      <Typography component="legend">{t("rate-game")}:</Typography>
       <StyledRating
         value={ratingStars}
         onChange={(event, value) => {

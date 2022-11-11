@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, CardHeader, IconButton, Modal } from "@mui/material";
 import { IoClose } from "react-icons/io5";
+import { useTranslation } from "react-i18next";
 
 import AdminBoardgameTemplate from "./AdminBoardgameTemplate";
 
@@ -27,6 +28,8 @@ export default function AdminBoardgameModal({
   blobImage,
   boardgame,
 }: AdminBoardgameModalProps) {
+  const { t } = useTranslation();
+
   return (
     <Modal hideBackdrop open={isOpen} onClose={() => setIsOpen(false)}>
       <Box
@@ -52,12 +55,12 @@ export default function AdminBoardgameModal({
           }
         />
         {boardgame === undefined ? (
-          <AdminBoardgameTemplate templateName="Create boardgame" />
+          <AdminBoardgameTemplate templateName={t("add-boardgame")} />
         ) : (
           <AdminBoardgameTemplate
             blobImage={blobImage}
             boardgame={boardgame}
-            templateName="Edit boardgame"
+            templateName={t("edit-boardgame")}
           />
         )}
       </Box>

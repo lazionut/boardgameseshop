@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { IoClose } from "react-icons/io5";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import { requiredFieldRule } from "../../constants/Rules";
 import sendDataService from "../../services/sendDataService";
@@ -39,6 +40,7 @@ export default function EditWishlistModal({
   setIsOpen,
 }: EditWishlist) {
   const authToken: string | null = localStorage.getItem("token");
+  const { t } = useTranslation();
 
   const [localWishlistItems, setLocalWishlistItems] = useState(
     wishlist.boardgames
@@ -125,14 +127,14 @@ export default function EditWishlistModal({
               justifyContent: "center",
             }}
           >
-            <Typography variant="h4">Wishlist is empty.</Typography>
+            <Typography variant="h4">{t("empty-wishlist")}.</Typography>
           </Box>
         ) : (
           <form onSubmit={handleSubmit(handleFormSubmission)}>
             <Box justifyContent="center" display="flex" mb="3%">
               <TextField
                 variant="outlined"
-                label="Wishlist name *"
+                label={`${t("wishlist-name")} *`}
                 value={localWishlistName}
                 error={!!errors["wishlist-name"]}
                 helperText={
@@ -170,7 +172,7 @@ export default function EditWishlistModal({
               mt="3%"
             >
               <Button size="large" type="submit" variant="contained">
-                Submit
+                {t("submit")}
               </Button>
             </Box>
           </form>

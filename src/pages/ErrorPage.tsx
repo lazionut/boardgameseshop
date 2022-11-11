@@ -1,9 +1,11 @@
 import React from "react";
 import { Grid, Box, Button, Container, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function ErrorPage() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -26,15 +28,13 @@ export default function ErrorPage() {
               src={require("../assets/images/error_404.png")}
               alt="error image"
             />
-            <Typography variant="h6">
-              The page you`re looking for doesn`t exist
-            </Typography>
+            <Typography variant="h6">{t("error-page")}</Typography>
             <Button
               variant="contained"
               onClick={() => navigate("/")}
               sx={{ mt: "3%" }}
             >
-              Back Home
+              {t("back-home")}
             </Button>
           </Grid>
         </Grid>

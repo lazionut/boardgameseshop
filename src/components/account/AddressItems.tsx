@@ -1,5 +1,6 @@
 import React from "react";
 import { Grid, TextField, Typography } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 interface AddressItemsProps {
   street: string;
@@ -16,10 +17,12 @@ export default function AddressItems({
   country,
   phone,
 }: AddressItemsProps) {
+  const { t } = useTranslation();
+
   return (
     <>
       <Grid item>
-        <Typography variant="h6">Address:</Typography>
+        <Typography variant="h6">{t("address")}:</Typography>
       </Grid>
       <Grid item xs={12}>
         <TextField
@@ -30,7 +33,7 @@ export default function AddressItems({
           }}
           value={street}
           fullWidth
-          label="Street *"
+          label={`${t("street")} *`}
         />
       </Grid>
       <Grid item xs={12} sm={6}>
@@ -42,7 +45,7 @@ export default function AddressItems({
           }}
           value={city}
           fullWidth
-          label="City *"
+          label={`${t("city")} *`}
         />
       </Grid>
       <Grid item xs={12} sm={6}>
@@ -54,7 +57,7 @@ export default function AddressItems({
           }}
           value={county}
           fullWidth
-          label="County *"
+          label={`${t("county")} *`}
         />
       </Grid>
       <Grid item xs={12} sm={6}>
@@ -66,7 +69,7 @@ export default function AddressItems({
           }}
           value={country}
           fullWidth
-          label="Country *"
+          label={`${t("country")} *`}
         />
       </Grid>
       <Grid item xs={12} sm={6}>
@@ -78,7 +81,7 @@ export default function AddressItems({
           }}
           value={phone}
           fullWidth
-          label="Phone *"
+          label={`${t("phone")} *`}
         />
       </Grid>
     </>

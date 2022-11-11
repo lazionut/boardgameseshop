@@ -9,6 +9,8 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
+
 import { ConstantsArrays } from "../../constants/Constants";
 
 interface PaginationOutlinedProps {
@@ -26,6 +28,8 @@ export default function PaginationOutlined({
   pageSize,
   setPageSize,
 }: PaginationOutlinedProps) {
+  const { t } = useTranslation();
+
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPageIndex(value);
   };
@@ -54,11 +58,11 @@ export default function PaginationOutlined({
       <Grid item sx={{ ml: "3%", mt: { xs: "5%", sm: "auto" }, mb: "1.5%" }}>
         <Box sx={{ minWidth: 80 }}>
           <FormControl fullWidth variant="standard">
-            <InputLabel id="page-size">Page size</InputLabel>
+            <InputLabel id="page-size">{t("page-size")}</InputLabel>
             <Select
               labelId="page-size"
               value={pageSize}
-              label="Page size"
+              label={t("page-size")}
               onChange={(e) => setPageSize(Number(e.target.value))}
             >
               {ConstantsArrays.PAGE_SIZES.map((pageOption: number) => (

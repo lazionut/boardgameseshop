@@ -7,19 +7,19 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
+import jwt_decode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { stockDefiner } from "../../utils/Utilities";
 import { useCartContext } from "../../context/CartContext";
 import { useWishlistContext } from "../../context/WishlistContext";
 import useFetchData from "../../hooks/useFetchData";
-import { useNavigate } from "react-router-dom";
-import jwt_decode from "jwt-decode";
 import sendDataService from "../../services/sendDataService";
 import { Configs } from "../../constants/Configs";
 import { Constants } from "../../constants/Constants";
 import AdminBoardgameModal from "./AdminBoardgameModal";
 import AdminBoardgameActions from "./AdminBoardgameActions";
-import { NotificationToast } from "../common/NotificationToast";
 import { LoadingCircle } from "../common/LoadingCircle";
 
 interface BoardgameContentCardProps {
@@ -42,11 +42,10 @@ export default function BoardgameContentCard({
   const navigate = useNavigate();
   const authToken: string | null = localStorage.getItem("token");
   let accountDecoded: { [key: string]: any } | null = null;
-
   if (authToken !== null) {
     accountDecoded = jwt_decode(authToken);
   }
-
+  const { t } = useTranslation();
   const { increaseCartItemQuantity } = useCartContext();
   const { addWishlistItem } = useWishlistContext();
 
@@ -134,7 +133,7 @@ export default function BoardgameContentCard({
             <Typography variant="h6">
               {accountDecoded?.Role !== "Admin"
                 ? stockDefiner(boardgame.quantity)
-                : "Quantity: " + boardgame.quantity}
+                : `${t("quantity")}: ` + boardgame.quantity}
             </Typography>
           </Box>
         </Grid>
@@ -151,14 +150,14 @@ export default function BoardgameContentCard({
                 }
               }}
             >
-              Add to wishlist
+              {t("add-to-wishlist")}
             </Button>
             <Button
               size="medium"
               variant="outlined"
               onClick={() => increaseCartItemQuantity(boardgame.id)}
             >
-              Add to cart
+              {t("add-to-cart")}
             </Button>
           </CardActions>
         </Grid>

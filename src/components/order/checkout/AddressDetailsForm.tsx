@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Grid, TextField, Typography } from "@mui/material";
 import { AxiosRequestConfig } from "axios";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import useFetchData from "../../../hooks/useFetchData";
-import { useForm } from "react-hook-form";
 import { phoneFieldRule, requiredFieldRule } from "../../../constants/Rules";
 
 interface AddressDetailsProps {
@@ -21,6 +22,7 @@ export default function AddressDetails({
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const { t } = useTranslation();
 
   const [shownFirstName, setShownFirstName] = useState<string | undefined>();
   const [shownLastName, setShownLastName] = useState<string | undefined>();
@@ -87,7 +89,7 @@ export default function AddressDetails({
       {accountData.address && (
         <form onSubmit={handleSubmit(handleFormSubmission)}>
           <Typography variant="h6" gutterBottom>
-            Shipping address
+            {t("shipping-address")}
           </Typography>
           <Grid container spacing={"5%"}>
             <Grid item xs={12} sm={6}>
@@ -97,7 +99,7 @@ export default function AddressDetails({
                 InputLabelProps={{ shrink: true }}
                 value={shownFirstName}
                 fullWidth
-                label="First Name *"
+                label={`${t("first-name")} *`}
                 error={!!errors["first-name"]}
                 helperText={
                   errors["first-name"]?.message !== undefined &&
@@ -114,7 +116,7 @@ export default function AddressDetails({
                 InputLabelProps={{ shrink: true }}
                 value={shownLastName}
                 fullWidth
-                label="Last Name *"
+                label={`${t("last-name")} *`}
                 error={!!errors["last-name"]}
                 helperText={
                   errors["last-name"]?.message !== undefined &&
@@ -131,7 +133,7 @@ export default function AddressDetails({
                 InputLabelProps={{ shrink: true }}
                 value={shownStreet}
                 fullWidth
-                label="Address 1 *"
+                label={`${t("address")} 1 *`}
                 error={!!errors["street"]}
                 helperText={
                   errors["street"]?.message !== undefined &&
@@ -144,7 +146,7 @@ export default function AddressDetails({
             <Grid item xs={12}>
               <TextField
                 name="address2"
-                label="Address 2"
+                label={`${t("address")} 2 *`}
                 fullWidth
                 variant="outlined"
               />
@@ -156,13 +158,13 @@ export default function AddressDetails({
                 InputLabelProps={{ shrink: true }}
                 value={shownCity}
                 fullWidth
+                label={`${t("city")} *`}
                 error={!!errors["city"]}
                 helperText={
                   errors["city"]?.message !== undefined &&
                   String(errors["city"]?.message)
                 }
                 {...register("city", { ...requiredFieldRule })}
-                label="City *"
                 onChange={(e) => setShownCity(e.target.value)}
               />
             </Grid>
@@ -173,13 +175,13 @@ export default function AddressDetails({
                 InputLabelProps={{ shrink: true }}
                 value={shownCounty}
                 fullWidth
+                label={`${t("county")} *`}
                 error={!!errors["county"]}
                 helperText={
                   errors["county"]?.message !== undefined &&
                   String(errors["county"]?.message)
                 }
                 {...register("county", { ...requiredFieldRule })}
-                label="County *"
                 onChange={(e) => setShownCounty(e.target.value)}
               />
             </Grid>
@@ -190,13 +192,13 @@ export default function AddressDetails({
                 InputLabelProps={{ shrink: true }}
                 value={shownCountry}
                 fullWidth
+                label={`${t("country")} *`}
                 error={!!errors["country"]}
                 helperText={
                   errors["country"]?.message !== undefined &&
                   String(errors["country"]?.message)
                 }
                 {...register("country", { ...requiredFieldRule })}
-                label="Country *"
                 onChange={(e) => setShownCountry(e.target.value)}
               />
             </Grid>
@@ -207,7 +209,7 @@ export default function AddressDetails({
                 InputLabelProps={{ shrink: true }}
                 value={shownPhone}
                 fullWidth
-                label="Phone *"
+                label={`${t("phone")} *`}
                 error={!!errors["phone"]}
                 helperText={
                   errors["phone"]?.message !== undefined &&

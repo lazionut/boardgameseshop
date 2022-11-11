@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Chip, CardActions, Grid, Typography, Card } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
+import { useTranslation } from "react-i18next";
 
 import { orderStatusDefiner, trimDateTime } from "../../utils/Utilities";
 import OrderDialog from "./OrderDialog";
@@ -19,12 +20,11 @@ interface OrderHistoryCardProps {
 export default function OrderHistoryCard({ order }: OrderHistoryCardProps) {
   const authToken: string | null = localStorage.getItem("token");
   let accountDecoded: { [key: string]: any } | null = null;
-
   if (authToken !== null) {
     accountDecoded = jwt_decode(authToken);
   }
-
   const navigate = useNavigate();
+  const {t} = useTranslation();
 
   return (
     <Grid item key={order.id} mt="2%" mb="2%">
@@ -52,16 +52,16 @@ export default function OrderHistoryCard({ order }: OrderHistoryCardProps) {
           sx={{ cursor: "pointer" }}
           onClick={() => navigate(`/orders/${order.id}`)}
         >
-          <Typography variant="h6">Order #{order.id}</Typography>
+          <Typography variant="h6">{t("order")} #{order.id}</Typography>
           <Typography>
-            Ordered at: {trimDateTime(order.creationDate)}
+            {t("ordered-at")}: {trimDateTime(order.creationDate)}
           </Typography>
           <Box
             sx={{
               marginLeft: "auto",
             }}
           >
-            <Chip variant="outlined" label={`Total: ${order.total}`} />
+            <Chip variant="outlined" label={`Total: ${order.total} RON`} />
           </Box>
         </Box>
         <CardActions

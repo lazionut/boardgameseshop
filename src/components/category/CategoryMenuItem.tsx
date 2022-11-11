@@ -21,7 +21,6 @@ export default function CategoryMenuItem({ category }: CategoryMenuItemProps) {
   const navigateSearch = useNavigateSearch();
   const authToken: string | null = localStorage.getItem("token");
   let accountDecoded: { [key: string]: any } | null = null;
-
   if (authToken !== null) {
     accountDecoded = jwt_decode(authToken);
   }

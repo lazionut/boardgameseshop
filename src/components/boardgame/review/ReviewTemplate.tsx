@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Card, Box, Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig } from "axios";
+import { useTranslation } from "react-i18next";
 
 import ReviewCard from "./ReviewCard";
 import useFetchData from "../../../hooks/useFetchData";
@@ -15,6 +16,7 @@ interface ReviewTemplateProps {
 
 export default function ReviewTemplate({ boardgameId }: ReviewTemplateProps) {
   const authToken: string | null = localStorage.getItem("token");
+  const { t } = useTranslation();
 
   const [pageIndex, setPageIndex] = useState<number>(
     Constants.DEFAULT_PAGE_INDEX
@@ -51,7 +53,7 @@ export default function ReviewTemplate({ boardgameId }: ReviewTemplateProps) {
       >
         {authToken && <ReviewForm boardgameId={Number(boardgameId)} />}
         <Typography variant="h5" sx={{ textDecoration: "underline", mt: "5%" }}>
-          What people say:
+          {t("what-people-say")}:
         </Typography>
         {reviewData.reviews ? (
           <>
@@ -73,7 +75,7 @@ export default function ReviewTemplate({ boardgameId }: ReviewTemplateProps) {
             />
           </>
         ) : (
-          <EmptyTemplate pageText="There are no reviews right now" />
+          <EmptyTemplate pageText={t("no-reviews")} />
         )}
       </Box>
     </Card>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Box, TextField, Grid, Button, Alert } from "@mui/material";
+import { Box, TextField, Grid, Button } from "@mui/material";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import sendDataService from "../../../services/sendDataService";
 import { requiredFieldRule } from "../../../constants/Rules";
@@ -14,6 +15,7 @@ interface ReviewFormProps {
 
 export function ReviewForm({ boardgameId }: ReviewFormProps) {
   const authToken: string | null = localStorage.getItem("token");
+  const { t } = useTranslation();
 
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [ratingStars, setRatingStars] = useState<number | null>(null);
@@ -67,7 +69,7 @@ export function ReviewForm({ boardgameId }: ReviewFormProps) {
             rows={4}
             variant="outlined"
             type="text"
-            label="Title"
+            label={t("title")}
             sx={{ paddingTop: "5" }}
             error={!!errors["title"]}
             helperText={
@@ -83,7 +85,7 @@ export function ReviewForm({ boardgameId }: ReviewFormProps) {
             multiline
             rows={4}
             variant="outlined"
-            label="Content"
+            label={t("content")}
             error={!!errors["content"]}
             helperText={
               errors["content"]?.message !== undefined &&
@@ -94,13 +96,13 @@ export function ReviewForm({ boardgameId }: ReviewFormProps) {
         </Box>
         <Grid item mt="2%">
           <Button type="submit" variant="contained">
-            Submit
+            {t("submit")}
           </Button>
         </Grid>
       </form>
       {showAlert && (
         <NotificationToast
-          toastText="You already reviewed this game"
+          toastText={t("already-reviewed")}
           isSuccessful={false}
         />
       )}

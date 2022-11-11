@@ -12,6 +12,7 @@ import {
 import { MdDelete } from "react-icons/md";
 import { GrEdit } from "react-icons/gr";
 import { BsCartPlusFill } from "react-icons/bs";
+import { useTranslation } from "react-i18next";
 
 import { trimDateTime } from "../../utils/Utilities";
 import sendDataService from "../../services/sendDataService";
@@ -42,7 +43,7 @@ interface WishlistCardProp {
 
 export default function WishlistCard({ wishlist }: WishlistCardProp) {
   const authToken: string | null = localStorage.getItem("token");
-
+  const { t } = useTranslation();
   const { clearCart, increaseCartItemQuantity } = useCartContext();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -89,8 +90,8 @@ export default function WishlistCard({ wishlist }: WishlistCardProp) {
             <GrEdit size={25} />
           </IconButton>
           <ConfirmationDialog
-            title="Add wishlist boardgames to cart"
-            content="You current cart will be emptied and replaced with the item from the wishlist."
+            title={t("add-wishlist-boardgames")}
+            content={t("current-cart-emptied")}
             deleteAlertText="Wishlist succesfully deleted"
             onClick={() => {
               handleAddWishlistToCart(wishlist.boardgames);
@@ -106,8 +107,8 @@ export default function WishlistCard({ wishlist }: WishlistCardProp) {
             <MdDelete size={30} />
           </IconButton>
           <ConfirmationDialog
-            title="Delete wishlist"
-            content="Are you sure you want to delete the wishlist?"
+            title={t("delete-wishlist")}
+            content={t("delete-wishlist-confirmation")}
             deleteAlertText="Wishlist succesfully deleted"
             onClick={() => {
               handleWishlistDelete(wishlist.id);
@@ -140,10 +141,10 @@ export default function WishlistCard({ wishlist }: WishlistCardProp) {
             }}
           >
             <Typography mt={2}>
-              Created at: {trimDateTime(wishlist.creationDate)}
+              {t("created-at")}: {trimDateTime(wishlist.creationDate)}
             </Typography>
             <Typography mt={2}>
-              Updated at: {trimDateTime(wishlist.updateDate)}
+              {t("updated-at")}: {trimDateTime(wishlist.updateDate)}
             </Typography>
           </CardActions>
         </Grid>

@@ -11,6 +11,7 @@ import { MdAccountCircle } from "react-icons/md";
 import { Gi3DMeeple } from "react-icons/gi";
 import { FaHeart, FaShoppingBag } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import CategoriesMenu from "../category/CategoriesMenu";
 import SwipeableTemporaryDrawer from "./SwipeableTemporaryDrawer";
@@ -20,6 +21,7 @@ import { useWishlistContext } from "../../context/WishlistContext";
 
 export default function NavigationBar() {
   const navigate = useNavigate();
+  const {t} = useTranslation();
   const authToken: string | null = localStorage.getItem("token");
   const { cartQuantity, openCart } = useCartContext();
   const { wishlistItems, openWishlist } = useWishlistContext();
@@ -49,7 +51,7 @@ export default function NavigationBar() {
                 if (authToken) {
                   openWishlist();
                 } else {
-                  navigate("login");
+                  navigate("/login");
                 }
               }}
             >
@@ -77,7 +79,7 @@ export default function NavigationBar() {
                   sx={{ flex: "display", color: "common.customDarkTurqoise" }}
                 >
                   <MdAccountCircle />
-                  <Typography>Login </Typography>
+                  <Typography>{t("sign-in")}</Typography>
                 </Box>
               </IconButton>
             )}

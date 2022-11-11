@@ -1,9 +1,11 @@
+import i18n from "../localization/i18n";
+
 export const requiredFieldRule: {
   [key: string]: { [key: string]: boolean | string };
 } = {
   required: {
     value: true,
-    message: "Field is required",
+    message: `${i18n.t("required-message")}`,
   },
 };
 
@@ -12,7 +14,7 @@ export const phoneFieldRule: {
 } = {
   pattern: {
     value: /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/,
-    message: "Phone number is not correct",
+    message: `${i18n.t("phone-format-message")}`,
   },
 };
 
@@ -21,12 +23,11 @@ export const emailFieldRule: {
 } = {
   pattern: {
     value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-    message: "Must be longer than 2 characters and in a valid email format",
+    message: `${i18n.t("email-format-message")}`,
   },
 };
 
-export const PASSWORD_MESSAGE: string =
-  "Minimum six characters, at least one uppercase letter, one lowercase letter, one digit and one special character";
+export const PASSWORD_MESSAGE: string = `${i18n.t("password-rule")}`;
 
 export const passwordFieldRule: {
   [key: string]: { [key: string]: RegExp | string };
@@ -42,7 +43,7 @@ export const positiveNumberFieldRule: {
 } = {
   pattern: {
     value: /^(0|[1-9][0-9]*)$/,
-    message: "Please enter a valid positive number higher than 0",
+    message: `${i18n.t("positive-number-message")}`,
   },
 };
 
@@ -51,6 +52,6 @@ export const minimumPriceFieldRule: {
 } = {
   min: {
     value: 0.5,
-    message: "Minimum price must be 0.5",
+    message: `${i18n.t("minimum-price-message")}`
   },
 };

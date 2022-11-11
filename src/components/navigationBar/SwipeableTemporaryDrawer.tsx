@@ -23,6 +23,7 @@ import { AiFillHome } from "react-icons/ai";
 import { BsBoxSeam } from "react-icons/bs";
 import { RiBillLine } from "react-icons/ri";
 import { FaSignOutAlt } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 import authenticationService from "../../services/authenticationService";
 import { useWishlistContext } from "../../context/WishlistContext";
@@ -32,11 +33,10 @@ export default function SwipeableTemporaryDrawer() {
   const navigate = useNavigate();
   const authToken: string | null = localStorage.getItem("token");
   let accountDecoded: { [key: string]: any } | null = null;
-
   if (authToken !== null) {
     accountDecoded = jwt_decode(authToken);
   }
-
+  const {t} = useTranslation();
   const { clearWishlist } = useWishlistContext();
 
   const [open, setOpen] = useState<boolean>(false);
@@ -84,7 +84,7 @@ export default function SwipeableTemporaryDrawer() {
                   }}
                 >
                   <AiFillHome size={30} />
-                  <ListItemText primary={"Home"} sx={{ ml: 1 }} />
+                  <ListItemText primary={t("home")} sx={{ ml: 1 }} />
                 </Box>
               </ListItemButton>
             </ListItem>
@@ -99,7 +99,7 @@ export default function SwipeableTemporaryDrawer() {
                   }}
                 >
                   <MdOutlineAccountBox size={30} />
-                  <ListItemText primary={"My account"} sx={{ ml: 1 }} />
+                  <ListItemText primary={t("my-account")} sx={{ ml: 1 }} />
                 </Box>
               </ListItemButton>
             </ListItem>
@@ -113,7 +113,7 @@ export default function SwipeableTemporaryDrawer() {
                   }}
                 >
                   <BsBoxSeam size={30} />
-                  <ListItemText primary={"My wishlists"} sx={{ ml: 1 }} />
+                  <ListItemText primary={t("my-wishlists")} sx={{ ml: 1 }} />
                 </Box>
               </ListItemButton>
             </ListItem>
@@ -127,7 +127,7 @@ export default function SwipeableTemporaryDrawer() {
                   }}
                 >
                   <RiBillLine size={30} />
-                  <ListItemText primary={"Order history"} sx={{ ml: 1 }} />
+                  <ListItemText primary={t("order-history")} sx={{ ml: 1 }} />
                 </Box>
               </ListItemButton>
             </ListItem>
@@ -150,7 +150,7 @@ export default function SwipeableTemporaryDrawer() {
                       }}
                     >
                       <MdOutlineManageAccounts size={30} />
-                      <ListItemText primary={"All accounts"} sx={{ ml: 1 }} />
+                      <ListItemText primary={t("all-accounts")} sx={{ ml: 1 }} />
                     </Box>
                   </ListItemButton>
                 </ListItem>
@@ -164,7 +164,7 @@ export default function SwipeableTemporaryDrawer() {
                       }}
                     >
                       <MdOutlineDocumentScanner size={30} />
-                      <ListItemText primary={"All orders"} sx={{ ml: 1 }} />
+                      <ListItemText primary={t("all-orders")} sx={{ ml: 1 }} />
                     </Box>
                   </ListItemButton>
                 </ListItem>
@@ -187,7 +187,7 @@ export default function SwipeableTemporaryDrawer() {
                   }}
                 >
                   <FaSignOutAlt size={30} />
-                  <ListItemText primary={"Sign out"} sx={{ ml: 1 }} />
+                  <ListItemText primary={t("sign-out")} sx={{ ml: 1 }} />
                 </Box>
               </ListItemButton>
             </ListItem>

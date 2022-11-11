@@ -1,25 +1,14 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Button,
-  Container,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Grid,
-  IconButton,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
+import { MdDelete } from "react-icons/md";
 import { AxiosRequestConfig } from "axios";
+import { useTranslation } from "react-i18next";
 
 import useFetchData from "../hooks/useFetchData";
 import ProfileItems from "../components/account/ProfileItems";
 import AddressItems from "../components/account/AddressItems";
 import { NotificationToast } from "../components/common/NotificationToast";
-import { MdDelete } from "react-icons/md";
 import { Configs } from "../constants/Configs";
 import sendDataService from "../services/sendDataService";
 import ConfirmationDialog from "../components/common/ConfirmationDialog";
@@ -28,6 +17,7 @@ export default function AccountPage() {
   const { state } = useLocation();
   const navigate = useNavigate();
   const authToken: string | null = localStorage.getItem("token");
+  const { t } = useTranslation();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -81,12 +71,12 @@ export default function AccountPage() {
               sx={{ marginLeft: "auto", color: "red", mb: "5%" }}
               onClick={() => setIsOpen(true)}
             >
-              <Typography>Delete account </Typography>
+              <Typography>{t("delete-account")}</Typography>
               <MdDelete size={30} />
             </Button>
             <ConfirmationDialog
-              title="Confirm delete"
-              content="This action can`t be reverted so make sure that you proceed carefully."
+              title={t("confirm-delete")}
+              content={`${t("account-deleted")}.`}
               deleteAlertText="Account succesfully deleted"
               onClick={() => {
                 handleAccountArchive();
@@ -95,7 +85,7 @@ export default function AccountPage() {
               isOpen={isOpen}
               setIsOpen={setIsOpen}
             />
-            <Typography variant="h5">My account</Typography>
+            <Typography variant="h5">{t("my-account")}</Typography>
             <Grid container spacing={"3%"} sx={{ mt: { xs: "3%" } }}>
               <ProfileItems
                 firstName={accountData.firstName}
@@ -126,7 +116,7 @@ export default function AccountPage() {
                     })
                   }
                 >
-                  Edit profile
+                  {t("edit-profile")}
                 </Button>
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -149,20 +139,20 @@ export default function AccountPage() {
                     })
                   }
                 >
-                  Edit address
+                  {t("edit-address")}
                 </Button>
               </Grid>
             </Grid>
           </Box>
           {state?.isEditedProfile === true && (
             <NotificationToast
-              toastText="Succesfully edited profile"
+              toastText={t("successully-edited-profile")}
               isSuccessful={true}
             />
           )}
           {state?.isEditedAddress === true && (
             <NotificationToast
-              toastText="Succesfully edited address"
+              toastText={t("successully-edited-address")}
               isSuccessful={true}
             />
           )}
