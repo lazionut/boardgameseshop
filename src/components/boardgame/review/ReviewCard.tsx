@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Card, Grid, IconButton, Typography } from "@mui/material";
 import jwt_decode from "jwt-decode";
 import { MdDelete } from "react-icons/md";
@@ -32,10 +31,7 @@ export default function ReviewCard({ review }: ReviewCardProps) {
   const handleReviewDelete = async (id: number) => {
     const createWishlistResponse = await sendDataService.execute({
       url: `/reviews/${id}`,
-      method: "delete",
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
+      method: "delete"
     });
 
     if (createWishlistResponse.status === Configs.OK_RESPONSE) {

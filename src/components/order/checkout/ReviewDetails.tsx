@@ -1,4 +1,3 @@
-import React from "react";
 import { Typography, List, ListItem, ListItemText, Grid } from "@mui/material";
 import { useTranslation } from "react-i18next";
 

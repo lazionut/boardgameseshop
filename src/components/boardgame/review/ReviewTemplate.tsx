@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+
 import { Card, Box, Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig } from "axios";
 import { useTranslation } from "react-i18next";

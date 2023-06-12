@@ -1,5 +1,4 @@
-import React from "react";
-import { Box, Button, ButtonGroup, Container, Typography } from "@mui/material";
+import { Box, Button, ButtonGroup, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
 import Copyright from "./Copyright";

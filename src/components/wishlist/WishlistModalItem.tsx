@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+
 import { AxiosRequestConfig } from "axios";
 import useFetchData from "../../hooks/useFetchData";
 

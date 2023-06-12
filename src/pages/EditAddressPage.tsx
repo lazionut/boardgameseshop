@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import {
   Autocomplete,
   Box,
@@ -17,7 +18,6 @@ import { Configs } from "../constants/Configs";
 import sendDataService from "../services/sendDataService";
 import { NotificationToast } from "../components/common/NotificationToast";
 import { Countries } from "../constants/Countries";
-import { getCurrentCountryCode } from "../utils/Utilities";
 import { phoneFieldRule, requiredFieldRule } from "../constants/Rules";
 
 export default function EditAddressPage() {
@@ -72,10 +72,7 @@ export default function EditAddressPage() {
     const editAddressResponse = await sendDataService.execute({
       url: "/addresses",
       method: "put",
-      data: editAddressInput,
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
+      data: editAddressInput
     });
 
     if (editAddressResponse.status === Configs.NO_CONTENT_RESPONSE) {
@@ -179,7 +176,7 @@ export default function EditAddressPage() {
                       {option.label} ({option.code})
                     </Box>
                   )}
-                  renderInput={(params) => (
+                  renderInput={(params: any) => (
                     <TextField
                       {...params}
                       type="text"

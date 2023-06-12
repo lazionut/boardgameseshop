@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import Container from "@mui/material/Container";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -55,10 +56,7 @@ export default function EditProfilePage() {
     const editProfileResponse = await sendDataService.execute({
       url: "/accounts",
       method: "patch",
-      data: editAccountInput,
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
+      data: editAccountInput
     });
 
     if (editProfileResponse.status === Configs.NO_CONTENT_RESPONSE) {

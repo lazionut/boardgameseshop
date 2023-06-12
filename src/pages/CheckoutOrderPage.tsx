@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+
 import {
   Typography,
   Container,
@@ -84,9 +85,6 @@ export default function CheckoutOrderPage() {
         url: "/orders",
         method: "post",
         data: orderInput,
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
       });
 
       setOrderId(placeOrderResponse?.data.id);
@@ -128,7 +126,7 @@ export default function CheckoutOrderPage() {
                     {t("thanks-order")}!
                   </Typography>
                   <Typography variant="subtitle1">
-                  {t("order-number")} #{orderId}.
+                    {t("order-number")} #{orderId}.
                   </Typography>
                 </>
               ) : (

@@ -1,4 +1,3 @@
-import React from "react";
 import { Container, Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig } from "axios";
 import { useTranslation } from "react-i18next";

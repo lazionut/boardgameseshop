@@ -55,7 +55,7 @@ export function getCurrentCountryCode(
   return countries[labelIndex].code;
 }
 
-export const trimDateTime = (inputDateTime: string): string => {
+export function trimDateTime(inputDateTime: string): string {
   let cleaneadDate: string = inputDateTime.substring(0, 10);
   let correctFormattedDate: string = cleaneadDate
     .split("-")
@@ -65,4 +65,4 @@ export const trimDateTime = (inputDateTime: string): string => {
   let cleaneadTime: string = inputDateTime.substring(11, 19);
 
   return correctFormattedDate + " " + cleaneadTime;
-};
+}

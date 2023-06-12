@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import {
   Box,
   Button,
@@ -10,13 +11,13 @@ import {
   Typography,
 } from "@mui/material";
 import { AxiosRequestConfig } from "axios";
-import useFetchData from "../../hooks/useFetchData";
 import { FaMinusCircle } from "react-icons/fa";
 import { BsPlusCircleFill } from "react-icons/bs";
 import { MdDelete } from "react-icons/md";
 import { useTranslation } from "react-i18next";
 
 import { useCartContext } from "../../context/CartContext";
+import useFetchData from "../../hooks/useFetchData";
 
 interface CartItemProps {
   id: number;

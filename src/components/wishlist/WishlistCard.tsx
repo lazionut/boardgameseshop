@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+
 import {
   Box,
   CardActions,
@@ -53,10 +54,7 @@ export default function WishlistCard({ wishlist }: WishlistCardProp) {
   const handleWishlistDelete = async (id: number) => {
     const deleteWishlistResponse = await sendDataService.execute({
       url: `/accounts/wishlists/${id}`,
-      method: "delete",
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
+      method: "delete"
     });
 
     if (deleteWishlistResponse.status === Configs.OK_RESPONSE) {

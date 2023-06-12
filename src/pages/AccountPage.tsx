@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
@@ -39,9 +40,6 @@ export default function AccountPage() {
     const archiveAccountResponse = await sendDataService.execute({
       url: `/accounts/archive`,
       method: "delete",
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
     });
 
     if (archiveAccountResponse.status === Configs.OK_RESPONSE) {

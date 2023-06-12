@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Chip, CardActions, Grid, Typography, Card } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";

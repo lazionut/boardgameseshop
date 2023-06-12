@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Container, Grid, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { AxiosRequestConfig } from "axios";

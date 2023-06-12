@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+
 import {
   Box,
   Button,
@@ -67,10 +68,7 @@ export default function BoardgameContentCard({
   const handleBoardgameArchive = async (id: number) => {
     const deleteBoardgameResponse = await sendDataService.execute({
       url: `/boardgames/${id}/archive`,
-      method: "delete",
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
+      method: "delete"
     });
 
     if (deleteBoardgameResponse.status === Configs.OK_RESPONSE) {

@@ -1,4 +1,3 @@
-import React from "react";
 import { Grid, Box, Button, Container, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";

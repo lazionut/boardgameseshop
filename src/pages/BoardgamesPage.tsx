@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import { Button, Grid, Typography } from "@mui/material";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import { AxiosRequestConfig } from "axios";
@@ -43,15 +44,9 @@ export default function BoardgamesPage() {
   };
 
   if (categoryId !== undefined) {
-    boardgameRequestConfig = {
-      url: `/boardgames/category/${categoryId}?pageIndex=${pageIndex}&pageSize=${pageSize}&sortOrder=${sortOrder}`,
-      method: "GET",
-    };
+    boardgameRequestConfig.url = `/boardgames/category/${categoryId}?pageIndex=${pageIndex}&pageSize=${pageSize}&sortOrder=${sortOrder}`;
   } else if (keywords !== null) {
-    boardgameRequestConfig = {
-      url: `/boardgames/search?keywords=${keywords}&pageIndex=${pageIndex}&pageSize=${pageSize}&sortOrder=${sortOrder}`,
-      method: "GET",
-    };
+    boardgameRequestConfig.url = `/boardgames/search?keywords=${keywords}&pageIndex=${pageIndex}&pageSize=${pageSize}&sortOrder=${sortOrder}`;
   }
 
   const {

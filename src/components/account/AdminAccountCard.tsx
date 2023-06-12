@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+
 import { Grid, Card, ListItem, Button } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
@@ -17,7 +18,7 @@ interface AdminAccountProps {
 
 export default function AdminAccountCard({ account }: AdminAccountProps) {
   const authToken: string | null = localStorage.getItem("token");
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -25,9 +26,6 @@ export default function AdminAccountCard({ account }: AdminAccountProps) {
     const deleteAccountResponse = await sendDataService.execute({
       url: `/accounts/${id}`,
       method: "delete",
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
     });
 
     if (deleteAccountResponse.status === Configs.OK_RESPONSE) {
