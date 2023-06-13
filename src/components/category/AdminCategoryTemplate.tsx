@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import  { useState } from "react";
+
 import { Button, Container, Grid, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -40,9 +41,6 @@ export default function AdminCategoryTemplate({
         url: "/categories",
         method: "post",
         data: categoryInput,
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
       });
 
       if (createCategoryResponse?.data !== undefined) {
@@ -57,9 +55,6 @@ export default function AdminCategoryTemplate({
         url: `/categories/${category.id}`,
         method: "put",
         data: editCategoryInput,
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
       });
 
       if (updateCategoryResponse.status === Configs.NO_CONTENT_RESPONSE) {

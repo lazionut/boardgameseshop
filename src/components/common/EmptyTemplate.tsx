@@ -1,4 +1,3 @@
-import React from "react";
 import { Grid, Box, Container, Typography } from "@mui/material";
 
 interface ErrorTemplateProps {

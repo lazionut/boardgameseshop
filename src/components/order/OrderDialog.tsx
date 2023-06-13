@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+
 import {
   Button,
   Dialog,
@@ -36,10 +37,7 @@ export default function OrderDialog({
     const changeOrderStatusResponse = await sendDataService.execute({
       url: `/orders/${id}/change-status?orderStatus=${orderStatusValue}`,
       method: "patch",
-      data: "",
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
+      data: ""
     });
 
     if (changeOrderStatusResponse.status === Configs.NO_CONTENT_RESPONSE) {

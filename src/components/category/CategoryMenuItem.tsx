@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
+
 import { Box, IconButton, MenuItem, Typography } from "@mui/material";
 import jwt_decode from "jwt-decode";
+import { GrEdit } from "react-icons/gr";
+import { MdDelete } from "react-icons/md";
 
 import useNavigateSearch from "../../hooks/useNavigateSearch";
 import { Constants, ConstantsArrays } from "../../constants/Constants";
-import { GrEdit } from "react-icons/gr";
-import { MdDelete } from "react-icons/md";
 import sendDataService from "../../services/sendDataService";
 import { Configs } from "../../constants/Configs";
 import AdminCategoryModal from "./AdminCategoryModal";
@@ -30,10 +31,7 @@ export default function CategoryMenuItem({ category }: CategoryMenuItemProps) {
   const handleCategoryDelete = async (id: number) => {
     const deleteCategoryResponse = await sendDataService.execute({
       url: `/categories/${id}`,
-      method: "delete",
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
+      method: "delete"
     });
 
     if (deleteCategoryResponse.status === Configs.OK_RESPONSE) {

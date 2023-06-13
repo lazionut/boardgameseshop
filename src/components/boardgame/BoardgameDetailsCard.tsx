@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Grid, Typography } from "@mui/material";
 
 import { ReactComponent as BggSvg } from "../../assets/images/bgg_logo.svg";

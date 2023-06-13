@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Grid,
   Modal,
@@ -44,10 +43,7 @@ export default function WishlistModal({ isOpen }: WishlistModalProps) {
     const createWishlistResponse = await sendDataService.execute({
       url: "/wishlists ",
       method: "post",
-      data: wishlistInput,
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
+      data: wishlistInput
     });
 
     if (createWishlistResponse?.data !== undefined) {

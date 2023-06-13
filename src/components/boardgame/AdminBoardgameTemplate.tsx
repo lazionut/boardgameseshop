@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+
 import {
   Grid,
   TextField,
@@ -100,10 +101,7 @@ export default function AdminBoardgameTemplate({
       const addImageResponse = await sendDataService.execute({
         url: "/blobs",
         method: "post",
-        data: formData,
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
+        data: formData
       });
     }
   };
@@ -127,9 +125,6 @@ export default function AdminBoardgameTemplate({
         url: "/boardgames",
         method: "post",
         data: boardgameInput,
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
       });
 
       if (createBoardgameResponse?.data !== undefined) {
@@ -157,10 +152,7 @@ export default function AdminBoardgameTemplate({
       const updateBoardgameResponse = await sendDataService.execute({
         url: `/boardgames/${boardgame.id}`,
         method: "put",
-        data: editedBoardgameInput,
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
+        data: editedBoardgameInput
       });
 
       if (updateBoardgameResponse.status === Configs.NO_CONTENT_RESPONSE) {
@@ -377,7 +369,7 @@ export default function AdminBoardgameTemplate({
                       {option.name}
                     </Box>
                   )}
-                  renderInput={(params) => (
+                  renderInput={(params: any) => (
                     <TextField
                       {...params}
                       type="text"

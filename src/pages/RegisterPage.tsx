@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+
 import {
   Autocomplete,
   Box,
@@ -172,7 +173,7 @@ export default function RegisterPage() {
                       {option.label} ({option.code})
                     </Box>
                   )}
-                  renderInput={(params) => (
+                  renderInput={(params: any) => (
                     <TextField
                       {...params}
                       type="text"

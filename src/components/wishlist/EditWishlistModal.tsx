@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import {
   Grid,
   Modal,
@@ -70,10 +71,7 @@ export default function EditWishlistModal({
     const createWishlistResponse = await sendDataService.execute({
       url: `/accounts/wishlists/${wishlist.id}`,
       method: "put",
-      data: wishlistInput,
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
+      data: wishlistInput
     });
 
     if (createWishlistResponse?.data !== undefined) {

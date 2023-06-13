@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+
 import {
   Button,
   Dialog,
@@ -7,8 +8,6 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
-
-import { NotificationToast } from "./NotificationToast";
 
 interface ConfirmationDialogProps {
   title: string;

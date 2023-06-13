@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+
 import { Autocomplete, TextField, Box, InputAdornment } from "@mui/material";
 import { AxiosRequestConfig } from "axios";
 import { FaSearch } from "react-icons/fa";
@@ -39,7 +40,7 @@ export default function SearchBar() {
         onInputChange={(e, value) => {
           setSearchedCharacters(value);
         }}
-        renderInput={(params) => (
+        renderInput={(params: any) => (
           <Box sx={{ bgcolor: "common.customLightYellow" }}>
             <TextField
               {...params}

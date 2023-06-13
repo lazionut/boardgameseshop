@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 
 import WishlistModal from "../components/wishlist/WishlistModal";
 import { useSessionStorage } from "../hooks/useSessionStorage";

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+
 import Button from "@mui/material/Button";
 import {
   Card,
@@ -66,10 +67,7 @@ export default function BoardgameCard({ boardgame }: Boardgame) {
   const handleBoardgameArchive = async (id: number) => {
     const archiveBoardgameResponse = await sendDataService.execute({
       url: `/boardgames/${id}/archive`,
-      method: "delete",
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
+      method: "delete"
     });
 
     if (archiveBoardgameResponse.status === Configs.OK_RESPONSE) {

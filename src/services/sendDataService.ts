@@ -1,25 +1,23 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
+import { setupInterceptor } from "../config/Interceptor";
 
 interface SendDataProps {
   method: "post" | "patch" | "put" | "delete";
   url: string;
-  headers: any;
   data?: any;
 }
 
 const sendDataService = {
-  async execute({ method, url, headers, data }: SendDataProps): Promise<any> {
+  async execute({ method, url, data }: SendDataProps): Promise<any> {
     try {
+      const customAxiosInstance = setupInterceptor(axios.create());
+
       let response: AxiosResponse<any, any>;
 
       if (data !== undefined) {
-        response = await axios[method](url, data, {
-          headers,
-        });
+        response = await customAxiosInstance[method](url, data);
       } else {
-        response = await axios[method](url, {
-          headers,
-        });
+        response = await customAxiosInstance[method](url);
       }
 
       console.log("Response to send data is: " + JSON.stringify(response));
@@ -28,7 +26,7 @@ const sendDataService = {
     } catch (error) {
       const apiError = error as AxiosError;
       console.log(apiError.response?.data);
-      
+
       return apiError.response?.data;
     }
   },

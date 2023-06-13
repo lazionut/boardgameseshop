@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+
 import { Box, TextField, Grid, Button } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -38,10 +39,7 @@ export function ReviewForm({ boardgameId }: ReviewFormProps) {
     const createReviewResponse = await sendDataService.execute({
       url: "/reviews",
       method: "post",
-      data: reviewInput,
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
+      data: reviewInput
     });
 
     reset({ title: "", content: "" });
