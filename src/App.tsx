@@ -1,4 +1,3 @@
-import React from "react";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
@@ -24,6 +23,7 @@ import { theme } from "./theme/Theme";
 import WishlistContextProvider from "./context/WishlistContext";
 import AdminOrdersHistoryPage from "./pages/AdminOrdersHistoryPage";
 import AdminAccountsPage from "./pages/AdminAccountsPage";
+import AdminAuthenticatedRoute from "./routes/AdminAuthenticatedRoute";
 
 function App() {
   return (
@@ -108,17 +108,17 @@ function App() {
               <Route
                 path="/orders/all"
                 element={
-                  <CostumerAuthenticatedRoute>
+                  <AdminAuthenticatedRoute>
                     <AdminOrdersHistoryPage />
-                  </CostumerAuthenticatedRoute>
+                  </AdminAuthenticatedRoute>
                 }
               />
               <Route
                 path="/accounts"
                 element={
-                  <CostumerAuthenticatedRoute>
+                  <AdminAuthenticatedRoute>
                     <AdminAccountsPage />
-                  </CostumerAuthenticatedRoute>
+                  </AdminAuthenticatedRoute>
                 }
               />
             </Routes>

@@ -3,14 +3,18 @@ import jwt_decode from "jwt-decode";
 
 import { Constants } from "../constants/Constants";
 
-const CostumerAuthenticatedRoute = ({ children }: any) => {
+const AdminAuthenticatedRoute = ({ children }: any) => {
   const authToken: string | null = localStorage.getItem("token");
   let accountDecoded: { [key: string]: any } | null = null;
   if (authToken !== null) {
     accountDecoded = jwt_decode(authToken);
   }
 
-  return accountDecoded?.Role === Constants.ADMIN ? children : <Navigate to={"/error"} />;
+  return accountDecoded?.Role === Constants.ADMIN ? (
+    children
+  ) : (
+    <Navigate to={"/error"} />
+  );
 };
 
-export default CostumerAuthenticatedRoute;
+export default AdminAuthenticatedRoute;
