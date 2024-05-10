@@ -26,11 +26,11 @@ export default function AdminOrdersHistoryPage() {
     },
   };
 
-  const {
+  const [{
     data: ordersData,
     loading,
     error,
-  } = useFetchData(ordersRequestConfig);
+  }] = useFetchData(ordersRequestConfig);
 
   return (
     <Container sx={{ mb: { xs: "5%", md: "auto" }, mt: "3%" }}>

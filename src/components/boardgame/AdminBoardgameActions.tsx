@@ -23,8 +23,8 @@ export default function AdminBoardgameActions({
   onDeleteClick,
   onConfirmationClick,
 }: AdminBoardgameActionsProps) {
-  const {t} = useTranslation();
-   
+  const { t } = useTranslation();
+
   return (
     <CardActions>
       <IconButton sx={{ marginLeft: "auto" }} onClick={onEditClick}>
@@ -38,7 +38,7 @@ export default function AdminBoardgameActions({
       </IconButton>
       <ConfirmationDialog
         title={t("delete-boardgame")}
-        content={`{${t("delete-boardgame-confirmation")}?`}
+        content={`${t("delete-boardgame-confirmation")}?`}
         deleteAlertText={t("delete-boardgame-confirmation")}
         onClick={onConfirmationClick}
         isOpen={isDeleteOpen}

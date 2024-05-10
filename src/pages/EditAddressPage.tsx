@@ -23,7 +23,6 @@ import { phoneFieldRule, requiredFieldRule } from "../constants/Rules";
 export default function EditAddressPage() {
   const navigate = useNavigate();
   const { state } = useLocation();
-  const authToken: string | null = localStorage.getItem("token");
   //const countryCode: string = getCurrentCountryCode();
   const { t } = useTranslation();
 

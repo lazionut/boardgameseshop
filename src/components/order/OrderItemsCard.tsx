@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import {
   Box,
   Card,
@@ -14,7 +16,7 @@ import OrderBoardgameCard from "./OrderBoardgameCard";
 import OrderDialog from "./OrderDialog";
 import { Constants } from "../../constants/Constants";
 
-interface OrderItem {
+interface OrderItemsCardProp {
   order: {
     id: number;
     fullName: string;
@@ -32,12 +34,13 @@ interface OrderItem {
   };
 }
 
-export default function OrderItemsCard({ order }: OrderItem) {
+export default function OrderItemsCard({ order }: OrderItemsCardProp) {
   const authToken: string | null = localStorage.getItem("token");
   let accountDecoded: { [key: string]: any } | null = null;
   if (authToken !== null) {
     accountDecoded = jwt_decode(authToken);
   }
+
   const { t } = useTranslation();
 
   return (

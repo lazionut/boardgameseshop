@@ -16,7 +16,6 @@ import useTimeout from "../hooks/useTimeout";
 export default function EditProfilePage() {
   const navigate = useNavigate();
   const { state } = useLocation();
-  const authToken: string | null = localStorage.getItem("token");
   const { t } = useTranslation();
 
   const [shownFirstName, setShownFirstName] = useState<string | undefined>(

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Button, Grid, Typography } from "@mui/material";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
@@ -37,6 +37,7 @@ export default function BoardgamesPage() {
     ConstantsArrays.SORT_OPTIONS[0]
   );
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isBoardgameDeleted, setIsBoardgameDeleted] = useState<boolean>(false);
 
   let boardgameRequestConfig: AxiosRequestConfig = {
     url: `/boardgames?pageIndex=${pageIndex}&pageSize=${pageSize}&sortOrder=${sortOrder}`,
@@ -49,11 +50,16 @@ export default function BoardgamesPage() {
     boardgameRequestConfig.url = `/boardgames/search?keywords=${keywords}&pageIndex=${pageIndex}&pageSize=${pageSize}&sortOrder=${sortOrder}`;
   }
 
-  const {
-    data: boardgamesData,
-    loading,
-    error,
-  } = useFetchData(boardgameRequestConfig);
+  const [{ data: boardgamesData, loading, error }, refetchData] = useFetchData(
+    boardgameRequestConfig
+  );
+
+  useEffect(() => {
+    if (isBoardgameDeleted === true) {
+      setIsBoardgameDeleted(false);
+      refetchData();
+    }
+  }, [isBoardgameDeleted]);
 
   return (
     <>
@@ -115,7 +121,10 @@ export default function BoardgamesPage() {
                 md={3}
                 sx={{ display: "flex" }}
               >
-                <BoardgameCard boardgame={boardgame} />
+                <BoardgameCard
+                  boardgame={boardgame}
+                  setIsBoardgameDeleted={setIsBoardgameDeleted}
+                />
               </Grid>
             ))}
           </Grid>

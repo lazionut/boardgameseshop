@@ -37,6 +37,7 @@ interface AdminBoardgameTemplateProps {
     categoryId: number;
   };
   templateName: string;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 type CategoryType = {
@@ -50,7 +51,6 @@ export default function AdminBoardgameTemplate({
   templateName,
 }: AdminBoardgameTemplateProps) {
   const navigate = useNavigate();
-  const authToken: string | null = localStorage.getItem("token");
   const { t } = useTranslation();
 
   const [file, setFile] = useState<Blob | undefined>(blobImage);
@@ -75,11 +75,9 @@ export default function AdminBoardgameTemplate({
     method: "GET",
   };
 
-  const {
-    data: categories,
-    loading,
-    error,
-  } = useFetchData(getCategoriesRequestConfig);
+  const [{ data: categories, loading, error }] = useFetchData(
+    getCategoriesRequestConfig
+  );
 
   const {
     register,
@@ -101,7 +99,7 @@ export default function AdminBoardgameTemplate({
       const addImageResponse = await sendDataService.execute({
         url: "/blobs",
         method: "post",
-        data: formData
+        data: formData,
       });
     }
   };
@@ -152,16 +150,15 @@ export default function AdminBoardgameTemplate({
       const updateBoardgameResponse = await sendDataService.execute({
         url: `/boardgames/${boardgame.id}`,
         method: "put",
-        data: editedBoardgameInput
+        data: editedBoardgameInput,
       });
 
       if (updateBoardgameResponse.status === Configs.NO_CONTENT_RESPONSE) {
         if (boardgame.image !== fileName) {
           await handleUploadFile();
-          window.location.reload();
-        } else {
-          window.location.reload();
         }
+
+        navigate(`/boardgames/${boardgame.id}`);
       }
     }
   };

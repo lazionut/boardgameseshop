@@ -23,8 +23,6 @@ interface WishlistModalProps {
 }
 
 export default function WishlistModal({ isOpen }: WishlistModalProps) {
-  const navigate = useNavigate();
-  const authToken: string | null = localStorage.getItem("token");
   const { wishlistItems, closeWishlist, clearWishlist } = useWishlistContext();
   const { t } = useTranslation();
   const {

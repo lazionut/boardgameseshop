@@ -30,11 +30,11 @@ export default function AccountPage() {
     },
   };
 
-  const {
+  const [{
     data: accountData,
     loading,
     error,
-  } = useFetchData(accountRequestConfig);
+  }] = useFetchData(accountRequestConfig);
 
   const handleAccountArchive = async () => {
     const archiveAccountResponse = await sendDataService.execute({

@@ -18,11 +18,11 @@ export default function SearchBar() {
     method: "GET",
   };
 
-  const {
+  const [{
     data: boardgamesNamesData,
     loading,
     error,
-  } = useFetchData(boardgameNamesRequestConfig);
+  }] = useFetchData(boardgameNamesRequestConfig);
 
   return (
     <Box

@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { Box, IconButton, MenuItem, Typography } from "@mui/material";
 import jwt_decode from "jwt-decode";
 import { GrEdit } from "react-icons/gr";
@@ -10,15 +8,22 @@ import { Constants, ConstantsArrays } from "../../constants/Constants";
 import sendDataService from "../../services/sendDataService";
 import { Configs } from "../../constants/Configs";
 import AdminCategoryModal from "./AdminCategoryModal";
+import { useState } from "react";
 
 interface CategoryMenuItemProps {
   category: {
     id: number;
     name: string;
   };
+  setIsCategoryDeleted: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsCategoryEdited: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function CategoryMenuItem({ category }: CategoryMenuItemProps) {
+export default function CategoryMenuItem({
+  category,
+  setIsCategoryDeleted,
+  setIsCategoryEdited,
+}: CategoryMenuItemProps) {
   const navigateSearch = useNavigateSearch();
   const authToken: string | null = localStorage.getItem("token");
   let accountDecoded: { [key: string]: any } | null = null;
@@ -26,16 +31,16 @@ export default function CategoryMenuItem({ category }: CategoryMenuItemProps) {
     accountDecoded = jwt_decode(authToken);
   }
 
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean | undefined>(false);
 
   const handleCategoryDelete = async (id: number) => {
     const deleteCategoryResponse = await sendDataService.execute({
       url: `/categories/${id}`,
-      method: "delete"
+      method: "delete",
     });
 
     if (deleteCategoryResponse.status === Configs.OK_RESPONSE) {
-      window.location.reload();
+      setIsCategoryDeleted(true);
     }
   };
 
@@ -64,7 +69,7 @@ export default function CategoryMenuItem({ category }: CategoryMenuItemProps) {
             <Box justifyContent="center">
               <IconButton
                 sx={{ marginLeft: "auto" }}
-                onClick={() => setIsOpen(true)}
+                onClick={() => setIsModalOpen(true)}
               >
                 <GrEdit size={25} />
               </IconButton>
@@ -76,9 +81,10 @@ export default function CategoryMenuItem({ category }: CategoryMenuItemProps) {
               </IconButton>
             </Box>
             <AdminCategoryModal
-              isOpen={isOpen}
-              setIsOpen={setIsOpen}
+              isOpen={isModalOpen}
+              setIsOpen={setIsModalOpen}
               category={category}
+              setIsCategoryEdited={setIsCategoryEdited}
             />
           </>
         )}

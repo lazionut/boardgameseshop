@@ -7,23 +7,27 @@ import { IoClose } from "react-icons/io5";
 import AdminCategoryTemplate from "./AdminCategoryTemplate";
 
 interface EditCategoryModalProps {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isOpen: boolean | undefined;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean | undefined>>;
   category?: {
     id: number;
     name: string;
   };
+  setIsCategoryCreated?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsCategoryEdited?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function AdminCategoryModal({
   isOpen,
   setIsOpen,
   category,
+  setIsCategoryCreated,
+  setIsCategoryEdited,
 }: EditCategoryModalProps) {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   return (
-    <Modal hideBackdrop open={isOpen} onClose={() => setIsOpen(false)}>
+    <Modal hideBackdrop open={isOpen ?? false} onClose={() => setIsOpen(false)}>
       <Box
         sx={{
           position: "absolute",
@@ -47,11 +51,17 @@ export default function AdminCategoryModal({
           }
         />
         {category === undefined ? (
-          <AdminCategoryTemplate templateName={t("create-category")} />
+          <AdminCategoryTemplate
+            templateName={t("create-category")}
+            setIsModalOpen={setIsOpen}
+            setIsCategoryCreated={setIsCategoryCreated}
+          />
         ) : (
           <AdminCategoryTemplate
             category={category}
-            templateName={t("edit-category")} 
+            templateName={t("edit-category")}
+            setIsModalOpen={setIsOpen}
+            setIsCategoryEdited={setIsCategoryEdited}
           />
         )}
       </Box>

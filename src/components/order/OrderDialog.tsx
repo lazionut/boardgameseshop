@@ -13,6 +13,7 @@ import {
   Select,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import { ORDER_STATUS_OPTIONS } from "../../constants/Constants";
 import sendDataService from "../../services/sendDataService";
@@ -27,8 +28,9 @@ export default function OrderDialog({
   id,
   currentOrderStatus,
 }: OrderDialogProps) {
-  const authToken: string | null = localStorage.getItem("token");
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const [orderStatus, setOrderStatus] = useState<number>(0);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -37,11 +39,18 @@ export default function OrderDialog({
     const changeOrderStatusResponse = await sendDataService.execute({
       url: `/orders/${id}/change-status?orderStatus=${orderStatusValue}`,
       method: "patch",
-      data: ""
+      data: "",
     });
 
     if (changeOrderStatusResponse.status === Configs.NO_CONTENT_RESPONSE) {
-      window.location.reload();
+      if (
+        location.pathname === "/orders" ||
+        location.pathname === "/orders/all"
+      ) {
+        navigate(`/orders/${id}`);
+      } else {
+        navigate(-1);
+      }
     }
   };
 

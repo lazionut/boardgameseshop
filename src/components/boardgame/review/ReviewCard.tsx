@@ -19,9 +19,13 @@ interface ReviewCardProps {
     accountId: number;
     creationDate: string;
   };
+  setIsReviewDeleted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function ReviewCard({ review }: ReviewCardProps) {
+export default function ReviewCard({
+  review,
+  setIsReviewDeleted,
+}: ReviewCardProps) {
   const authToken: string | null = localStorage.getItem("token");
   let accountDecoded: { [key: string]: any } | null = null;
   if (authToken !== null) {
@@ -29,13 +33,13 @@ export default function ReviewCard({ review }: ReviewCardProps) {
   }
 
   const handleReviewDelete = async (id: number) => {
-    const createWishlistResponse = await sendDataService.execute({
+    const deleteReviewResponse = await sendDataService.execute({
       url: `/reviews/${id}`,
-      method: "delete"
+      method: "delete",
     });
 
-    if (createWishlistResponse.status === Configs.OK_RESPONSE) {
-      window.location.reload();
+    if (deleteReviewResponse.status === Configs.OK_RESPONSE) {
+      setIsReviewDeleted(true);
     }
   };
 

@@ -14,14 +14,17 @@ interface AdminAccountProps {
     lastName: string;
     email: string;
   };
+  setIsAccountDeleted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function AdminAccountCard({ account }: AdminAccountProps) {
-  const authToken: string | null = localStorage.getItem("token");
+export default function AdminAccountCard({
+  account,
+  setIsAccountDeleted,
+}: AdminAccountProps) {
   const { t } = useTranslation();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
+     
   const handleDeleteAccount = async (id: number) => {
     const deleteAccountResponse = await sendDataService.execute({
       url: `/accounts/${id}`,
@@ -29,7 +32,7 @@ export default function AdminAccountCard({ account }: AdminAccountProps) {
     });
 
     if (deleteAccountResponse.status === Configs.OK_RESPONSE) {
-      window.location.reload();
+      setIsAccountDeleted(true);
     }
   };
 

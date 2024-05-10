@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 import { Box, Chip, CardActions, Grid, Typography, Card } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
@@ -22,8 +24,9 @@ export default function OrderHistoryCard({ order }: OrderHistoryCardProps) {
   if (authToken !== null) {
     accountDecoded = jwt_decode(authToken);
   }
+
   const navigate = useNavigate();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <Grid item key={order.id} mt="2%" mb="2%">
@@ -41,7 +44,10 @@ export default function OrderHistoryCard({ order }: OrderHistoryCardProps) {
               marginLeft: "auto",
             }}
           >
-            <OrderDialog id={order.id} currentOrderStatus={order.status} />
+            <OrderDialog
+              id={order.id}
+              currentOrderStatus={order.status}
+            />
           </Box>
         )}
         <Box
@@ -51,7 +57,9 @@ export default function OrderHistoryCard({ order }: OrderHistoryCardProps) {
           sx={{ cursor: "pointer" }}
           onClick={() => navigate(`/orders/${order.id}`)}
         >
-          <Typography variant="h6">{t("order")} #{order.id}</Typography>
+          <Typography variant="h6">
+            {t("order")} #{order.id}
+          </Typography>
           <Typography>
             {t("ordered-at")}: {trimDateTime(order.creationDate)}
           </Typography>
