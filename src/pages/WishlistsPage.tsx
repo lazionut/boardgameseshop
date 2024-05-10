@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import { Container, Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig } from "axios";
 import { useTranslation } from "react-i18next";
@@ -10,6 +12,9 @@ export default function WishlistsPage() {
   const authToken: string | null = localStorage.getItem("token");
   const { t } = useTranslation();
 
+  const [isWishlistDeleted, setIsWishlistDeleted] = useState<boolean>(false);
+  const [isWishlistEdited, setIsWishlistEdited] = useState<boolean>(false);
+
   const wishlistsRequestConfig: AxiosRequestConfig = {
     url: "/accounts/wishlists",
     method: "GET",
@@ -18,11 +23,23 @@ export default function WishlistsPage() {
     },
   };
 
-  const {
-    data: wishlistData,
-    loading,
-    error,
-  } = useFetchData(wishlistsRequestConfig);
+  const [{ data: wishlistData, loading, error }, refetchData] = useFetchData(
+    wishlistsRequestConfig
+  );
+
+  useEffect(() => {
+    if (isWishlistDeleted === true) {
+      setIsWishlistDeleted(false);
+      refetchData();
+    }
+  }, [isWishlistDeleted]);
+
+  useEffect(() => {
+    if (isWishlistEdited === true) {
+      setIsWishlistEdited(false);
+      refetchData();
+    }
+  }, [isWishlistEdited]);
 
   return (
     <Container>
@@ -51,7 +68,11 @@ export default function WishlistsPage() {
             <>
               {wishlistData.map((wishlist: any) => (
                 <Grid item key={wishlist.id} mt="5%" mb="2%">
-                  <WishlistCard wishlist={wishlist} />
+                  <WishlistCard
+                    wishlist={wishlist}
+                    setIsWishlistDeleted={setIsWishlistDeleted}
+                    setIsWishlistEdited={setIsWishlistEdited}
+                  />
                 </Grid>
               ))}
             </>

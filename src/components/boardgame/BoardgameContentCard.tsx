@@ -61,14 +61,15 @@ export default function BoardgameContentCard({
     responseType: imageType,
   };
 
-  const { data: imageData, loading, error } = useFetchData(imageRequestConfig);
+  const [{ data: imageData, loading, error }] =
+    useFetchData(imageRequestConfig);
 
   const blobImage = new Blob([new Uint8Array(imageData)], { type: "image" });
 
   const handleBoardgameArchive = async (id: number) => {
     const deleteBoardgameResponse = await sendDataService.execute({
       url: `/boardgames/${id}/archive`,
-      method: "delete"
+      method: "delete",
     });
 
     if (deleteBoardgameResponse.status === Configs.OK_RESPONSE) {

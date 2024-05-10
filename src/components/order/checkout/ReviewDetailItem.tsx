@@ -18,11 +18,11 @@ export default function ReviewDetailItem({ cartItem }: ReviewDetailItemProps) {
     method: "GET",
   };
 
-  const {
+  const [{
     data: boardgameData,
     loading,
     error,
-  } = useFetchData(boardgameRequestConfig);
+  }] = useFetchData(boardgameRequestConfig);
 
   return (
     <ListItem sx={{ py: 1, px: 0 }}>

@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { Box, Card, Container, Divider } from "@mui/material";
 import { useParams } from "react-router-dom";
 
@@ -14,11 +16,9 @@ export default function SingleBoardgamePage() {
     method: "GET",
   };
 
-  const {
-    data: boardgameData,
-    loading,
-    error,
-  } = useFetchData(boardgameRequestConfig);
+  const [{ data: boardgameData, loading, error }] = useFetchData(
+    boardgameRequestConfig
+  );
 
   return (
     <>

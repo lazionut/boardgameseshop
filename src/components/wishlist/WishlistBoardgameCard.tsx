@@ -31,7 +31,7 @@ export function WishlistBoardgameCard({
     responseType: imageType,
   };
 
-  const { data: imageData, loading, error } = useFetchData(imageRequestConfig);
+  const [{ data: imageData, loading, error }] = useFetchData(imageRequestConfig);
 
   const blobImage = new Blob([new Uint8Array(imageData)], { type: "image" });
 

@@ -21,11 +21,11 @@ export function WishlistModalItem({ id }: WishlistModalItemProps) {
     method: "GET",
   };
 
-  const {
+  const [{
     data: boardgameData,
     boardgameLoading,
     boardgameError,
-  } = useFetchData(boardgameRequestConfig);
+  }] = useFetchData(boardgameRequestConfig);
 
   useEffect(() => {
     if (boardgameData.image) {
@@ -39,11 +39,11 @@ export function WishlistModalItem({ id }: WishlistModalItemProps) {
 
   const imageType: any = "arraybuffer";
 
-  const {
+  const [{
     data: imageData,
     imageLoading,
     imageError,
-  } = useFetchData(imageRequestConfig);
+  }] = useFetchData(imageRequestConfig);
 
   const blobImage = new Blob([new Uint8Array(imageData)], { type: "image" });
 

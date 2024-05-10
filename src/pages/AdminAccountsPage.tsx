@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { List, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
@@ -9,13 +9,15 @@ import PaginationOutlined from "../components/common/PaginationOutlined";
 import AdminAccountCard from "../components/account/AdminAccountCard";
 
 export default function AdminAccountsPage() {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const authToken: string | null = localStorage.getItem("token");
 
   const [pageIndex, setPageIndex] = useState<number>(
     Constants.DEFAULT_PAGE_INDEX
   );
   const [pageSize, setPageSize] = useState<number>(Constants.DEFAULT_PAGE_SIZE);
+
+  const [isAccountDeleted, setIsAccountDeleted] = useState<boolean>(false);
 
   const accountsRequestConfig = {
     url: `/accounts?pageIndex=${pageIndex}&pageSize=${pageSize}`,
@@ -25,11 +27,16 @@ export default function AdminAccountsPage() {
     },
   };
 
-  const {
-    data: accountsData,
-    loading,
-    error,
-  } = useFetchData(accountsRequestConfig);
+  const [{ data: accountsData, loading, error }, refetchData] = useFetchData(
+    accountsRequestConfig
+  );
+
+  useEffect(() => {
+    if (isAccountDeleted === true) {
+      setIsAccountDeleted(false);
+      refetchData();
+    }
+  }, [isAccountDeleted]);
 
   return (
     <div>
@@ -40,7 +47,11 @@ export default function AdminAccountsPage() {
               {t("accounts")}
             </Typography>
             {accountsData.accounts.map((account: any) => (
-              <AdminAccountCard key={account.id} account={account} />
+              <AdminAccountCard
+                key={account.id}
+                account={account}
+                setIsAccountDeleted={setIsAccountDeleted}
+              />
             ))}
           </List>
           <PaginationOutlined

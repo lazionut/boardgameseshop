@@ -27,11 +27,8 @@ export default function OrderHistoryPage() {
     },
   };
 
-  const {
-    data: ordersData,
-    loading,
-    error,
-  } = useFetchData(ordersRequestConfig);
+  const [{ data: ordersData, loading, error }] =
+    useFetchData(ordersRequestConfig);
 
   return (
     <Container sx={{ mb: { xs: "5%", md: "auto" }, mt: "3%" }}>

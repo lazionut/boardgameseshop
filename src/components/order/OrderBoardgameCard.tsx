@@ -38,11 +38,11 @@ export default function OrderBoardgameCard({
     responseType: imageType,
   };
 
-  const {
+  const [{
     data: imageData,
     imageLoading,
     imageError,
-  } = useFetchData(imageRequestConfig);
+  }] = useFetchData(imageRequestConfig);
 
   const blobImage = new Blob([new Uint8Array(imageData)], { type: "image" });
 

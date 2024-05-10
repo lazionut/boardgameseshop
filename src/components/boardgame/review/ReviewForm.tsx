@@ -12,10 +12,13 @@ import { NotificationToast } from "../../common/NotificationToast";
 
 interface ReviewFormProps {
   boardgameId: number;
+  setIsReviewCreated: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function ReviewForm({ boardgameId }: ReviewFormProps) {
-  const authToken: string | null = localStorage.getItem("token");
+export function ReviewForm({
+  boardgameId,
+  setIsReviewCreated,
+}: ReviewFormProps) {
   const { t } = useTranslation();
 
   const [showAlert, setShowAlert] = useState<boolean>(false);
@@ -39,14 +42,14 @@ export function ReviewForm({ boardgameId }: ReviewFormProps) {
     const createReviewResponse = await sendDataService.execute({
       url: "/reviews",
       method: "post",
-      data: reviewInput
+      data: reviewInput,
     });
 
     reset({ title: "", content: "" });
     setRatingStars(null);
 
     if (createReviewResponse?.data !== undefined) {
-      window.location.reload();
+      setIsReviewCreated(true);
     } else {
       setShowAlert(true);
     }

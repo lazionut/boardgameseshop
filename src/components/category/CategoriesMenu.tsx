@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Button from "@mui/material/Button";
 import { Box, IconButton, Menu } from "@mui/material";
@@ -22,7 +22,12 @@ export default function CategoriesMenu() {
   const { t } = useTranslation();
 
   const [anchorElement, setAnchorElement] = useState<null | HTMLElement>(null);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState<
+    boolean | undefined
+  >();
+  const [isCategoryCreated, setIsCategoryCreated] = useState<boolean>(false);
+  const [isCategoryEdited, setIsCategoryEdited] = useState<boolean>(false);
+  const [isCategoryDeleted, setIsCategoryDeleted] = useState<boolean>(false);
 
   const open = Boolean(anchorElement);
 
@@ -38,11 +43,30 @@ export default function CategoriesMenu() {
     method: "GET",
   };
 
-  const {
-    data: categories,
-    loading,
-    error,
-  } = useFetchData(getCategoriesRequestConfig);
+  const [{ data: categories, loading, error }, refetchData] = useFetchData(
+    getCategoriesRequestConfig
+  );
+
+  useEffect(() => {
+    if (isCategoryCreated) {
+      setIsCategoryCreated(false);
+      refetchData();
+    }
+  }, [isCategoryCreated]);
+
+  useEffect(() => {
+    if (isCategoryEdited) {
+      setIsCategoryEdited(false);
+      refetchData();
+    }
+  }, [isCategoryEdited]);
+
+  useEffect(() => {
+    if (isCategoryDeleted) {
+      setIsCategoryDeleted(false);
+      refetchData();
+    }
+  }, [isCategoryDeleted]);
 
   return (
     <Box
@@ -65,15 +89,27 @@ export default function CategoriesMenu() {
       </Button>
       <Menu anchorEl={anchorElement} open={open} onClose={handleClose}>
         {accountDecoded?.Role === Constants.ADMIN && (
-          <IconButton color="primary" onClick={() => setIsOpen(true)}>
+          <IconButton
+            color="primary"
+            onClick={() => setIsCreateModalOpen(true)}
+          >
             <AiFillPlusSquare size={35} />
           </IconButton>
         )}
         {categories.map((category: any) => (
-          <CategoryMenuItem key={category} category={category} />
+          <CategoryMenuItem
+            key={JSON.stringify(category)}
+            category={category}
+            setIsCategoryDeleted={setIsCategoryDeleted}
+            setIsCategoryEdited={setIsCategoryEdited}
+          />
         ))}
       </Menu>
-      <AdminCategoryModal isOpen={isOpen} setIsOpen={setIsOpen} />
+      <AdminCategoryModal
+        isOpen={isCreateModalOpen}
+        setIsOpen={setIsCreateModalOpen}
+        setIsCategoryCreated={setIsCategoryCreated}
+      />
     </Box>
   );
 }

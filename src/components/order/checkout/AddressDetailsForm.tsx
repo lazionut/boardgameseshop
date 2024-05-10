@@ -41,11 +41,11 @@ export default function AddressDetails({
     },
   };
 
-  const {
+  const [{
     data: accountData,
     loading,
     error,
-  } = useFetchData(accountRequestConfig);
+  }] = useFetchData(accountRequestConfig);
 
   useEffect(() => {
     setShownFirstName(accountData.firstName);

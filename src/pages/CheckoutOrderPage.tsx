@@ -23,7 +23,6 @@ import sendDataService from "../services/sendDataService";
 export default function CheckoutOrderPage() {
   const { state } = useLocation();
   const { clearCart, cartItems } = useCartContext();
-  const authToken: string | null = localStorage.getItem("token");
   const { t } = useTranslation();
 
   const [activeStep, setActiveStep] = useState<number>(0);

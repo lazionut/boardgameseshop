@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 
 import { Button, Container, Grid, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
@@ -8,22 +8,29 @@ import { requiredFieldRule } from "../../constants/Rules";
 import sendDataService from "../../services/sendDataService";
 import { Configs } from "../../constants/Configs";
 
-interface CategoryAdminTemplateProps {
+interface AdminCategoryTemplateProps {
   templateName: string;
   category?: {
     id: number;
     name: string;
   };
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean | undefined>>;
+  setIsCategoryCreated?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsCategoryEdited?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function AdminCategoryTemplate({
   templateName,
   category,
-}: CategoryAdminTemplateProps) {
-  const authToken: string | null = localStorage.getItem("token");
+  setIsModalOpen,
+  setIsCategoryCreated,
+  setIsCategoryEdited,
+}: AdminCategoryTemplateProps) {
   const { t } = useTranslation();
 
-  const [name, setName] = useState<string | undefined>(category?.name);
+  const [name, setName] = useState<string>(category?.name ?? "");
+
+  console.log("Category is: " + category?.name);
 
   const {
     register,
@@ -44,7 +51,8 @@ export default function AdminCategoryTemplate({
       });
 
       if (createCategoryResponse?.data !== undefined) {
-        window.location.reload();
+        setIsModalOpen(false);
+        setIsCategoryCreated?.(true);
       }
     } else {
       const editCategoryInput = {
@@ -58,7 +66,8 @@ export default function AdminCategoryTemplate({
       });
 
       if (updateCategoryResponse.status === Configs.NO_CONTENT_RESPONSE) {
-        window.location.reload();
+        setIsModalOpen(false);
+        setIsCategoryEdited?.(true);
       }
     }
   };

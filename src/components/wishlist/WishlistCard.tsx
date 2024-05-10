@@ -40,10 +40,15 @@ interface WishlistCardProp {
       link: string;
     }[];
   };
+  setIsWishlistDeleted: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsWishlistEdited: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function WishlistCard({ wishlist }: WishlistCardProp) {
-  const authToken: string | null = localStorage.getItem("token");
+export default function WishlistCard({
+  wishlist,
+  setIsWishlistDeleted,
+  setIsWishlistEdited,
+}: WishlistCardProp) {
   const { t } = useTranslation();
   const { clearCart, increaseCartItemQuantity } = useCartContext();
 
@@ -54,11 +59,11 @@ export default function WishlistCard({ wishlist }: WishlistCardProp) {
   const handleWishlistDelete = async (id: number) => {
     const deleteWishlistResponse = await sendDataService.execute({
       url: `/accounts/wishlists/${id}`,
-      method: "delete"
+      method: "delete",
     });
 
     if (deleteWishlistResponse.status === Configs.OK_RESPONSE) {
-      window.location.reload();
+      setIsWishlistDeleted(true);
     }
   };
 
@@ -151,6 +156,7 @@ export default function WishlistCard({ wishlist }: WishlistCardProp) {
         wishlist={wishlist}
         isOpen={isEditWishlistOpen}
         setIsOpen={setIsEditWishlistOpen}
+        setIsWishlistEdited={setIsWishlistEdited}
       />
     </Container>
   );

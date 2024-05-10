@@ -56,12 +56,16 @@ export default function AdminBoardgameModal({
           }
         />
         {boardgame === undefined ? (
-          <AdminBoardgameTemplate templateName={t("add-boardgame")} />
+          <AdminBoardgameTemplate
+            templateName={t("add-boardgame")}
+            setIsOpen={setIsOpen}
+          />
         ) : (
           <AdminBoardgameTemplate
             blobImage={blobImage}
             boardgame={boardgame}
             templateName={t("edit-boardgame")}
+            setIsOpen={setIsOpen}
           />
         )}
       </Box>

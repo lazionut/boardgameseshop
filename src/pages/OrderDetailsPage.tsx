@@ -20,7 +20,8 @@ export default function OrderDetailsPage() {
     },
   };
 
-  const { data: orderData, loading, error } = useFetchData(orderRequestConfig);
+  const [{ data: orderData, loading, error }] =
+    useFetchData(orderRequestConfig);
 
   return (
     <>

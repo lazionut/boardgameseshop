@@ -48,11 +48,11 @@ export function CartItem({
     method: "GET",
   };
 
-  const {
+  const [{
     data: boardgameData,
     boardgameLoading,
     boardgameError,
-  } = useFetchData(boardgameRequestConfig);
+  }] = useFetchData(boardgameRequestConfig);
 
   useEffect(() => {
     setLocalCartItems([...localCartItems, boardgameData]);
@@ -68,11 +68,11 @@ export function CartItem({
 
   const imageType: any = "arraybuffer";
 
-  const {
+  const [{
     data: imageData,
     imageLoading,
     imageError,
-  } = useFetchData(imageRequestConfig);
+  }] = useFetchData(imageRequestConfig);
 
   const blobImage = new Blob([new Uint8Array(imageData)], { type: "image" });
 

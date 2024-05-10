@@ -33,14 +33,15 @@ type EditWishlist = {
   };
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsWishlistEdited: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function EditWishlistModal({
   wishlist,
   isOpen,
   setIsOpen,
+  setIsWishlistEdited,
 }: EditWishlist) {
-  const authToken: string | null = localStorage.getItem("token");
   const { t } = useTranslation();
 
   const [localWishlistItems, setLocalWishlistItems] = useState(
@@ -68,14 +69,15 @@ export default function EditWishlistModal({
       boardgameIds: localWishlistItems.map((wishlistItem) => wishlistItem.id),
     };
 
-    const createWishlistResponse = await sendDataService.execute({
+    const updateWishlistResponse = await sendDataService.execute({
       url: `/accounts/wishlists/${wishlist.id}`,
       method: "put",
-      data: wishlistInput
+      data: wishlistInput,
     });
 
-    if (createWishlistResponse?.data !== undefined) {
-      window.location.reload();
+    if (updateWishlistResponse?.data !== undefined) {
+      setIsWishlistEdited(true);
+      setIsOpen(false);
     }
   };
 
@@ -159,6 +161,7 @@ export default function EditWishlistModal({
                     key={boardgame.id}
                     boardgame={boardgame}
                     localRemoveWishlistItem={localRemoveWishlistItem}
+                    setIsWishlistEdited={setIsWishlistEdited}
                   />
                 </Grid>
               ))}

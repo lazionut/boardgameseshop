@@ -24,7 +24,7 @@ import AdminBoardgameActions from "./AdminBoardgameActions";
 import { LoadingCircle } from "../common/LoadingCircle";
 import { Configs } from "../../constants/Configs";
 
-interface Boardgame {
+interface BoardgameCardProps {
   boardgame: {
     id: number;
     image: string | null;
@@ -36,9 +36,13 @@ interface Boardgame {
     quantity: number;
     categoryId: number;
   };
+  setIsBoardgameDeleted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function BoardgameCard({ boardgame }: Boardgame) {
+export default function BoardgameCard({
+  boardgame,
+  setIsBoardgameDeleted,
+}: BoardgameCardProps) {
   const navigate = useNavigate();
   const authToken: string | null = localStorage.getItem("token");
   let accountDecoded: { [key: string]: any } | null = null;
@@ -60,14 +64,15 @@ export default function BoardgameCard({ boardgame }: Boardgame) {
     responseType: imageType,
   };
 
-  const { data: imageData, loading, error } = useFetchData(imageRequestConfig);
+  const [{ data: imageData, loading, error }] =
+    useFetchData(imageRequestConfig);
 
   const blobImage = new Blob([new Uint8Array(imageData)], { type: "image" });
 
   const handleBoardgameArchive = async (id: number) => {
     const archiveBoardgameResponse = await sendDataService.execute({
       url: `/boardgames/${id}/archive`,
-      method: "delete"
+      method: "delete",
     });
 
     if (archiveBoardgameResponse.status === Configs.OK_RESPONSE) {
@@ -103,7 +108,7 @@ export default function BoardgameCard({ boardgame }: Boardgame) {
             onConfirmationClick={() => {
               handleBoardgameArchive(boardgame.id);
               setIsDeleteDialogOpen(false);
-              window.location.reload();
+              setIsBoardgameDeleted(true);
             }}
             onDeleteClick={() => setIsDeleteDialogOpen(true)}
           />
