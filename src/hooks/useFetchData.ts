@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+
 import { Configs } from "../constants/Configs";
 
 axios.defaults.baseURL = String(Configs.BASE_URL);
@@ -21,7 +22,7 @@ const useFetchData = (requestConfig: AxiosRequestConfig): any => {
     error: null,
   });
 
-  console.log("Request config is: " + JSON.stringify(requestConfig));
+  //console.log("Request config is: " + JSON.stringify(requestConfig));
 
   const fetchData = async () => {
     try {
@@ -32,7 +33,7 @@ const useFetchData = (requestConfig: AxiosRequestConfig): any => {
 
       const response: AxiosResponse<any, any> = await axios(requestConfig);
 
-      console.log("Response is: " + JSON.stringify(response));
+      //console.log("Response is: " + JSON.stringify(response));
 
       setRequestState({
         ...requestState,

@@ -1,8 +1,8 @@
 import { Typography, List, ListItem, ListItemText, Grid } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
-import { useCartContext } from "../../../context/CartContext";
 import ReviewDetailItem from "./ReviewDetailItem";
+import { useCartContext } from "../../../context/CartContext";
 
 export interface ReviewDetailsProps {
   orderItems: any;

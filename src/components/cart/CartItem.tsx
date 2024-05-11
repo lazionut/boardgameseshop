@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   Box,
@@ -11,10 +11,10 @@ import {
   Typography,
 } from "@mui/material";
 import { AxiosRequestConfig } from "axios";
-import { FaMinusCircle } from "react-icons/fa";
-import { BsPlusCircleFill } from "react-icons/bs";
-import { MdDelete } from "react-icons/md";
 import { useTranslation } from "react-i18next";
+import { BsPlusCircleFill } from "react-icons/bs";
+import { FaMinusCircle } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 
 import { useCartContext } from "../../context/CartContext";
 import useFetchData from "../../hooks/useFetchData";

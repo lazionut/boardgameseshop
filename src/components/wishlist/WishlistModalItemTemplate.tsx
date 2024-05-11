@@ -7,9 +7,9 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
+import { MdDelete } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
-import { MdDelete } from "react-icons/md";
 import { stockDefiner } from "../../utils/Utilities";
 
 interface WishlistModalItemTemplateProps {

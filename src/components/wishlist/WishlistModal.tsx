@@ -8,14 +8,13 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-import { IoClose } from "react-icons/io5";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { IoClose } from "react-icons/io5";
 
-import { useWishlistContext } from "../../context/WishlistContext";
 import { WishlistModalItem } from "./WishlistModalItem";
 import { requiredFieldRule } from "../../constants/Rules";
+import { useWishlistContext } from "../../context/WishlistContext";
 import sendDataService from "../../services/sendDataService";
 
 interface WishlistModalProps {
@@ -41,7 +40,7 @@ export default function WishlistModal({ isOpen }: WishlistModalProps) {
     const createWishlistResponse = await sendDataService.execute({
       url: "/wishlists ",
       method: "post",
-      data: wishlistInput
+      data: wishlistInput,
     });
 
     if (createWishlistResponse?.data !== undefined) {
@@ -112,8 +111,8 @@ export default function WishlistModal({ isOpen }: WishlistModalProps) {
               p={"2%"}
             >
               {wishlistItems.map((item) => (
-                <Grid item>
-                  <WishlistModalItem key={item.id} {...item} />
+                <Grid item key={item.id}>
+                  <WishlistModalItem {...item} />
                 </Grid>
               ))}
             </Grid>

@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import { Button, Grid, Typography } from "@mui/material";
-import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import { AxiosRequestConfig } from "axios";
-import { AiFillPlusSquare } from "react-icons/ai";
 import { useTranslation } from "react-i18next";
+import { AiFillPlusSquare } from "react-icons/ai";
+import { useLocation, useParams, useSearchParams } from "react-router-dom";
 
-import useFetchData from "../hooks/useFetchData";
-import BoardgameCard from "../components/boardgame/BoardgameCard";
-import { Constants, ConstantsArrays } from "../constants/Constants";
-import PaginationOutlined from "../components/common/PaginationOutlined";
-import { NotificationToast } from "../components/common/NotificationToast";
-import EmptyTemplate from "../components/common/EmptyTemplate";
-import SortOrderSelect from "../components/boardgame/SortOrderSelect";
 import AdminBoardgameModal from "../components/boardgame/AdminBoardgameModal";
+import BoardgameCard from "../components/boardgame/BoardgameCard";
+import SortOrderSelect from "../components/boardgame/SortOrderSelect";
+import EmptyTemplate from "../components/common/EmptyTemplate";
+import { NotificationToast } from "../components/common/NotificationToast";
+import PaginationOutlined from "../components/common/PaginationOutlined";
 import { Configs } from "../constants/Configs";
+import { Constants, ConstantsArrays } from "../constants/Constants";
 import { useAuthContext } from "../context/AuthContext";
+import useFetchData from "../hooks/useFetchData";
 
 export default function BoardgamesPage() {
   const { categoryId } = useParams();
@@ -36,7 +36,7 @@ export default function BoardgamesPage() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isBoardgameDeleted, setIsBoardgameDeleted] = useState<boolean>(false);
 
-  let boardgameRequestConfig: AxiosRequestConfig = {
+  const boardgameRequestConfig: AxiosRequestConfig = {
     url: `/boardgames?pageIndex=${pageIndex}&pageSize=${pageSize}&sortOrder=${sortOrder}`,
     method: "GET",
   };

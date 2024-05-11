@@ -1,12 +1,12 @@
 import { Box, Container, Grid, Typography } from "@mui/material";
-import { useParams } from "react-router-dom";
 import { AxiosRequestConfig } from "axios";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
 
-import OrderItemsCard from "../components/order/OrderItemsCard";
 import NavigateBackButton from "../components/common/NavigateBackButton";
-import useFetchData from "../hooks/useFetchData";
+import OrderItemsCard from "../components/order/OrderItemsCard";
 import { useAuthContext } from "../context/AuthContext";
+import useFetchData from "../hooks/useFetchData";
 
 export default function OrderDetailsPage() {
   const { id } = useParams();

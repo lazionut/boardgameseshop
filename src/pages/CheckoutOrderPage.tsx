@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import {
   Typography,
@@ -10,12 +10,12 @@ import {
   Box,
   Button,
 } from "@mui/material";
-import { useLocation } from "react-router-dom";
-import { GiMeepleKing } from "react-icons/gi";
 import { useTranslation } from "react-i18next";
+import { GiMeepleKing } from "react-icons/gi";
+import { useLocation } from "react-router-dom";
 
-import PaymentShippingDetails from "../components/order/checkout/PaymentShippingDetails";
 import AddressDetailsForm from "../components/order/checkout/AddressDetailsForm";
+import PaymentShippingDetails from "../components/order/checkout/PaymentShippingDetails";
 import ReviewDetails from "../components/order/checkout/ReviewDetails";
 import { useCartContext } from "../context/CartContext";
 import sendDataService from "../services/sendDataService";
@@ -29,6 +29,8 @@ export default function CheckoutOrderPage() {
   const [orderId, setOrderId] = useState<number | undefined>();
   const [orderName, setOrderName] = useState<string>("");
   const [orderAddress, setOrderAddress] = useState<any>({});
+
+  const [isFormValidated, setIsFormValidated] = useState<boolean>(false);
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -51,6 +53,7 @@ export default function CheckoutOrderPage() {
           <AddressDetailsForm
             setNameDetails={setOrderName}
             setAddressDetails={setOrderAddress}
+            setIsFormValidated={setIsFormValidated}
           />
         );
       case 1:
@@ -94,6 +97,13 @@ export default function CheckoutOrderPage() {
       clearCart();
     }
   }, [activeStep]);
+
+  useEffect(() => {
+    if (isFormValidated) {
+      setIsFormValidated(false);
+      handleNext();
+    }
+  }, [isFormValidated]);
 
   return (
     <Container component="main" maxWidth="sm" sx={{ mb: "6%" }}>
@@ -143,7 +153,7 @@ export default function CheckoutOrderPage() {
                     {t("back")}
                   </Button>
                 )}
-                {activeStep !== steps.length - 1 ? (
+                {activeStep === 1 && (
                   <Button
                     variant="contained"
                     onClick={handleNext}
@@ -151,7 +161,8 @@ export default function CheckoutOrderPage() {
                   >
                     {t("next")}
                   </Button>
-                ) : (
+                )}
+                {activeStep === 2 && (
                   <Button
                     variant="contained"
                     onClick={() => handleNext()}

@@ -1,6 +1,5 @@
-import useFetchData from "../../hooks/useFetchData";
-
 import { WishlistModalItemTemplate } from "./WishlistModalItemTemplate";
+import useFetchData from "../../hooks/useFetchData";
 
 interface EditWishlistModalItemProps {
   boardgame: {
@@ -12,13 +11,11 @@ interface EditWishlistModalItemProps {
     price: number;
   };
   localRemoveWishlistItem: (id: number) => void;
-  setIsWishlistEdited: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export function EditWishlistModalItem({
   boardgame,
   localRemoveWishlistItem,
-  setIsWishlistEdited
 }: EditWishlistModalItemProps) {
   const imageType: any = "arraybuffer";
 
@@ -28,10 +25,10 @@ export function EditWishlistModalItem({
     responseType: imageType,
   };
 
-  const [{ data: imageData, loading, error }] = useFetchData(imageRequestConfig);
+  const [{ data: imageData, loading, error }] =
+    useFetchData(imageRequestConfig);
 
   const blobImage = new Blob([new Uint8Array(imageData)], { type: "image" });
-  
 
   return (
     <WishlistModalItemTemplate

@@ -4,12 +4,12 @@ import { Container, Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig } from "axios";
 import { useTranslation } from "react-i18next";
 
-import useFetchData from "../hooks/useFetchData";
-import { Constants } from "../constants/Constants";
+import EmptyTemplate from "../components/common/EmptyTemplate";
 import PaginationOutlined from "../components/common/PaginationOutlined";
 import OrderHistoryCard from "../components/order/OrderHistoryCard";
-import EmptyTemplate from "../components/common/EmptyTemplate";
+import { Constants } from "../constants/Constants";
 import { useAuthContext } from "../context/AuthContext";
+import useFetchData from "../hooks/useFetchData";
 
 export default function OrderHistoryPage() {
   const { authToken } = useAuthContext();

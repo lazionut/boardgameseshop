@@ -1,9 +1,7 @@
-import React from "react";
-
 import { CardActions, IconButton } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import { GrEdit } from "react-icons/gr";
 import { MdDelete } from "react-icons/md";
-import { useTranslation } from "react-i18next";
 
 import ConfirmationDialog from "../common/ConfirmationDialog";
 
@@ -39,7 +37,6 @@ export default function AdminBoardgameActions({
       <ConfirmationDialog
         title={t("delete-boardgame")}
         content={`${t("delete-boardgame-confirmation")}?`}
-        deleteAlertText={t("delete-boardgame-confirmation")}
         onClick={onConfirmationClick}
         isOpen={isDeleteOpen}
         setIsOpen={setIsDeleteOpen}

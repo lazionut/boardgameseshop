@@ -1,12 +1,12 @@
 import { Box, Card, Grid, IconButton, Typography } from "@mui/material";
+import { GiMeeple } from "react-icons/gi";
 import { MdDelete } from "react-icons/md";
 
-import sendDataService from "../../../services/sendDataService";
+import { StyledRating } from "./RatingOptions";
 import { Configs } from "../../../constants/Configs";
 import { Constants } from "../../../constants/Constants";
-import { StyledRating } from "./RatingOptions";
-import { GiMeeple } from "react-icons/gi";
 import { useAuthContext } from "../../../context/AuthContext";
+import sendDataService from "../../../services/sendDataService";
 
 interface ReviewCardProps {
   review: {
@@ -26,7 +26,7 @@ export default function ReviewCard({
   review,
   setIsReviewDeleted,
 }: ReviewCardProps) {
-  const { authToken, accountDecoded } = useAuthContext();
+  const { accountDecoded } = useAuthContext();
 
   const handleReviewDelete = async (id: number) => {
     const deleteReviewResponse = await sendDataService.execute({

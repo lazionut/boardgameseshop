@@ -10,16 +10,16 @@ import {
   Typography,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { IoMdLogIn } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 
 import { NotificationToast } from "../components/common/NotificationToast";
 import { emailFieldRule, requiredFieldRule } from "../constants/Rules";
+import useTimeout from "../hooks/useTimeout";
 import authenticationService, {
   Login,
 } from "../services/authenticationService";
-import useTimeout from "../hooks/useTimeout";
 
 export default function LoginPage() {
   const navigate = useNavigate();

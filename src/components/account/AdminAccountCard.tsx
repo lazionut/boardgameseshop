@@ -3,9 +3,9 @@ import { useState } from "react";
 import { Grid, Card, ListItem, Button } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
-import ConfirmationDialog from "../common/ConfirmationDialog";
-import sendDataService from "../../services/sendDataService";
 import { Configs } from "../../constants/Configs";
+import sendDataService from "../../services/sendDataService";
+import ConfirmationDialog from "../common/ConfirmationDialog";
 
 interface AdminAccountProps {
   account: {
@@ -64,7 +64,6 @@ export default function AdminAccountCard({
           <ConfirmationDialog
             title={t("confirm-delete")}
             content={`${t("account-deleted")}.`}
-            deleteAlertText={t("account-deleted-message")}
             onClick={() => handleDeleteAccount(account.id)}
             isOpen={isOpen}
             setIsOpen={setIsOpen}

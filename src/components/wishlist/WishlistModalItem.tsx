@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 
 import { AxiosRequestConfig } from "axios";
-import useFetchData from "../../hooks/useFetchData";
 
-import { useWishlistContext } from "../../context/WishlistContext";
 import { WishlistModalItemTemplate } from "./WishlistModalItemTemplate";
+import { useWishlistContext } from "../../context/WishlistContext";
+import useFetchData from "../../hooks/useFetchData";
 
 interface WishlistModalItemProps {
   id: number;
 }
 
 export function WishlistModalItem({ id }: WishlistModalItemProps) {
-  const { removeWishlistItem, wishlistItems } = useWishlistContext();
+  const { removeWishlistItem } = useWishlistContext();
 
   const [imageRequestConfig, setImageRequestConfig] =
     useState<AxiosRequestConfig>({});

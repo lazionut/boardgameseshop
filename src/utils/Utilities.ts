@@ -56,13 +56,13 @@ export function getCurrentCountryCode(
 }
 
 export function trimDateTime(inputDateTime: string): string {
-  let cleaneadDate: string = inputDateTime.substring(0, 10);
-  let correctFormattedDate: string = cleaneadDate
+  const cleaneadDate: string = inputDateTime.substring(0, 10);
+  const correctFormattedDate: string = cleaneadDate
     .split("-")
     .reverse()
     .join("-");
 
-  let cleaneadTime: string = inputDateTime.substring(11, 19);
+  const cleaneadTime: string = inputDateTime.substring(11, 19);
 
   return correctFormattedDate + " " + cleaneadTime;
 }

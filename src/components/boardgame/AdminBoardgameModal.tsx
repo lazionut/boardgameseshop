@@ -1,8 +1,6 @@
-import React from "react";
-
 import { Box, CardHeader, IconButton, Modal } from "@mui/material";
-import { IoClose } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
+import { IoClose } from "react-icons/io5";
 
 import AdminBoardgameTemplate from "./AdminBoardgameTemplate";
 

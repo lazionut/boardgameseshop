@@ -9,9 +9,12 @@ import {
   Typography,
   Box,
 } from "@mui/material";
-import { useForm } from "react-hook-form";
 import { AxiosRequestConfig } from "axios";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
+import { Configs } from "../../constants/Configs";
 import {
   minimumPriceFieldRule,
   positiveNumberFieldRule,
@@ -19,9 +22,16 @@ import {
 } from "../../constants/Rules";
 import useFetchData from "../../hooks/useFetchData";
 import sendDataService from "../../services/sendDataService";
-import { Configs } from "../../constants/Configs";
-import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+
+type FormValues = {
+  name: string;
+  price: string;
+  "release-year": string;
+  description: string;
+  link: string;
+  quantity: string;
+  category: string;
+};
 
 interface AdminBoardgameTemplateProps {
   blobImage?: Blob;
@@ -57,18 +67,6 @@ export default function AdminBoardgameTemplate({
   const [fileName, setFileName] = useState<string | null | undefined>(
     boardgame?.image
   );
-  const [name, setName] = useState<string | undefined>(boardgame?.name);
-  const [price, setPrice] = useState<number | undefined>(boardgame?.price);
-  const [releaseYear, setReleaseYear] = useState<number | undefined>(
-    boardgame?.releaseYear
-  );
-  const [description, setDescription] = useState<string | null | undefined>(
-    boardgame?.description
-  );
-  const [link, setLink] = useState<string | null | undefined>(boardgame?.link);
-  const [quantity, setQuantity] = useState<number | undefined>(
-    boardgame?.quantity
-  );
 
   const getCategoriesRequestConfig: AxiosRequestConfig = {
     url: "/categories",
@@ -83,7 +81,17 @@ export default function AdminBoardgameTemplate({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<FormValues>({
+    defaultValues: {
+      name: boardgame?.name,
+      price: boardgame?.price.toString(),
+      "release-year": boardgame?.releaseYear.toString(),
+      description: boardgame?.description ?? "",
+      link: boardgame?.link ?? "",
+      quantity: boardgame?.quantity.toString(),
+      category: "",
+    },
+  });
 
   const handleBrowseFile = async (e: any) => {
     setFile(e.target.files[0]);
@@ -96,7 +104,7 @@ export default function AdminBoardgameTemplate({
       formData.append("formFile", file);
       formData.append("fileName", fileName);
 
-      const addImageResponse = await sendDataService.execute({
+      await sendDataService.execute({
         url: "/blobs",
         method: "post",
         data: formData,
@@ -245,7 +253,6 @@ export default function AdminBoardgameTemplate({
               <Grid item xs={12}>
                 <TextField
                   label={`${t("name")} *`}
-                  value={name}
                   fullWidth
                   autoFocus
                   variant="outlined"
@@ -257,13 +264,11 @@ export default function AdminBoardgameTemplate({
                   {...register("name", {
                     ...requiredFieldRule,
                   })}
-                  onChange={(e) => setName(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   type="number"
-                  value={price}
                   label={`${t("price")} *`}
                   fullWidth
                   variant="outlined"
@@ -276,15 +281,11 @@ export default function AdminBoardgameTemplate({
                     ...requiredFieldRule,
                     ...minimumPriceFieldRule,
                   })}
-                  onChange={(e) => {
-                    setPrice(Number(e.target.value));
-                  }}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   type="number"
-                  value={releaseYear}
                   label={`${t("release-year")} *`}
                   fullWidth
                   variant="outlined"
@@ -297,15 +298,13 @@ export default function AdminBoardgameTemplate({
                     ...requiredFieldRule,
                     ...positiveNumberFieldRule,
                   })}
-                  onChange={(e) => setReleaseYear(Number(e.target.value))}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   type="text"
                   variant="outlined"
-                  value={description}
-                  label={`${t("description")} *`}
+                  label={`${t("description")}`}
                   multiline
                   rows="5"
                   fullWidth
@@ -315,14 +314,12 @@ export default function AdminBoardgameTemplate({
                     String(errors["description"]?.message)
                   }
                   {...register("description")}
-                  onChange={(e) => setDescription(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   type="text"
                   variant="outlined"
-                  value={link}
                   label="Link"
                   fullWidth
                   error={!!errors["link"]}
@@ -331,14 +328,12 @@ export default function AdminBoardgameTemplate({
                     String(errors["link"]?.message)
                   }
                   {...register("link")}
-                  onChange={(e) => setLink(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   type="number"
                   variant="outlined"
-                  value={quantity}
                   fullWidth
                   label={`${t("quantity")} *`}
                   error={!!errors["quantity"]}
@@ -350,7 +345,6 @@ export default function AdminBoardgameTemplate({
                     ...requiredFieldRule,
                     ...positiveNumberFieldRule,
                   })}
-                  onChange={(e) => setQuantity(Number(e.target.value))}
                 />
               </Grid>
               <Grid item xs={12}>

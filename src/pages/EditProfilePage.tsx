@@ -1,32 +1,23 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import Container from "@mui/material/Container";
-import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { useLocation, useNavigate } from "react-router-dom";
 
-import { emailFieldRule, requiredFieldRule } from "../constants/Rules";
 import NavigateBackButton from "../components/common/NavigateBackButton";
-import { Configs } from "../constants/Configs";
-import sendDataService from "../services/sendDataService";
 import { NotificationToast } from "../components/common/NotificationToast";
+import { Configs } from "../constants/Configs";
+import { emailFieldRule, requiredFieldRule } from "../constants/Rules";
 import useTimeout from "../hooks/useTimeout";
+import sendDataService from "../services/sendDataService";
 
 export default function EditProfilePage() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const { t } = useTranslation();
 
-  const [shownFirstName, setShownFirstName] = useState<string | undefined>(
-    state?.firstName
-  );
-  const [shownLastName, setShownLastName] = useState<string | undefined>(
-    state?.lastName
-  );
-  const [shownEmail, setShownEmail] = useState<string | undefined>(
-    state?.email
-  );
   const [showAlert, setShowAlert] = useState<boolean>(false);
 
   useEffect(() => {
@@ -43,7 +34,13 @@ export default function EditProfilePage() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      "first-name": state?.firstName,
+      "last-name": state?.lastName,
+      email: state?.email,
+    },
+  });
 
   const handleFormSubmission = async (data: { [key: string]: string }) => {
     const editAccountInput = {
@@ -55,7 +52,7 @@ export default function EditProfilePage() {
     const editProfileResponse = await sendDataService.execute({
       url: "/accounts",
       method: "patch",
-      data: editAccountInput
+      data: editAccountInput,
     });
 
     if (editProfileResponse.status === Configs.NO_CONTENT_RESPONSE) {
@@ -92,7 +89,6 @@ export default function EditProfilePage() {
                 <TextField
                   type="text"
                   variant="filled"
-                  value={shownFirstName}
                   fullWidth
                   autoFocus
                   label={`${t("first-name")} *`}
@@ -102,14 +98,12 @@ export default function EditProfilePage() {
                     String(errors["first-name"]?.message)
                   }
                   {...register("first-name", { ...requiredFieldRule })}
-                  onChange={(e) => setShownFirstName(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   type="text"
                   variant="filled"
-                  value={shownLastName}
                   fullWidth
                   label={`${t("last-name")} *`}
                   error={!!errors["last-name"]}
@@ -118,7 +112,6 @@ export default function EditProfilePage() {
                     String(errors["last-name"]?.message)
                   }
                   {...register("last-name", { ...requiredFieldRule })}
-                  onChange={(e: any) => setShownLastName(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -126,7 +119,6 @@ export default function EditProfilePage() {
                   type="text"
                   variant="filled"
                   fullWidth
-                  value={shownEmail}
                   label="Email *"
                   error={!!errors["email"]}
                   helperText={
@@ -137,7 +129,6 @@ export default function EditProfilePage() {
                     ...requiredFieldRule,
                     ...emailFieldRule,
                   })}
-                  onChange={(e) => setShownEmail(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>

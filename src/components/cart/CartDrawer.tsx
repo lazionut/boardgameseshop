@@ -9,12 +9,12 @@ import {
   List,
   Typography,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { IoClose } from "react-icons/io5";
-
-import { useCartContext } from "../../context/CartContext";
-import { CartItem } from "./CartItem";
 import { useTranslation } from "react-i18next";
+import { IoClose } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
+
+import { CartItem } from "./CartItem";
+import { useCartContext } from "../../context/CartContext";
 
 interface CartProps {
   isOpen: boolean;

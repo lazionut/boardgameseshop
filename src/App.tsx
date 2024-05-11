@@ -1,30 +1,30 @@
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
-import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
+import { ThemeProvider } from "@mui/material/styles";
+import { Route, Routes } from "react-router-dom";
 
-import NavigationBar from "./components/navigationBar/NavigationBar";
-import BoardgamesPage from "./pages/BoardgamesPage";
-import RegisterPage from "./pages/RegisterPage";
-import LoginPage from "./pages/LoginPage";
-import AccountPage from "./pages/AccountPage";
-import EditAccountPage from "./pages/EditProfilePage";
-import EditAddressPage from "./pages/EditAddressPage";
-import SingleBoardGamePage from "./pages/SingleBoardgamePage";
-import OrderHistoryPage from "./pages/OrderHistoryPage";
-import CostumerAuthenticatedRoute from "./routes/CostumerAuthenticatedRoute";
-import OrderDetailsPage from "./pages/OrderDetailsPage";
-import ErrorPage from "./pages/ErrorPage";
-import WishlistsPage from "./pages/WishlistsPage";
-import CartContextProvider from "./context/CartContext";
-import CheckoutOrderPage from "./pages/CheckoutOrderPage";
 import Footer from "./components/footer/Footer";
-import { theme } from "./theme/Theme";
-import WishlistContextProvider from "./context/WishlistContext";
-import AdminOrdersHistoryPage from "./pages/AdminOrdersHistoryPage";
-import AdminAccountsPage from "./pages/AdminAccountsPage";
-import AdminAuthenticatedRoute from "./routes/AdminAuthenticatedRoute";
+import NavigationBar from "./components/navigationBar/NavigationBar";
 import { AuthContextProvider } from "./context/AuthContext";
+import CartContextProvider from "./context/CartContext";
+import WishlistContextProvider from "./context/WishlistContext";
+import AccountPage from "./pages/AccountPage";
+import AdminAccountsPage from "./pages/AdminAccountsPage";
+import AdminOrdersHistoryPage from "./pages/AdminOrdersHistoryPage";
+import BoardgamesPage from "./pages/BoardgamesPage";
+import CheckoutOrderPage from "./pages/CheckoutOrderPage";
+import EditAddressPage from "./pages/EditAddressPage";
+import EditAccountPage from "./pages/EditProfilePage";
+import ErrorPage from "./pages/ErrorPage";
+import LoginPage from "./pages/LoginPage";
+import OrderDetailsPage from "./pages/OrderDetailsPage";
+import OrderHistoryPage from "./pages/OrderHistoryPage";
+import RegisterPage from "./pages/RegisterPage";
+import SingleBoardGamePage from "./pages/SingleBoardgamePage";
+import WishlistsPage from "./pages/WishlistsPage";
+import AdminAuthenticatedRoute from "./routes/AdminAuthenticatedRoute";
+import CostumerAuthenticatedRoute from "./routes/CostumerAuthenticatedRoute";
+import { theme } from "./theme/Theme";
 
 function App() {
   return (

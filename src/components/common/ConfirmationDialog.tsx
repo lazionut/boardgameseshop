@@ -1,5 +1,3 @@
-import React from "react";
-
 import {
   Button,
   Dialog,
@@ -13,7 +11,6 @@ interface ConfirmationDialogProps {
   title: string;
   content: string;
   isOpen: boolean;
-  deleteAlertText: string;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   onClick: () => void;
 }
@@ -22,7 +19,6 @@ export default function ConfirmationDialog({
   title,
   content,
   isOpen,
-  deleteAlertText,
   setIsOpen,
   onClick,
 }: ConfirmationDialogProps) {

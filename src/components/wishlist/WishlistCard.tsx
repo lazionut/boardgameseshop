@@ -10,17 +10,17 @@ import {
   Card,
   IconButton,
 } from "@mui/material";
-import { MdDelete } from "react-icons/md";
-import { GrEdit } from "react-icons/gr";
-import { BsCartPlusFill } from "react-icons/bs";
 import { useTranslation } from "react-i18next";
+import { BsCartPlusFill } from "react-icons/bs";
+import { GrEdit } from "react-icons/gr";
+import { MdDelete } from "react-icons/md";
 
-import { trimDateTime } from "../../utils/Utilities";
-import sendDataService from "../../services/sendDataService";
-import { Configs } from "../../constants/Configs";
 import EditWishlistModal from "./EditWishlistModal";
 import { WishlistBoardgameCard } from "./WishlistBoardgameCard";
+import { Configs } from "../../constants/Configs";
 import { useCartContext } from "../../context/CartContext";
+import sendDataService from "../../services/sendDataService";
+import { trimDateTime } from "../../utils/Utilities";
 import ConfirmationDialog from "../common/ConfirmationDialog";
 
 interface WishlistCardProp {
@@ -95,7 +95,6 @@ export default function WishlistCard({
           <ConfirmationDialog
             title={t("add-wishlist-boardgames")}
             content={t("current-cart-emptied")}
-            deleteAlertText="Wishlist succesfully deleted"
             onClick={() => {
               handleAddWishlistToCart(wishlist.boardgames);
               setIsOpen(false);
@@ -112,7 +111,6 @@ export default function WishlistCard({
           <ConfirmationDialog
             title={t("delete-wishlist")}
             content={t("delete-wishlist-confirmation")}
-            deleteAlertText="Wishlist succesfully deleted"
             onClick={() => {
               handleWishlistDelete(wishlist.id);
               setIsOpen(false);

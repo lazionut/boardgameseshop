@@ -4,9 +4,9 @@ import { Button, Container, Grid, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
+import { Configs } from "../../constants/Configs";
 import { requiredFieldRule } from "../../constants/Rules";
 import sendDataService from "../../services/sendDataService";
-import { Configs } from "../../constants/Configs";
 
 interface AdminCategoryTemplateProps {
   templateName: string;
@@ -28,15 +28,15 @@ export default function AdminCategoryTemplate({
 }: AdminCategoryTemplateProps) {
   const { t } = useTranslation();
 
-  const [name, setName] = useState<string>(category?.name ?? "");
-
-  console.log("Category is: " + category?.name);
-
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      name: category?.name ?? "",
+    },
+  });
 
   const handleFormSubmission = async (data: { [key: string]: string }) => {
     if (category?.id === undefined) {
@@ -82,7 +82,6 @@ export default function AdminCategoryTemplate({
           <Grid item xs={12}>
             <TextField
               label={`${t("name")} *`}
-              value={name}
               autoFocus
               fullWidth
               variant="outlined"
@@ -94,7 +93,6 @@ export default function AdminCategoryTemplate({
               {...register("name", {
                 ...requiredFieldRule,
               })}
-              onChange={(e) => setName(e.target.value)}
             />
           </Grid>
           <Grid item xs={12}>
