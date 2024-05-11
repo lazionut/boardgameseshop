@@ -7,11 +7,12 @@ import useFetchData from "../hooks/useFetchData";
 import { Constants } from "../constants/Constants";
 import PaginationOutlined from "../components/common/PaginationOutlined";
 import AdminAccountCard from "../components/account/AdminAccountCard";
+import { useAuthContext } from "../context/AuthContext";
 
 export default function AdminAccountsPage() {
   const { t } = useTranslation();
-  const authToken: string | null = localStorage.getItem("token");
-
+  const { authToken } = useAuthContext();
+  
   const [pageIndex, setPageIndex] = useState<number>(
     Constants.DEFAULT_PAGE_INDEX
   );

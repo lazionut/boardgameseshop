@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 import {
   Box,
   Card,
@@ -8,13 +6,13 @@ import {
   Divider,
   Typography,
 } from "@mui/material";
-import jwt_decode from "jwt-decode";
 import { useTranslation } from "react-i18next";
 
 import { orderStatusDefiner, trimDateTime } from "../../utils/Utilities";
 import OrderBoardgameCard from "./OrderBoardgameCard";
 import OrderDialog from "./OrderDialog";
 import { Constants } from "../../constants/Constants";
+import { useAuthContext } from "../../context/AuthContext";
 
 interface OrderItemsCardProp {
   order: {
@@ -35,12 +33,7 @@ interface OrderItemsCardProp {
 }
 
 export default function OrderItemsCard({ order }: OrderItemsCardProp) {
-  const authToken: string | null = localStorage.getItem("token");
-  let accountDecoded: { [key: string]: any } | null = null;
-  if (authToken !== null) {
-    accountDecoded = jwt_decode(authToken);
-  }
-
+  const { authToken, accountDecoded } = useAuthContext();
   const { t } = useTranslation();
 
   return (

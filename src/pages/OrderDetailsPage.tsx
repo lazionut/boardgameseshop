@@ -6,10 +6,11 @@ import { useTranslation } from "react-i18next";
 import OrderItemsCard from "../components/order/OrderItemsCard";
 import NavigateBackButton from "../components/common/NavigateBackButton";
 import useFetchData from "../hooks/useFetchData";
+import { useAuthContext } from "../context/AuthContext";
 
 export default function OrderDetailsPage() {
   const { id } = useParams();
-  const authToken: string | null = localStorage.getItem("token");
+  const { authToken } = useAuthContext();
   const { t } = useTranslation();
 
   const orderRequestConfig: AxiosRequestConfig = {

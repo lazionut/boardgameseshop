@@ -8,9 +8,10 @@ import useFetchData from "../hooks/useFetchData";
 import { Constants } from "../constants/Constants";
 import PaginationOutlined from "../components/common/PaginationOutlined";
 import OrderHistoryCard from "../components/order/OrderHistoryCard";
+import { useAuthContext } from "../context/AuthContext";
 
 export default function AdminOrdersHistoryPage() {
-  const authToken: string | null = localStorage.getItem("token");
+  const { authToken } = useAuthContext();
   const { t } = useTranslation();
 
   const [pageIndex, setPageIndex] = useState<number>(
@@ -26,11 +27,8 @@ export default function AdminOrdersHistoryPage() {
     },
   };
 
-  const [{
-    data: ordersData,
-    loading,
-    error,
-  }] = useFetchData(ordersRequestConfig);
+  const [{ data: ordersData, loading, error }] =
+    useFetchData(ordersRequestConfig);
 
   return (
     <Container sx={{ mb: { xs: "5%", md: "auto" }, mt: "3%" }}>

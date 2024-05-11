@@ -10,7 +10,6 @@ import {
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import jwt_decode from "jwt-decode";
 import { useTranslation } from "react-i18next";
 
 import { stockDefiner } from "../../utils/Utilities";
@@ -23,6 +22,7 @@ import { Constants } from "../../constants/Constants";
 import AdminBoardgameActions from "./AdminBoardgameActions";
 import { LoadingCircle } from "../common/LoadingCircle";
 import { Configs } from "../../constants/Configs";
+import { useAuthContext } from "../../context/AuthContext";
 
 interface BoardgameCardProps {
   boardgame: {
@@ -44,12 +44,8 @@ export default function BoardgameCard({
   setIsBoardgameDeleted,
 }: BoardgameCardProps) {
   const navigate = useNavigate();
-  const authToken: string | null = localStorage.getItem("token");
-  let accountDecoded: { [key: string]: any } | null = null;
-  if (authToken !== null) {
-    accountDecoded = jwt_decode(authToken);
-  }
   const { t } = useTranslation();
+  const { authToken, accountDecoded } = useAuthContext();
   const { increaseCartItemQuantity } = useCartContext();
   const { addWishlistItem } = useWishlistContext();
 

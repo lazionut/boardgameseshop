@@ -1,5 +1,6 @@
+import { useState } from "react";
+
 import { Box, IconButton, MenuItem, Typography } from "@mui/material";
-import jwt_decode from "jwt-decode";
 import { GrEdit } from "react-icons/gr";
 import { MdDelete } from "react-icons/md";
 
@@ -8,7 +9,7 @@ import { Constants, ConstantsArrays } from "../../constants/Constants";
 import sendDataService from "../../services/sendDataService";
 import { Configs } from "../../constants/Configs";
 import AdminCategoryModal from "./AdminCategoryModal";
-import { useState } from "react";
+import { useAuthContext } from "../../context/AuthContext";
 
 interface CategoryMenuItemProps {
   category: {
@@ -25,11 +26,7 @@ export default function CategoryMenuItem({
   setIsCategoryEdited,
 }: CategoryMenuItemProps) {
   const navigateSearch = useNavigateSearch();
-  const authToken: string | null = localStorage.getItem("token");
-  let accountDecoded: { [key: string]: any } | null = null;
-  if (authToken !== null) {
-    accountDecoded = jwt_decode(authToken);
-  }
+  const { accountDecoded } = useAuthContext();
 
   const [isModalOpen, setIsModalOpen] = useState<boolean | undefined>(false);
 

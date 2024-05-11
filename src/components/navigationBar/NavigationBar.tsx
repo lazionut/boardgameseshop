@@ -17,11 +17,12 @@ import SwipeableTemporaryDrawer from "./SwipeableTemporaryDrawer";
 import SearchBar from "./SearchBar";
 import { useCartContext } from "../../context/CartContext";
 import { useWishlistContext } from "../../context/WishlistContext";
+import { useAuthContext } from "../../context/AuthContext";
 
 export default function NavigationBar() {
   const navigate = useNavigate();
-  const {t} = useTranslation();
-  const authToken: string | null = localStorage.getItem("token");
+  const { t } = useTranslation();
+  const { authToken } = useAuthContext();
   const { cartQuantity, openCart } = useCartContext();
   const { wishlistItems, openWishlist } = useWishlistContext();
 

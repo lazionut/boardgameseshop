@@ -13,11 +13,12 @@ import { NotificationToast } from "../components/common/NotificationToast";
 import { Configs } from "../constants/Configs";
 import sendDataService from "../services/sendDataService";
 import ConfirmationDialog from "../components/common/ConfirmationDialog";
+import { useAuthContext } from "../context/AuthContext";
 
 export default function AccountPage() {
   const { state } = useLocation();
   const navigate = useNavigate();
-  const authToken: string | null = localStorage.getItem("token");
+  const { authToken } = useAuthContext();
   const { t } = useTranslation();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -30,11 +31,8 @@ export default function AccountPage() {
     },
   };
 
-  const [{
-    data: accountData,
-    loading,
-    error,
-  }] = useFetchData(accountRequestConfig);
+  const [{ data: accountData, loading, error }] =
+    useFetchData(accountRequestConfig);
 
   const handleAccountArchive = async () => {
     const archiveAccountResponse = await sendDataService.execute({
