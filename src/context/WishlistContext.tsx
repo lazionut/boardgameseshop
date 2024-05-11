@@ -22,11 +22,11 @@ export interface WishlistItemType {
   id: number;
 }
 
-interface CartContextProviderProps {
+interface WishlistContextProviderProps {
   children: ReactNode;
 }
 
-const WishlistContextProvider = ({ children }: CartContextProviderProps) => {
+const WishlistContextProvider = ({ children }: WishlistContextProviderProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [wishlistItems, setWishlistItems] = useSessionStorage<
     WishlistItemType[]

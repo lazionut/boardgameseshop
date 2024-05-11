@@ -4,7 +4,6 @@ import Button from "@mui/material/Button";
 import { Box, IconButton, Menu } from "@mui/material";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { AxiosRequestConfig } from "axios";
-import jwt_decode from "jwt-decode";
 import { AiFillPlusSquare } from "react-icons/ai";
 import { useTranslation } from "react-i18next";
 
@@ -12,14 +11,11 @@ import useFetchData from "../../hooks/useFetchData";
 import CategoryMenuItem from "./CategoryMenuItem";
 import AdminCategoryModal from "./AdminCategoryModal";
 import { Constants } from "../../constants/Constants";
+import { useAuthContext } from "../../context/AuthContext";
 
 export default function CategoriesMenu() {
-  const authToken: string | null = localStorage.getItem("token");
-  let accountDecoded: { [key: string]: any } | null = null;
-  if (authToken !== null) {
-    accountDecoded = jwt_decode(authToken);
-  }
   const { t } = useTranslation();
+  const { accountDecoded } = useAuthContext();
 
   const [anchorElement, setAnchorElement] = useState<null | HTMLElement>(null);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState<

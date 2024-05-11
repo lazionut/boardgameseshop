@@ -24,107 +24,113 @@ import WishlistContextProvider from "./context/WishlistContext";
 import AdminOrdersHistoryPage from "./pages/AdminOrdersHistoryPage";
 import AdminAccountsPage from "./pages/AdminAccountsPage";
 import AdminAuthenticatedRoute from "./routes/AdminAuthenticatedRoute";
+import { AuthContextProvider } from "./context/AuthContext";
 
 function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <CartContextProvider>
-          <WishlistContextProvider>
-            <NavigationBar />
-            <Routes>
-              <Route path="*" element={<ErrorPage />} />
-              <Route path="/" element={<BoardgamesPage />} />
-              <Route path="/register" element={<RegisterPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/boardgames" element={<BoardgamesPage />} />
-              <Route
-                path="/boardgames/:boardgameId"
-                element={<SingleBoardGamePage />}
-              />
-              <Route path="/error" element={<ErrorPage />} />
-              <Route
-                path={`/categories/:categoryId/boardgames`}
-                element={<BoardgamesPage />}
-              />
-              <Route path={`/boardgames/search`} element={<BoardgamesPage />} />
-              <Route
-                path="/account"
-                element={
-                  <CostumerAuthenticatedRoute>
-                    <AccountPage />
-                  </CostumerAuthenticatedRoute>
-                }
-              />
-              <Route
-                path="/account/profile/edit"
-                element={
-                  <CostumerAuthenticatedRoute>
-                    <EditAccountPage />
-                  </CostumerAuthenticatedRoute>
-                }
-              />
-              <Route
-                path="/account/address/edit"
-                element={
-                  <CostumerAuthenticatedRoute>
-                    <EditAddressPage />
-                  </CostumerAuthenticatedRoute>
-                }
-              />
-              <Route
-                path="/wishlists"
-                element={
-                  <CostumerAuthenticatedRoute>
-                    <WishlistsPage />
-                  </CostumerAuthenticatedRoute>
-                }
-              />
-              <Route
-                path="/orders"
-                element={
-                  <CostumerAuthenticatedRoute>
-                    <OrderHistoryPage />
-                  </CostumerAuthenticatedRoute>
-                }
-              />
-              <Route
-                path="/orders/:id"
-                element={
-                  <CostumerAuthenticatedRoute>
-                    <OrderDetailsPage />
-                  </CostumerAuthenticatedRoute>
-                }
-              />
-              <Route
-                path="/orders/checkout"
-                element={
-                  <CostumerAuthenticatedRoute>
-                    <CheckoutOrderPage />
-                  </CostumerAuthenticatedRoute>
-                }
-              />
-              <Route
-                path="/orders/all"
-                element={
-                  <AdminAuthenticatedRoute>
-                    <AdminOrdersHistoryPage />
-                  </AdminAuthenticatedRoute>
-                }
-              />
-              <Route
-                path="/accounts"
-                element={
-                  <AdminAuthenticatedRoute>
-                    <AdminAccountsPage />
-                  </AdminAuthenticatedRoute>
-                }
-              />
-            </Routes>
-            <Footer />
-          </WishlistContextProvider>
-        </CartContextProvider>
+        <AuthContextProvider>
+          <CartContextProvider>
+            <WishlistContextProvider>
+              <NavigationBar />
+              <Routes>
+                <Route path="*" element={<ErrorPage />} />
+                <Route path="/" element={<BoardgamesPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/boardgames" element={<BoardgamesPage />} />
+                <Route
+                  path="/boardgames/:boardgameId"
+                  element={<SingleBoardGamePage />}
+                />
+                <Route path="/error" element={<ErrorPage />} />
+                <Route
+                  path={`/categories/:categoryId/boardgames`}
+                  element={<BoardgamesPage />}
+                />
+                <Route
+                  path={`/boardgames/search`}
+                  element={<BoardgamesPage />}
+                />
+                <Route
+                  path="/account"
+                  element={
+                    <CostumerAuthenticatedRoute>
+                      <AccountPage />
+                    </CostumerAuthenticatedRoute>
+                  }
+                />
+                <Route
+                  path="/account/profile/edit"
+                  element={
+                    <CostumerAuthenticatedRoute>
+                      <EditAccountPage />
+                    </CostumerAuthenticatedRoute>
+                  }
+                />
+                <Route
+                  path="/account/address/edit"
+                  element={
+                    <CostumerAuthenticatedRoute>
+                      <EditAddressPage />
+                    </CostumerAuthenticatedRoute>
+                  }
+                />
+                <Route
+                  path="/wishlists"
+                  element={
+                    <CostumerAuthenticatedRoute>
+                      <WishlistsPage />
+                    </CostumerAuthenticatedRoute>
+                  }
+                />
+                <Route
+                  path="/orders"
+                  element={
+                    <CostumerAuthenticatedRoute>
+                      <OrderHistoryPage />
+                    </CostumerAuthenticatedRoute>
+                  }
+                />
+                <Route
+                  path="/orders/:id"
+                  element={
+                    <CostumerAuthenticatedRoute>
+                      <OrderDetailsPage />
+                    </CostumerAuthenticatedRoute>
+                  }
+                />
+                <Route
+                  path="/orders/checkout"
+                  element={
+                    <CostumerAuthenticatedRoute>
+                      <CheckoutOrderPage />
+                    </CostumerAuthenticatedRoute>
+                  }
+                />
+                <Route
+                  path="/orders/all"
+                  element={
+                    <AdminAuthenticatedRoute>
+                      <AdminOrdersHistoryPage />
+                    </AdminAuthenticatedRoute>
+                  }
+                />
+                <Route
+                  path="/accounts"
+                  element={
+                    <AdminAuthenticatedRoute>
+                      <AdminAccountsPage />
+                    </AdminAuthenticatedRoute>
+                  }
+                />
+              </Routes>
+              <Footer />
+            </WishlistContextProvider>
+          </CartContextProvider>
+        </AuthContextProvider>
       </ThemeProvider>
     </div>
   );

@@ -1,5 +1,4 @@
 import { Box, Card, Grid, IconButton, Typography } from "@mui/material";
-import jwt_decode from "jwt-decode";
 import { MdDelete } from "react-icons/md";
 
 import sendDataService from "../../../services/sendDataService";
@@ -7,6 +6,7 @@ import { Configs } from "../../../constants/Configs";
 import { Constants } from "../../../constants/Constants";
 import { StyledRating } from "./RatingOptions";
 import { GiMeeple } from "react-icons/gi";
+import { useAuthContext } from "../../../context/AuthContext";
 
 interface ReviewCardProps {
   review: {
@@ -26,11 +26,7 @@ export default function ReviewCard({
   review,
   setIsReviewDeleted,
 }: ReviewCardProps) {
-  const authToken: string | null = localStorage.getItem("token");
-  let accountDecoded: { [key: string]: any } | null = null;
-  if (authToken !== null) {
-    accountDecoded = jwt_decode(authToken);
-  }
+  const { authToken, accountDecoded } = useAuthContext();
 
   const handleReviewDelete = async (id: number) => {
     const deleteReviewResponse = await sendDataService.execute({

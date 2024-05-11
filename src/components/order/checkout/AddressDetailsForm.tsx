@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 
 import useFetchData from "../../../hooks/useFetchData";
 import { phoneFieldRule, requiredFieldRule } from "../../../constants/Rules";
+import { useAuthContext } from "../../../context/AuthContext";
 
 interface AddressDetailsProps {
   setNameDetails: React.Dispatch<React.SetStateAction<string>>;
@@ -17,7 +18,7 @@ export default function AddressDetails({
   setNameDetails,
   setAddressDetails,
 }: AddressDetailsProps) {
-  const authToken: string | null = localStorage.getItem("token");
+  const { authToken } = useAuthContext();
   const {
     register,
     handleSubmit,
@@ -41,11 +42,8 @@ export default function AddressDetails({
     },
   };
 
-  const [{
-    data: accountData,
-    loading,
-    error,
-  }] = useFetchData(accountRequestConfig);
+  const [{ data: accountData, loading, error }] =
+    useFetchData(accountRequestConfig);
 
   useEffect(() => {
     setShownFirstName(accountData.firstName);

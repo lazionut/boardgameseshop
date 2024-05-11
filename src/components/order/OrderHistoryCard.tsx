@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 
 import { Box, Chip, CardActions, Grid, Typography, Card } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import jwt_decode from "jwt-decode";
 import { useTranslation } from "react-i18next";
 
 import { orderStatusDefiner, trimDateTime } from "../../utils/Utilities";
 import OrderDialog from "./OrderDialog";
 import { Constants } from "../../constants/Constants";
+import { useAuthContext } from "../../context/AuthContext";
 
 interface OrderHistoryCardProps {
   order: {
@@ -19,12 +19,7 @@ interface OrderHistoryCardProps {
 }
 
 export default function OrderHistoryCard({ order }: OrderHistoryCardProps) {
-  const authToken: string | null = localStorage.getItem("token");
-  let accountDecoded: { [key: string]: any } | null = null;
-  if (authToken !== null) {
-    accountDecoded = jwt_decode(authToken);
-  }
-
+  const { accountDecoded } = useAuthContext();
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -44,10 +39,7 @@ export default function OrderHistoryCard({ order }: OrderHistoryCardProps) {
               marginLeft: "auto",
             }}
           >
-            <OrderDialog
-              id={order.id}
-              currentOrderStatus={order.status}
-            />
+            <OrderDialog id={order.id} currentOrderStatus={order.status} />
           </Box>
         )}
         <Box

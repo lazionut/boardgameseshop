@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { Button, Grid, Typography } from "@mui/material";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import { AxiosRequestConfig } from "axios";
-import jwt_decode from "jwt-decode";
 import { AiFillPlusSquare } from "react-icons/ai";
 import { useTranslation } from "react-i18next";
 
@@ -16,17 +15,15 @@ import EmptyTemplate from "../components/common/EmptyTemplate";
 import SortOrderSelect from "../components/boardgame/SortOrderSelect";
 import AdminBoardgameModal from "../components/boardgame/AdminBoardgameModal";
 import { Configs } from "../constants/Configs";
+import { useAuthContext } from "../context/AuthContext";
 
 export default function BoardgamesPage() {
   const { categoryId } = useParams();
   const [searchParams] = useSearchParams();
   const keywords: string | null = searchParams.get("keywords");
   const { state } = useLocation();
-  const authToken: string | null = localStorage.getItem("token");
-  let accountDecoded: { [key: string]: any } | null = null;
-  if (authToken !== null) {
-    accountDecoded = jwt_decode(authToken);
-  }
+  const { accountDecoded } = useAuthContext();
+
   const { t } = useTranslation();
 
   const [pageIndex, setPageIndex] = useState<number>(

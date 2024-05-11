@@ -7,9 +7,10 @@ import { useTranslation } from "react-i18next";
 import WishlistCard from "../components/wishlist/WishlistCard";
 import useFetchData from "../hooks/useFetchData";
 import EmptyTemplate from "../components/common/EmptyTemplate";
+import { useAuthContext } from "../context/AuthContext";
 
 export default function WishlistsPage() {
-  const authToken: string | null = localStorage.getItem("token");
+  const { authToken } = useAuthContext();
   const { t } = useTranslation();
 
   const [isWishlistDeleted, setIsWishlistDeleted] = useState<boolean>(false);

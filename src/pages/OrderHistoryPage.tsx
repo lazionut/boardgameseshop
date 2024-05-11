@@ -9,9 +9,10 @@ import { Constants } from "../constants/Constants";
 import PaginationOutlined from "../components/common/PaginationOutlined";
 import OrderHistoryCard from "../components/order/OrderHistoryCard";
 import EmptyTemplate from "../components/common/EmptyTemplate";
+import { useAuthContext } from "../context/AuthContext";
 
 export default function OrderHistoryPage() {
-  const authToken: string | null = localStorage.getItem("token");
+  const { authToken } = useAuthContext();
   const { t } = useTranslation();
 
   const [pageIndex, setPageIndex] = useState<number>(

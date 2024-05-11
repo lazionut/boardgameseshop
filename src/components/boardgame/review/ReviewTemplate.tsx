@@ -10,13 +10,14 @@ import { Constants } from "../../../constants/Constants";
 import PaginationOutlined from "../../common/PaginationOutlined";
 import { ReviewForm } from "./ReviewForm";
 import EmptyTemplate from "../../common/EmptyTemplate";
+import { useAuthContext } from "../../../context/AuthContext";
 
 interface ReviewTemplateProps {
   boardgameId: number;
 }
 
 export default function ReviewTemplate({ boardgameId }: ReviewTemplateProps) {
-  const authToken: string | null = localStorage.getItem("token");
+  const { authToken } = useAuthContext();
   const { t } = useTranslation();
 
   const [pageIndex, setPageIndex] = useState<number>(

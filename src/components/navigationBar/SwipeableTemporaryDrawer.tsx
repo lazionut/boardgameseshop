@@ -19,7 +19,6 @@ import {
 } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { GiOpenChest } from "react-icons/gi";
-import jwt_decode from "jwt-decode";
 import { AiFillHome } from "react-icons/ai";
 import { BsBoxSeam } from "react-icons/bs";
 import { RiBillLine } from "react-icons/ri";
@@ -29,15 +28,12 @@ import { useTranslation } from "react-i18next";
 import authenticationService from "../../services/authenticationService";
 import { useWishlistContext } from "../../context/WishlistContext";
 import { Constants } from "../../constants/Constants";
+import { useAuthContext } from "../../context/AuthContext";
 
 export default function SwipeableTemporaryDrawer() {
   const navigate = useNavigate();
-  const authToken: string | null = localStorage.getItem("token");
-  let accountDecoded: { [key: string]: any } | null = null;
-  if (authToken !== null) {
-    accountDecoded = jwt_decode(authToken);
-  }
-  const {t} = useTranslation();
+  const { t } = useTranslation();
+  const { accountDecoded } = useAuthContext();
   const { clearWishlist } = useWishlistContext();
 
   const [open, setOpen] = useState<boolean>(false);
@@ -151,7 +147,10 @@ export default function SwipeableTemporaryDrawer() {
                       }}
                     >
                       <MdOutlineManageAccounts size={30} />
-                      <ListItemText primary={t("all-accounts")} sx={{ ml: 1 }} />
+                      <ListItemText
+                        primary={t("all-accounts")}
+                        sx={{ ml: 1 }}
+                      />
                     </Box>
                   </ListItemButton>
                 </ListItem>

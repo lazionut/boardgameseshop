@@ -6,7 +6,6 @@ import {
   Chip,
   Divider,
 } from "@mui/material";
-import jwt_decode from "jwt-decode";
 import { useTranslation } from "react-i18next";
 
 import useFetchData from "../../hooks/useFetchData";
@@ -23,12 +22,7 @@ interface OrderBoardgameCardProps {
 export default function OrderBoardgameCard({
   boardgame,
 }: OrderBoardgameCardProps) {
-  const authToken: string | null = localStorage.getItem("token");
-  let accountDecoded: { [key: string]: any } | null = null;
-  if (authToken !== null) {
-    accountDecoded = jwt_decode(authToken);
-  }
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const imageType: any = "arraybuffer";
 
@@ -38,11 +32,8 @@ export default function OrderBoardgameCard({
     responseType: imageType,
   };
 
-  const [{
-    data: imageData,
-    imageLoading,
-    imageError,
-  }] = useFetchData(imageRequestConfig);
+  const [{ data: imageData, imageLoading, imageError }] =
+    useFetchData(imageRequestConfig);
 
   const blobImage = new Blob([new Uint8Array(imageData)], { type: "image" });
 
@@ -74,7 +65,10 @@ export default function OrderBoardgameCard({
           <Typography mb={"5%"}>
             {t("quantity")}: {boardgame.quantity}
           </Typography>
-          <Chip variant="outlined" label={`${t("price")}: ${boardgame.price} RON`} />
+          <Chip
+            variant="outlined"
+            label={`${t("price")}: ${boardgame.price} RON`}
+          />
         </Box>
       </CardActions>
       <Divider />
