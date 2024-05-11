@@ -4,10 +4,10 @@ import { Container, Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig } from "axios";
 import { useTranslation } from "react-i18next";
 
-import WishlistCard from "../components/wishlist/WishlistCard";
-import useFetchData from "../hooks/useFetchData";
 import EmptyTemplate from "../components/common/EmptyTemplate";
+import WishlistCard from "../components/wishlist/WishlistCard";
 import { useAuthContext } from "../context/AuthContext";
+import useFetchData from "../hooks/useFetchData";
 
 export default function WishlistsPage() {
   const { authToken } = useAuthContext();

@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
+
 import { setupInterceptor } from "../config/Interceptor";
 
 interface SendDataProps {

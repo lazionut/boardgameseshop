@@ -3,11 +3,11 @@ import { useState, useEffect } from "react";
 import { List, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
-import useFetchData from "../hooks/useFetchData";
-import { Constants } from "../constants/Constants";
-import PaginationOutlined from "../components/common/PaginationOutlined";
 import AdminAccountCard from "../components/account/AdminAccountCard";
+import PaginationOutlined from "../components/common/PaginationOutlined";
+import { Constants } from "../constants/Constants";
 import { useAuthContext } from "../context/AuthContext";
+import useFetchData from "../hooks/useFetchData";
 
 export default function AdminAccountsPage() {
   const { t } = useTranslation();

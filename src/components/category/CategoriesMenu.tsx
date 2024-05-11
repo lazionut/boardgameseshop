@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import Button from "@mui/material/Button";
 import { Box, IconButton, Menu } from "@mui/material";
-import { MdKeyboardArrowDown } from "react-icons/md";
+import Button from "@mui/material/Button";
 import { AxiosRequestConfig } from "axios";
-import { AiFillPlusSquare } from "react-icons/ai";
 import { useTranslation } from "react-i18next";
+import { AiFillPlusSquare } from "react-icons/ai";
+import { MdKeyboardArrowDown } from "react-icons/md";
 
-import useFetchData from "../../hooks/useFetchData";
-import CategoryMenuItem from "./CategoryMenuItem";
 import AdminCategoryModal from "./AdminCategoryModal";
+import CategoryMenuItem from "./CategoryMenuItem";
 import { Constants } from "../../constants/Constants";
 import { useAuthContext } from "../../context/AuthContext";
+import useFetchData from "../../hooks/useFetchData";
 
 export default function CategoriesMenu() {
   const { t } = useTranslation();

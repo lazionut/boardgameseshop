@@ -8,11 +8,11 @@ import {
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
-import { orderStatusDefiner, trimDateTime } from "../../utils/Utilities";
 import OrderBoardgameCard from "./OrderBoardgameCard";
 import OrderDialog from "./OrderDialog";
 import { Constants } from "../../constants/Constants";
 import { useAuthContext } from "../../context/AuthContext";
+import { orderStatusDefiner, trimDateTime } from "../../utils/Utilities";
 
 interface OrderItemsCardProp {
   order: {

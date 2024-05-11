@@ -1,8 +1,6 @@
-import React from "react";
-
 import { Box, Rating, styled, Typography } from "@mui/material";
-import { GiMeeple } from "react-icons/gi";
 import { useTranslation } from "react-i18next";
+import { GiMeeple } from "react-icons/gi";
 
 interface RatingOptionsProps {
   ratingStars: number | null;

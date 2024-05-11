@@ -8,20 +8,20 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
-import { stockDefiner } from "../../utils/Utilities";
+import AdminBoardgameActions from "./AdminBoardgameActions";
+import AdminBoardgameModal from "./AdminBoardgameModal";
+import { Configs } from "../../constants/Configs";
+import { Constants } from "../../constants/Constants";
+import { useAuthContext } from "../../context/AuthContext";
 import { useCartContext } from "../../context/CartContext";
 import { useWishlistContext } from "../../context/WishlistContext";
 import useFetchData from "../../hooks/useFetchData";
 import sendDataService from "../../services/sendDataService";
-import { Configs } from "../../constants/Configs";
-import { Constants } from "../../constants/Constants";
-import AdminBoardgameModal from "./AdminBoardgameModal";
-import AdminBoardgameActions from "./AdminBoardgameActions";
+import { stockDefiner } from "../../utils/Utilities";
 import { LoadingCircle } from "../common/LoadingCircle";
-import { useAuthContext } from "../../context/AuthContext";
 
 interface BoardgameContentCardProps {
   boardgame: {

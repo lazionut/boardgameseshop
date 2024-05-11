@@ -4,12 +4,12 @@ import { Box, IconButton, MenuItem, Typography } from "@mui/material";
 import { GrEdit } from "react-icons/gr";
 import { MdDelete } from "react-icons/md";
 
-import useNavigateSearch from "../../hooks/useNavigateSearch";
-import { Constants, ConstantsArrays } from "../../constants/Constants";
-import sendDataService from "../../services/sendDataService";
-import { Configs } from "../../constants/Configs";
 import AdminCategoryModal from "./AdminCategoryModal";
+import { Configs } from "../../constants/Configs";
+import { Constants, ConstantsArrays } from "../../constants/Constants";
 import { useAuthContext } from "../../context/AuthContext";
+import useNavigateSearch from "../../hooks/useNavigateSearch";
+import sendDataService from "../../services/sendDataService";
 
 interface CategoryMenuItemProps {
   category: {

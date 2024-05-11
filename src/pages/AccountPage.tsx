@@ -1,19 +1,19 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
-import { useLocation, useNavigate } from "react-router-dom";
-import { MdDelete } from "react-icons/md";
 import { AxiosRequestConfig } from "axios";
 import { useTranslation } from "react-i18next";
+import { MdDelete } from "react-icons/md";
+import { useLocation, useNavigate } from "react-router-dom";
 
-import useFetchData from "../hooks/useFetchData";
-import ProfileItems from "../components/account/ProfileItems";
 import AddressItems from "../components/account/AddressItems";
+import ProfileItems from "../components/account/ProfileItems";
+import ConfirmationDialog from "../components/common/ConfirmationDialog";
 import { NotificationToast } from "../components/common/NotificationToast";
 import { Configs } from "../constants/Configs";
-import sendDataService from "../services/sendDataService";
-import ConfirmationDialog from "../components/common/ConfirmationDialog";
 import { useAuthContext } from "../context/AuthContext";
+import useFetchData from "../hooks/useFetchData";
+import sendDataService from "../services/sendDataService";
 
 export default function AccountPage() {
   const { state } = useLocation();
@@ -73,7 +73,6 @@ export default function AccountPage() {
             <ConfirmationDialog
               title={t("confirm-delete")}
               content={`${t("account-deleted")}.`}
-              deleteAlertText="Account succesfully deleted"
               onClick={() => {
                 handleAccountArchive();
                 setIsOpen(false);
@@ -142,13 +141,13 @@ export default function AccountPage() {
           </Box>
           {state?.isEditedProfile === true && (
             <NotificationToast
-              toastText={t("successully-edited-profile")}
+              toastText={t("sucessfully-edited-profile")}
               isSuccessful={true}
             />
           )}
           {state?.isEditedAddress === true && (
             <NotificationToast
-              toastText={t("successully-edited-address")}
+              toastText={t("sucessfully-edited-address")}
               isSuccessful={true}
             />
           )}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import {
   Grid,
@@ -10,13 +10,13 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-import { IoClose } from "react-icons/io5";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { IoClose } from "react-icons/io5";
 
+import { EditWishlistModalItem } from "./EditWishlistModalItem";
 import { requiredFieldRule } from "../../constants/Rules";
 import sendDataService from "../../services/sendDataService";
-import { EditWishlistModalItem } from "./EditWishlistModalItem";
 
 type EditWishlist = {
   wishlist: {
@@ -47,9 +47,6 @@ export default function EditWishlistModal({
   const [localWishlistItems, setLocalWishlistItems] = useState(
     wishlist.boardgames
   );
-  const [localWishlistName, setLocalWishlistName] = useState<string>(
-    wishlist.name
-  );
 
   const localRemoveWishlistItem = (id: number) => {
     setLocalWishlistItems((currentItems) => {
@@ -61,7 +58,7 @@ export default function EditWishlistModal({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({ defaultValues: { "wishlist-name": wishlist.name } });
 
   const handleFormSubmission = async (data: { [key: string]: string }) => {
     const wishlistInput = {
@@ -135,14 +132,12 @@ export default function EditWishlistModal({
               <TextField
                 variant="outlined"
                 label={`${t("wishlist-name")} *`}
-                value={localWishlistName}
                 error={!!errors["wishlist-name"]}
                 helperText={
                   errors["wishlist-name"]?.message !== undefined &&
                   String(errors["wishlist-name"]?.message)
                 }
                 {...register("wishlist-name", { ...requiredFieldRule })}
-                onChange={(e) => setLocalWishlistName(e.target.value)}
               />
             </Box>
             <Grid
@@ -156,12 +151,10 @@ export default function EditWishlistModal({
               p={"2%"}
             >
               {localWishlistItems.map((boardgame) => (
-                <Grid item>
+                <Grid item key={boardgame.id}>
                   <EditWishlistModalItem
-                    key={boardgame.id}
                     boardgame={boardgame}
                     localRemoveWishlistItem={localRemoveWishlistItem}
-                    setIsWishlistEdited={setIsWishlistEdited}
                   />
                 </Grid>
               ))}

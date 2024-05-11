@@ -1,5 +1,3 @@
-import React from "react";
-
 import {
   SelectChangeEvent,
   FormControl,
@@ -9,8 +7,8 @@ import {
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
-import { sortOrderDefiner } from "../../utils/Utilities";
 import { ConstantsArrays } from "../../constants/Constants";
+import { sortOrderDefiner } from "../../utils/Utilities";
 
 interface PageSizeSelectProps {
   sortOrder: number;

@@ -10,9 +10,11 @@ import {
   Typography,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Link, useNavigate } from "react-router-dom";
 
+import { NotificationToast } from "../components/common/NotificationToast";
+import { Countries } from "../constants/Countries";
 import {
   emailFieldRule,
   passwordFieldRule,
@@ -20,12 +22,10 @@ import {
   phoneFieldRule,
   requiredFieldRule,
 } from "../constants/Rules";
+import useTimeout from "../hooks/useTimeout";
 import authenticationService, {
   Account,
 } from "../services/authenticationService";
-import useTimeout from "../hooks/useTimeout";
-import { NotificationToast } from "../components/common/NotificationToast";
-import { Countries } from "../constants/Countries";
 
 export default function RegisterPage() {
   const navigate = useNavigate();

@@ -5,12 +5,12 @@ import { AxiosRequestConfig } from "axios";
 import { useTranslation } from "react-i18next";
 
 import ReviewCard from "./ReviewCard";
-import useFetchData from "../../../hooks/useFetchData";
-import { Constants } from "../../../constants/Constants";
-import PaginationOutlined from "../../common/PaginationOutlined";
 import { ReviewForm } from "./ReviewForm";
-import EmptyTemplate from "../../common/EmptyTemplate";
+import { Constants } from "../../../constants/Constants";
 import { useAuthContext } from "../../../context/AuthContext";
+import useFetchData from "../../../hooks/useFetchData";
+import EmptyTemplate from "../../common/EmptyTemplate";
+import PaginationOutlined from "../../common/PaginationOutlined";
 
 interface ReviewTemplateProps {
   boardgameId: number;

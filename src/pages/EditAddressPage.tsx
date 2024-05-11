@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import {
   Autocomplete,
@@ -9,16 +9,16 @@ import {
   Typography,
 } from "@mui/material";
 import Container from "@mui/material/Container";
-import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import NavigateBackButton from "../components/common/NavigateBackButton";
-import { Configs } from "../constants/Configs";
-import sendDataService from "../services/sendDataService";
 import { NotificationToast } from "../components/common/NotificationToast";
+import { Configs } from "../constants/Configs";
 import { Countries } from "../constants/Countries";
 import { phoneFieldRule, requiredFieldRule } from "../constants/Rules";
+import sendDataService from "../services/sendDataService";
 
 export default function EditAddressPage() {
   const navigate = useNavigate();
@@ -26,26 +26,21 @@ export default function EditAddressPage() {
   //const countryCode: string = getCurrentCountryCode();
   const { t } = useTranslation();
 
-  const [shownStreet, setShownStreet] = useState<string | undefined>(
-    state?.details
-  );
-  const [shownCounty, setShownCounty] = useState<string | undefined>(
-    state?.county
-  );
-  const [shownCity, setShownCity] = useState<string | undefined>(state?.city);
-  const [shownCountry, setShownCountry] = useState<string | undefined>(
-    state?.country
-  );
-  const [shownPhone, setShownPhone] = useState<string | undefined>(
-    state?.phone
-  );
-
   const [showAlert, setShowAlert] = useState<boolean>(false);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      street: state?.details ?? "",
+      county: state?.county ?? "",
+      city: state?.city ?? "",
+      country: state?.country ?? "",
+      phone: state?.phone ?? "",
+    },
+  });
 
   useEffect(() => {
     if (
@@ -71,7 +66,7 @@ export default function EditAddressPage() {
     const editAddressResponse = await sendDataService.execute({
       url: "/addresses",
       method: "put",
-      data: editAddressInput
+      data: editAddressInput,
     });
 
     if (editAddressResponse.status === Configs.NO_CONTENT_RESPONSE) {
@@ -106,7 +101,6 @@ export default function EditAddressPage() {
                 <TextField
                   type="text"
                   variant="filled"
-                  value={shownStreet}
                   fullWidth
                   autoFocus
                   label={`${t("street")} *`}
@@ -116,14 +110,12 @@ export default function EditAddressPage() {
                     String(errors["street"]?.message)
                   }
                   {...register("street", { ...requiredFieldRule })}
-                  onChange={(e: any) => setShownStreet(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   type="text"
                   variant="filled"
-                  value={shownCity}
                   fullWidth
                   label={`${t("city")} *`}
                   error={!!errors["city"]}
@@ -132,14 +124,12 @@ export default function EditAddressPage() {
                     String(errors["city"]?.message)
                   }
                   {...register("city", { ...requiredFieldRule })}
-                  onChange={(e) => setShownCity(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   type="text"
                   variant="filled"
-                  value={shownCounty}
                   fullWidth
                   label={`${t("county")} *`}
                   error={!!errors["county"]}
@@ -148,7 +138,6 @@ export default function EditAddressPage() {
                     String(errors["county"]?.message)
                   }
                   {...register("county", { ...requiredFieldRule })}
-                  onChange={(e) => setShownCounty(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -156,7 +145,7 @@ export default function EditAddressPage() {
                   options={Countries}
                   autoHighlight
                   defaultValue={{
-                    label: String(shownCountry),
+                    label: String(state?.country),
                     code: "default",
                   }}
                   getOptionLabel={(option) => option.label}
@@ -180,7 +169,6 @@ export default function EditAddressPage() {
                       {...params}
                       type="text"
                       variant="filled"
-                      value={shownCountry}
                       fullWidth
                       label={`${t("country")} *`}
                       error={!!errors["country"]}
@@ -189,7 +177,6 @@ export default function EditAddressPage() {
                         String(errors["country"]?.message)
                       }
                       {...register("country", { ...requiredFieldRule })}
-                      onChange={(e) => setShownCountry(e.target.value)}
                     />
                   )}
                 />
@@ -198,7 +185,6 @@ export default function EditAddressPage() {
                 <TextField
                   type="text"
                   variant="filled"
-                  value={shownPhone}
                   fullWidth
                   label={`${t("phone")} *`}
                   error={!!errors["phone"]}
@@ -210,7 +196,6 @@ export default function EditAddressPage() {
                     ...requiredFieldRule,
                     ...phoneFieldRule,
                   })}
-                  onChange={(e) => setShownPhone(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>

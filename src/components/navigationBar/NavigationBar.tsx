@@ -6,18 +6,18 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { MdAccountCircle } from "react-icons/md";
-import { Gi3DMeeple } from "react-icons/gi";
-import { FaHeart, FaShoppingBag } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { FaHeart, FaShoppingBag } from "react-icons/fa";
+import { Gi3DMeeple } from "react-icons/gi";
+import { MdAccountCircle } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
-import CategoriesMenu from "../category/CategoriesMenu";
-import SwipeableTemporaryDrawer from "./SwipeableTemporaryDrawer";
 import SearchBar from "./SearchBar";
+import SwipeableTemporaryDrawer from "./SwipeableTemporaryDrawer";
+import { useAuthContext } from "../../context/AuthContext";
 import { useCartContext } from "../../context/CartContext";
 import { useWishlistContext } from "../../context/WishlistContext";
-import { useAuthContext } from "../../context/AuthContext";
+import CategoriesMenu from "../category/CategoriesMenu";
 
 export default function NavigationBar() {
   const navigate = useNavigate();

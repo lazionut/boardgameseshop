@@ -13,11 +13,11 @@ import {
   Select,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
+import { Configs } from "../../constants/Configs";
 import { ORDER_STATUS_OPTIONS } from "../../constants/Constants";
 import sendDataService from "../../services/sendDataService";
-import { Configs } from "../../constants/Configs";
 
 interface OrderDialogProps {
   id: number;

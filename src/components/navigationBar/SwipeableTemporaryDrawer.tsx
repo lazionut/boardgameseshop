@@ -11,24 +11,24 @@ import {
   ListItemText,
   SwipeableDrawer,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
+import { AiFillHome } from "react-icons/ai";
+import { BsBoxSeam } from "react-icons/bs";
+import { FaSignOutAlt } from "react-icons/fa";
+import { GiOpenChest } from "react-icons/gi";
 import {
   MdMenu,
   MdOutlineAccountBox,
   MdOutlineDocumentScanner,
   MdOutlineManageAccounts,
 } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
-import { GiOpenChest } from "react-icons/gi";
-import { AiFillHome } from "react-icons/ai";
-import { BsBoxSeam } from "react-icons/bs";
 import { RiBillLine } from "react-icons/ri";
-import { FaSignOutAlt } from "react-icons/fa";
-import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
-import authenticationService from "../../services/authenticationService";
-import { useWishlistContext } from "../../context/WishlistContext";
 import { Constants } from "../../constants/Constants";
 import { useAuthContext } from "../../context/AuthContext";
+import { useWishlistContext } from "../../context/WishlistContext";
+import authenticationService from "../../services/authenticationService";
 
 export default function SwipeableTemporaryDrawer() {
   const navigate = useNavigate();

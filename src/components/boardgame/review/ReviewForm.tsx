@@ -4,10 +4,10 @@ import { Box, TextField, Grid, Button } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
-import sendDataService from "../../../services/sendDataService";
+import RatingOptions from "./RatingOptions";
 import { requiredFieldRule } from "../../../constants/Rules";
 import useTimeout from "../../../hooks/useTimeout";
-import RatingOptions from "./RatingOptions";
+import sendDataService from "../../../services/sendDataService";
 import { NotificationToast } from "../../common/NotificationToast";
 
 interface ReviewFormProps {

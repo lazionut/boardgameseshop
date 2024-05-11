@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
-import { BiArrowBack } from "react-icons/bi";
 import { useTranslation } from "react-i18next";
+import { BiArrowBack } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 interface NavigateBackButtonProps {
   to: string;
