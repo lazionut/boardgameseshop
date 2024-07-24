@@ -16,22 +16,16 @@ import { BsPlusCircleFill } from "react-icons/bs";
 import { FaMinusCircle } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 
-import { useCartContext } from "../../context/CartContext";
+import { CartItemType, useCartContext } from "../../context/CartContext";
 import useFetchData from "../../hooks/useFetchData";
 
 interface CartItemProps {
   id: number;
-  quantity: number;
-  localCartItems: any;
-  setLocalCartItems: React.Dispatch<React.SetStateAction<any>>;
+  setLocalCartItems: React.Dispatch<React.SetStateAction<CartItemType[]>>;
 }
 
-export function CartItem({
-  id,
-  localCartItems,
-  setLocalCartItems,
-}: CartItemProps) {
-  const {t} = useTranslation();
+export function CartItem({ id, setLocalCartItems }: CartItemProps) {
+  const { t } = useTranslation();
   const {
     setCartItemQuantity,
     increaseCartItemQuantity,
@@ -48,31 +42,25 @@ export function CartItem({
     method: "GET",
   };
 
-  const [{
-    data: boardgameData,
-    boardgameLoading,
-    boardgameError,
-  }] = useFetchData(boardgameRequestConfig);
+  const [{ data: boardgameData, boardgameLoading, boardgameError }] =
+    useFetchData(boardgameRequestConfig);
 
   useEffect(() => {
-    setLocalCartItems([...localCartItems, boardgameData]);
+    setLocalCartItems((previousBoardgames: CartItemType[]) => [
+      ...previousBoardgames,
+      boardgameData,
+    ]);
 
     if (boardgameData.image) {
       setImageRequestConfig({
         url: `/blobs/${boardgameData.image}`,
         method: "GET",
-        responseType: imageType,
       });
     }
   }, [boardgameData]);
 
-  const imageType: any = "arraybuffer";
-
-  const [{
-    data: imageData,
-    imageLoading,
-    imageError,
-  }] = useFetchData(imageRequestConfig);
+  const [{ data: imageData, imageLoading, imageError }] =
+    useFetchData(imageRequestConfig);
 
   const blobImage = new Blob([new Uint8Array(imageData)], { type: "image" });
 

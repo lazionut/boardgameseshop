@@ -22,9 +22,9 @@ export interface Login {
 }
 
 const authenticationService = {
-  async register({ accountData }: Account): Promise<any> {
+  async register({ accountData }: Account): Promise<AxiosResponse | undefined> {
     try {
-      const response: AxiosResponse<any, any> = await axios.post(
+      const response: AxiosResponse = await axios.post(
         "/accounts/register",
         accountData
       );
@@ -40,9 +40,9 @@ const authenticationService = {
     }
   },
 
-  async login({ loginData }: Login): Promise<any> {
+  async login({ loginData }: Login): Promise<AxiosResponse | undefined> {
     try {
-      const response: AxiosResponse<any, any> = await axios.post(
+      const response: AxiosResponse = await axios.post(
         "/accounts/login",
         loginData
       );

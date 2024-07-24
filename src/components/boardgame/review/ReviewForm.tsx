@@ -8,7 +8,7 @@ import RatingOptions from "./RatingOptions";
 import { requiredFieldRule } from "../../../constants/Rules";
 import useTimeout from "../../../hooks/useTimeout";
 import sendDataService from "../../../services/sendDataService";
-import { NotificationToast } from "../../common/NotificationToast";
+import NotificationToast from "../../common/NotificationToast";
 
 interface ReviewFormProps {
   boardgameId: number;

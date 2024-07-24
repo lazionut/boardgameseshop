@@ -8,6 +8,7 @@ import {
   Container,
   Typography,
   Box,
+  AutocompleteRenderInputParams,
 } from "@mui/material";
 import { AxiosRequestConfig } from "axios";
 import { useForm } from "react-hook-form";
@@ -93,9 +94,9 @@ export default function AdminBoardgameTemplate({
     },
   });
 
-  const handleBrowseFile = async (e: any) => {
-    setFile(e.target.files[0]);
-    setFileName(e.target.files[0].name);
+  const handleBrowseFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFile(e.target.files! && e.target.files[0]);
+    setFileName(e.target.files! && e.target.files[0].name);
   };
 
   const handleUploadFile = async () => {
@@ -360,7 +361,7 @@ export default function AdminBoardgameTemplate({
                       {option.name}
                     </Box>
                   )}
-                  renderInput={(params: any) => (
+                  renderInput={(params: AutocompleteRenderInputParams) => (
                     <TextField
                       {...params}
                       type="text"

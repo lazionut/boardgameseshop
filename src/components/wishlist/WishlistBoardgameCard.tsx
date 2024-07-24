@@ -2,6 +2,7 @@ import { Grid, Box, Typography, Button } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
+import { IMAGE_TYPE } from "../../constants/Configs";
 import useFetchData from "../../hooks/useFetchData";
 import { stockDefiner } from "../../utils/Utilities";
 import { LoadingCircle } from "../common/LoadingCircle";
@@ -23,12 +24,10 @@ export function WishlistBoardgameCard({
 
   const {t} = useTranslation();
 
-  const imageType: any = "arraybuffer";
-
   const imageRequestConfig = {
     url: `/blobs/${boardgame.image}`,
     method: "GET",
-    responseType: imageType,
+    responseType: IMAGE_TYPE,
   };
 
   const [{ data: imageData, loading, error }] = useFetchData(imageRequestConfig);

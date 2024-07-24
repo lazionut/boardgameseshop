@@ -13,7 +13,7 @@ const sendDataService = {
     try {
       const customAxiosInstance = setupInterceptor(axios.create());
 
-      let response: AxiosResponse<any, any>;
+      let response: AxiosResponse;
 
       if (data !== undefined) {
         response = await customAxiosInstance[method](url, data);

@@ -3,7 +3,13 @@ import { Navigate } from "react-router-dom";
 import { Constants } from "../constants/Constants";
 import { useAuthContext } from "../context/AuthContext";
 
-const AdminAuthenticatedRoute = ({ children }: any) => {
+interface AdminAuthenticatedRouteProps {
+  children: JSX.Element;
+}
+
+const AdminAuthenticatedRoute = ({
+  children,
+}: AdminAuthenticatedRouteProps) => {
   const { accountDecoded } = useAuthContext();
 
   return accountDecoded?.Role === Constants.ADMIN ? (

@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 import AdminBoardgameActions from "./AdminBoardgameActions";
 import AdminBoardgameModal from "./AdminBoardgameModal";
-import { Configs } from "../../constants/Configs";
+import { Configs, IMAGE_TYPE } from "../../constants/Configs";
 import { Constants } from "../../constants/Constants";
 import { useAuthContext } from "../../context/AuthContext";
 import { useCartContext } from "../../context/CartContext";
@@ -52,12 +52,10 @@ export default function BoardgameCard({
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState<boolean>(false);
 
-  const imageType: any = "arraybuffer";
-
   const imageRequestConfig = {
     url: `/blobs/${boardgame.image}`,
     method: "GET",
-    responseType: imageType,
+    responseType: IMAGE_TYPE,
   };
 
   const [{ data: imageData, loading, error }] =

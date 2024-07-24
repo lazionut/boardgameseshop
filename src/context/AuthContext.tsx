@@ -30,9 +30,8 @@ interface AuthProviderProps {
 }
 
 export const AuthContextProvider = ({ children }: AuthProviderProps) => {
-  const [authToken, setAuthToken] = useState<AuthToken>(
-    localStorage.getItem("token")
-  );
+  const authToken: AuthToken = localStorage.getItem("token");
+
   const [accountDecoded, setAccountDecoded] = useState<AccountDecoded | null>(
     null
   );

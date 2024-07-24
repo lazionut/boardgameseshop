@@ -9,7 +9,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import AddressItems from "../components/account/AddressItems";
 import ProfileItems from "../components/account/ProfileItems";
 import ConfirmationDialog from "../components/common/ConfirmationDialog";
-import { NotificationToast } from "../components/common/NotificationToast";
+import NotificationToast from "../components/common/NotificationToast";
 import { Configs } from "../constants/Configs";
 import { useAuthContext } from "../context/AuthContext";
 import useFetchData from "../hooks/useFetchData";
