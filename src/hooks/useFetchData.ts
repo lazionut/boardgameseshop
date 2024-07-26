@@ -31,7 +31,7 @@ const useFetchData = (requestConfig: AxiosRequestConfig): any => {
         loading: true,
       });
 
-      const response: AxiosResponse<any, any> = await axios(requestConfig);
+      const response: AxiosResponse = await axios(requestConfig);
 
       //console.log("Response is: " + JSON.stringify(response));
 

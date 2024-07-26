@@ -10,7 +10,7 @@ interface NotificationToastProps {
   isSuccessful: boolean;
 }
 
-export function NotificationToast({
+export default function NotificationToast({
   toastText,
   isSuccessful,
 }: NotificationToastProps) {

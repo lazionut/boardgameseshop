@@ -39,12 +39,6 @@ export const theme: Theme = createTheme({
           },
           scrollbarColor: "#778899 #f7f1cf",
         },
-        body: {
-          "*": {
-            "scrollbar-width": "thin",
-          },
-          scrollbarColor: "#778899 #f7f1cf",
-        },
       },
     },
   },

@@ -2,7 +2,7 @@ import { Typography, List, ListItem, ListItemText, Grid } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
 import ReviewDetailItem from "./ReviewDetailItem";
-import { useCartContext } from "../../../context/CartContext";
+import { CartItemType, useCartContext } from "../../../context/CartContext";
 
 export interface ReviewDetailsProps {
   orderItems: any;
@@ -20,7 +20,7 @@ export default function ReviewDetails({
 
   const cartTotal = cartItems.reduce((total, cartItem) => {
     const searchedItem = orderItems.find(
-      (item: any) => item.id === cartItem.id
+      (item: CartItemType) => item.id === cartItem.id
     );
 
     if (searchedItem !== undefined) {

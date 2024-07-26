@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Autocomplete, TextField, Box, InputAdornment } from "@mui/material";
+import { Autocomplete, TextField, Box, InputAdornment, AutocompleteRenderInputParams } from "@mui/material";
 import { AxiosRequestConfig } from "axios";
 import { FaSearch } from "react-icons/fa";
 
@@ -18,11 +18,9 @@ export default function SearchBar() {
     method: "GET",
   };
 
-  const [{
-    data: boardgamesNamesData,
-    loading,
-    error,
-  }] = useFetchData(boardgameNamesRequestConfig);
+  const [{ data: boardgamesNamesData, loading, error }] = useFetchData(
+    boardgameNamesRequestConfig
+  );
 
   return (
     <Box
@@ -35,12 +33,12 @@ export default function SearchBar() {
     >
       <Autocomplete
         freeSolo
-        options={boardgamesNamesData.names}
+        options={boardgamesNamesData.names || [""]}
         value={searchedCharacters}
         onInputChange={(e, value) => {
           setSearchedCharacters(value);
         }}
-        renderInput={(params: any) => (
+        renderInput={(params: AutocompleteRenderInputParams) => (
           <Box sx={{ bgcolor: "common.customLightYellow" }}>
             <TextField
               {...params}

@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
+import { IMAGE_TYPE } from "../../constants/Configs";
 import useFetchData from "../../hooks/useFetchData";
 
 interface OrderBoardgameCardProps {
@@ -24,12 +25,10 @@ export default function OrderBoardgameCard({
 }: OrderBoardgameCardProps) {
   const { t } = useTranslation();
 
-  const imageType: any = "arraybuffer";
-
   const imageRequestConfig = {
     url: `/blobs/${boardgame.image}`,
     method: "GET",
-    responseType: imageType,
+    responseType: IMAGE_TYPE,
   };
 
   const [{ data: imageData, imageLoading, imageError }] =

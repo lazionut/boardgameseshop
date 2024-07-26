@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { AxiosRequestConfig } from "axios";
 
 import { WishlistModalItemTemplate } from "./WishlistModalItemTemplate";
+import { IMAGE_TYPE } from "../../constants/Configs";
 import { useWishlistContext } from "../../context/WishlistContext";
 import useFetchData from "../../hooks/useFetchData";
 
@@ -32,12 +33,10 @@ export function WishlistModalItem({ id }: WishlistModalItemProps) {
       setImageRequestConfig({
         url: `/blobs/${boardgameData.image}`,
         method: "GET",
-        responseType: imageType,
+        responseType: IMAGE_TYPE,
       });
     }
   }, [boardgameData]);
-
-  const imageType: any = "arraybuffer";
 
   const [{
     data: imageData,

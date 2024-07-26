@@ -25,6 +25,7 @@ export const useCartContext = () => {
 export interface CartItemType {
   id: number;
   quantity: number;
+  price?: number;
 }
 
 interface CartContextProviderProps {

@@ -7,8 +7,7 @@ import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import NavigateBackButton from "../components/common/NavigateBackButton";
-import { NotificationToast } from "../components/common/NotificationToast";
-import { Configs } from "../constants/Configs";
+import NotificationToast from "../components/common/NotificationToast";import { Configs } from "../constants/Configs";
 import { emailFieldRule, requiredFieldRule } from "../constants/Rules";
 import useTimeout from "../hooks/useTimeout";
 import sendDataService from "../services/sendDataService";

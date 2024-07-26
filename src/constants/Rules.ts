@@ -22,7 +22,7 @@ export const emailFieldRule: {
   [key: string]: { [key: string]: RegExp | string };
 } = {
   pattern: {
-    value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+    value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
     message: `${i18n.t("email-format-message")}`,
   },
 };

@@ -33,7 +33,7 @@ interface OrderItemsCardProp {
 }
 
 export default function OrderItemsCard({ order }: OrderItemsCardProp) {
-  const { authToken, accountDecoded } = useAuthContext();
+  const { accountDecoded } = useAuthContext();
   const { t } = useTranslation();
 
   return (

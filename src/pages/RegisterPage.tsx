@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import {
   Autocomplete,
+  AutocompleteRenderInputParams,
   Box,
   Button,
   Container,
@@ -13,7 +14,6 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 
-import { NotificationToast } from "../components/common/NotificationToast";
 import { Countries } from "../constants/Countries";
 import {
   emailFieldRule,
@@ -26,6 +26,7 @@ import useTimeout from "../hooks/useTimeout";
 import authenticationService, {
   Account,
 } from "../services/authenticationService";
+import NotificationToast from "../components/common/NotificationToast";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
@@ -173,7 +174,7 @@ export default function RegisterPage() {
                       {option.label} ({option.code})
                     </Box>
                   )}
-                  renderInput={(params: any) => (
+                  renderInput={(params: AutocompleteRenderInputParams) => (
                     <TextField
                       {...params}
                       type="text"

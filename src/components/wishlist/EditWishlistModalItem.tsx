@@ -1,4 +1,5 @@
 import { WishlistModalItemTemplate } from "./WishlistModalItemTemplate";
+import { IMAGE_TYPE } from "../../constants/Configs";
 import useFetchData from "../../hooks/useFetchData";
 
 interface EditWishlistModalItemProps {
@@ -17,12 +18,10 @@ export function EditWishlistModalItem({
   boardgame,
   localRemoveWishlistItem,
 }: EditWishlistModalItemProps) {
-  const imageType: any = "arraybuffer";
-
   const imageRequestConfig = {
     url: `/blobs/${boardgame.image}`,
     method: "GET",
-    responseType: imageType,
+    responseType: IMAGE_TYPE,
   };
 
   const [{ data: imageData, loading, error }] =

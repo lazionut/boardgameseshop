@@ -1,6 +1,12 @@
 import { Navigate } from "react-router-dom";
 
-const CostumerAuthenticatedRoute = ({ children }: any) => {
+interface CostumerAuthenticatedRouteProps {
+  children: JSX.Element;
+}
+
+const CostumerAuthenticatedRoute = ({
+  children,
+}: CostumerAuthenticatedRouteProps) => {
   const isAuthenticated = !!localStorage.getItem("token");
 
   return isAuthenticated === true ? children : <Navigate to={"/login"} />;

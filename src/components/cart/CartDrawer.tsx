@@ -14,7 +14,7 @@ import { IoClose } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
 import { CartItem } from "./CartItem";
-import { useCartContext } from "../../context/CartContext";
+import { CartItemType, useCartContext } from "../../context/CartContext";
 
 interface CartProps {
   isOpen: boolean;
@@ -25,14 +25,14 @@ export default function CartDrawer({ isOpen }: CartProps) {
   const { closeCart, cartItems } = useCartContext();
   const { t } = useTranslation();
 
-  const [localCartItems, setLocalCartItems] = useState<any>([{}]);
+  const [localCartItems, setLocalCartItems] = useState<CartItemType[]>([]);
 
   const cartTotal = cartItems.reduce((total, cartItem) => {
     const searchedItem = localCartItems.find(
-      (item: any) => item.id === cartItem.id
+      (item: CartItemType) => item.id === cartItem.id
     );
 
-    if (searchedItem !== undefined) {
+    if (searchedItem && searchedItem.price) {
       return Number(
         (total + searchedItem.price * cartItem.quantity).toFixed(2)
       );
@@ -82,7 +82,6 @@ export default function CartDrawer({ isOpen }: CartProps) {
                   <CartItem
                     key={item.id}
                     {...item}
-                    localCartItems={localCartItems}
                     setLocalCartItems={setLocalCartItems}
                   />
                 ))}
