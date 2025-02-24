@@ -1,4 +1,4 @@
-import i18n from "../localization/i18n";
+import i18n from "src/localization/i18n";
 
 export const Constants: { [key: string]: any } = {
   DEFAULT_PAGE_INDEX: 1,

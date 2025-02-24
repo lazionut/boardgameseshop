@@ -1,4 +1,4 @@
-import i18n from "../localization/i18n";
+import i18n from "src/localization/i18n";
 
 export const requiredFieldRule: {
   [key: string]: { [key: string]: boolean | string };
