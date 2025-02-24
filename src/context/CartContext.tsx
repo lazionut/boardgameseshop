@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 
-import CartDrawer from "../components/cart/CartDrawer";
-import { useSessionStorage } from "../hooks/useSessionStorage";
+import CartDrawer from "src/components/cart/CartDrawer";
+import { useSessionStorage } from "src/hooks/useSessionStorage";
 
 type CartContextType = {
   openCart: () => void;

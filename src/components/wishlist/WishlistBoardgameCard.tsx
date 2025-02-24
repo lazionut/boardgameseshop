@@ -2,10 +2,11 @@ import { Grid, Box, Typography, Button } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
-import { IMAGE_TYPE } from "../../constants/Configs";
-import useFetchData from "../../hooks/useFetchData";
-import { stockDefiner } from "../../utils/Utilities";
-import { LoadingCircle } from "../common/LoadingCircle";
+import no_image from "src/assets/images/no_image.jpg";
+import { LoadingCircle } from "src/components/common/LoadingCircle";
+import { IMAGE_TYPE } from "src/constants/Configs";
+import useFetchData from "src/hooks/useFetchData";
+import { stockDefiner } from "src/utils/Utilities";
 
 interface WishlistBoardgameCardProps {
   boardgame: {
@@ -22,7 +23,7 @@ export function WishlistBoardgameCard({
 }: WishlistBoardgameCardProps) {
   const navigate = useNavigate();
 
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const imageRequestConfig = {
     url: `/blobs/${boardgame.image}`,
@@ -30,7 +31,8 @@ export function WishlistBoardgameCard({
     responseType: IMAGE_TYPE,
   };
 
-  const [{ data: imageData, loading, error }] = useFetchData(imageRequestConfig);
+  const [{ data: imageData, loading, error }] =
+    useFetchData(imageRequestConfig);
 
   const blobImage = new Blob([new Uint8Array(imageData)], { type: "image" });
 
@@ -55,7 +57,7 @@ export function WishlistBoardgameCard({
             src={
               blobImage && boardgame.image
                 ? window.URL.createObjectURL(blobImage)
-                : require("../../assets/images/no_image.jpg")
+                : no_image
             }
             alt="boardgame image"
           />

@@ -15,13 +15,13 @@ import { BsCartPlusFill } from "react-icons/bs";
 import { GrEdit } from "react-icons/gr";
 import { MdDelete } from "react-icons/md";
 
-import EditWishlistModal from "./EditWishlistModal";
-import { WishlistBoardgameCard } from "./WishlistBoardgameCard";
-import { Configs } from "../../constants/Configs";
-import { useCartContext } from "../../context/CartContext";
-import sendDataService from "../../services/sendDataService";
-import { trimDateTime } from "../../utils/Utilities";
-import ConfirmationDialog from "../common/ConfirmationDialog";
+import ConfirmationDialog from "src/components/common/ConfirmationDialog";
+import EditWishlistModal from "src/components/wishlist/EditWishlistModal";
+import { WishlistBoardgameCard } from "src/components/wishlist/WishlistBoardgameCard";
+import { Configs } from "src/constants/Configs";
+import { useCartContext } from "src/context/CartContext";
+import sendDataService from "src/services/sendDataService";
+import { trimDateTime } from "src/utils/Utilities";
 
 interface WishlistCardProp {
   wishlist: {

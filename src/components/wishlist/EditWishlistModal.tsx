@@ -14,9 +14,9 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { IoClose } from "react-icons/io5";
 
-import { EditWishlistModalItem } from "./EditWishlistModalItem";
-import { requiredFieldRule } from "../../constants/Rules";
-import sendDataService from "../../services/sendDataService";
+import { EditWishlistModalItem } from "src/components/wishlist/EditWishlistModalItem";
+import { requiredFieldRule } from "src/constants/Rules";
+import sendDataService from "src/services/sendDataService";
 
 type EditWishlist = {
   wishlist: {

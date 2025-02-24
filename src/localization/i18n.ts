@@ -1,13 +1,16 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
+import enTranslation from "src/localization/locales/en/enTranslation.json";
+import roTranslation from "src/localization/locales/ro/roTranslation.json";
+
 i18n.use(initReactI18next).init({
   resources: {
     en: {
-      translations: require("./locales/en/enTranslation.json"),
+      translations: enTranslation,
     },
     ro: {
-      translations: require("./locales/ro/roTranslation.json"),
+      translations: roTranslation,
     },
   },
   lng: localStorage.getItem("lang") || "en",

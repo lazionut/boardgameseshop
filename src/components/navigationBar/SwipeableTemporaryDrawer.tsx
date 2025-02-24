@@ -25,10 +25,10 @@ import {
 import { RiBillLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 
-import { Constants } from "../../constants/Constants";
-import { useAuthContext } from "../../context/AuthContext";
-import { useWishlistContext } from "../../context/WishlistContext";
-import authenticationService from "../../services/authenticationService";
+import { Constants } from "src/constants/Constants";
+import { useAuthContext } from "src/context/AuthContext";
+import { useWishlistContext } from "src/context/WishlistContext";
+import authenticationService from "src/services/authenticationService";
 
 export default function SwipeableTemporaryDrawer() {
   const navigate = useNavigate();

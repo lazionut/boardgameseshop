@@ -12,10 +12,10 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { IoClose } from "react-icons/io5";
 
-import { WishlistModalItem } from "./WishlistModalItem";
-import { requiredFieldRule } from "../../constants/Rules";
-import { useWishlistContext } from "../../context/WishlistContext";
-import sendDataService from "../../services/sendDataService";
+import { WishlistModalItem } from "src/components/wishlist/WishlistModalItem";
+import { requiredFieldRule } from "src/constants/Rules";
+import { useWishlistContext } from "src/context/WishlistContext";
+import sendDataService from "src/services/sendDataService";
 
 interface WishlistModalProps {
   isOpen: boolean;

@@ -3,10 +3,10 @@ import { AxiosRequestConfig } from "axios";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
-import NavigateBackButton from "../components/common/NavigateBackButton";
-import OrderItemsCard from "../components/order/OrderItemsCard";
-import { useAuthContext } from "../context/AuthContext";
-import useFetchData from "../hooks/useFetchData";
+import NavigateBackButton from "src/components/common/NavigateBackButton";
+import OrderItemsCard from "src/components/order/OrderItemsCard";
+import { useAuthContext } from "src/context/AuthContext";
+import useFetchData from "src/hooks/useFetchData";
 
 export default function OrderDetailsPage() {
   const { id } = useParams();

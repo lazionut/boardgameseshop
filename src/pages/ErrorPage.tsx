@@ -2,6 +2,8 @@ import { Grid, Box, Button, Container, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
+import error_404 from "src/assets/images/error_404.png";
+
 export default function ErrorPage() {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -24,7 +26,7 @@ export default function ErrorPage() {
                 width: 350,
                 height: 250,
               }}
-              src={require("../assets/images/error_404.png")}
+              src={error_404}
               alt="error image"
             />
             <Typography variant="h6">{t("error-page")}</Typography>

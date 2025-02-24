@@ -1,6 +1,6 @@
 import { Box, Grid, Typography } from "@mui/material";
 
-import { ReactComponent as BggSvg } from "../../assets/images/bgg_logo.svg";
+import { ReactComponent as BggSvg } from "src/assets/images/bgg_logo.svg";
 
 interface BoardgameDetailsCardProps {
   description: string;

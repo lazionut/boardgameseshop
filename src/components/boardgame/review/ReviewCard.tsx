@@ -2,11 +2,12 @@ import { Box, Card, Grid, IconButton, Typography } from "@mui/material";
 import { GiMeeple } from "react-icons/gi";
 import { MdDelete } from "react-icons/md";
 
-import { StyledRating } from "./RatingOptions";
-import { Configs } from "../../../constants/Configs";
-import { Constants } from "../../../constants/Constants";
-import { useAuthContext } from "../../../context/AuthContext";
-import sendDataService from "../../../services/sendDataService";
+import { StyledRating } from "src/components/boardgame/review/RatingOptions";
+import { Configs } from "src/constants/Configs";
+import { Constants } from "src/constants/Constants";
+import { useAuthContext } from "src/context/AuthContext";
+import sendDataService from "src/services/sendDataService";
+
 
 interface ReviewCardProps {
   review: {

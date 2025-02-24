@@ -14,11 +14,12 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import NavigateBackButton from "../components/common/NavigateBackButton";
-import NotificationToast from "../components/common/NotificationToast";import { Configs } from "../constants/Configs";
-import { Countries } from "../constants/Countries";
-import { phoneFieldRule, requiredFieldRule } from "../constants/Rules";
-import sendDataService from "../services/sendDataService";
+import NavigateBackButton from "src/components/common/NavigateBackButton";
+import NotificationToast from "src/components/common/NotificationToast";
+import { Configs } from "src/constants/Configs";
+import { Countries } from "src/constants/Countries";
+import { phoneFieldRule, requiredFieldRule } from "src/constants/Rules";
+import sendDataService from "src/services/sendDataService";
 
 export default function EditAddressPage() {
   const navigate = useNavigate();

@@ -1,6 +1,6 @@
-import { WishlistModalItemTemplate } from "./WishlistModalItemTemplate";
-import { IMAGE_TYPE } from "../../constants/Configs";
-import useFetchData from "../../hooks/useFetchData";
+import { WishlistModalItemTemplate } from "src/components/wishlist/WishlistModalItemTemplate";
+import { IMAGE_TYPE } from "src/constants/Configs";
+import useFetchData from "src/hooks/useFetchData";
 
 interface EditWishlistModalItemProps {
   boardgame: {

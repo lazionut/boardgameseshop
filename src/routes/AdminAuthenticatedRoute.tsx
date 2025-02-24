@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 
-import { Constants } from "../constants/Constants";
-import { useAuthContext } from "../context/AuthContext";
+import { Constants } from "src/constants/Constants";
+import { useAuthContext } from "src/context/AuthContext";
 
 interface AdminAuthenticatedRouteProps {
   children: JSX.Element;

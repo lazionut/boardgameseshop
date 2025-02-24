@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 
 import { AxiosRequestConfig } from "axios";
 
-import { WishlistModalItemTemplate } from "./WishlistModalItemTemplate";
-import { IMAGE_TYPE } from "../../constants/Configs";
-import { useWishlistContext } from "../../context/WishlistContext";
-import useFetchData from "../../hooks/useFetchData";
+import { WishlistModalItemTemplate } from "src/components/wishlist/WishlistModalItemTemplate";
+import { IMAGE_TYPE } from "src/constants/Configs";
+import { useWishlistContext } from "src/context/WishlistContext";
+import useFetchData from "src/hooks/useFetchData";
 
 interface WishlistModalItemProps {
   id: number;

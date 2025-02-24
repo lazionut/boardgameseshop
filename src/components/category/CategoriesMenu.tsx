@@ -7,11 +7,11 @@ import { useTranslation } from "react-i18next";
 import { AiFillPlusSquare } from "react-icons/ai";
 import { MdKeyboardArrowDown } from "react-icons/md";
 
-import AdminCategoryModal from "./AdminCategoryModal";
-import CategoryMenuItem from "./CategoryMenuItem";
-import { Constants } from "../../constants/Constants";
-import { useAuthContext } from "../../context/AuthContext";
-import useFetchData from "../../hooks/useFetchData";
+import AdminCategoryModal from "src/components/category/AdminCategoryModal";
+import CategoryMenuItem from "src/components/category/CategoryMenuItem";
+import { Constants } from "src/constants/Constants";
+import { useAuthContext } from "src/context/AuthContext";
+import useFetchData from "src/hooks/useFetchData";
 
 export default function CategoriesMenu() {
   const { t } = useTranslation();

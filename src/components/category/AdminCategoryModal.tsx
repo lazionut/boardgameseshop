@@ -2,7 +2,7 @@ import { Box, CardHeader, IconButton, Modal } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { IoClose } from "react-icons/io5";
 
-import AdminCategoryTemplate from "./AdminCategoryTemplate";
+import AdminCategoryTemplate from "src/components/category/AdminCategoryTemplate";
 
 interface EditCategoryModalProps {
   isOpen: boolean | undefined;

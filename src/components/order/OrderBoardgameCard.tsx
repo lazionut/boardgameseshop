@@ -8,8 +8,9 @@ import {
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
-import { IMAGE_TYPE } from "../../constants/Configs";
-import useFetchData from "../../hooks/useFetchData";
+import no_image from "src/assets/images/no_image.jpg";
+import { IMAGE_TYPE } from "src/constants/Configs";
+import useFetchData from "src/hooks/useFetchData";
 
 interface OrderBoardgameCardProps {
   boardgame: {
@@ -50,7 +51,7 @@ export default function OrderBoardgameCard({
           image={
             blobImage && boardgame.image !== null
               ? window.URL.createObjectURL(blobImage)
-              : require("../../assets/images/no_image.jpg")
+              : no_image
           }
           alt="boardgame image"
           sx={{ width: 130, height: 150, objectFit: "contain" }}

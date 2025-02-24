@@ -14,12 +14,12 @@ import { useTranslation } from "react-i18next";
 import { IoMdLogIn } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 
-import NotificationToast from "../components/common/NotificationToast";
-import { emailFieldRule, requiredFieldRule } from "../constants/Rules";
-import useTimeout from "../hooks/useTimeout";
+import NotificationToast from "src/components/common/NotificationToast";
+import { emailFieldRule, requiredFieldRule } from "src/constants/Rules";
+import useTimeout from "src/hooks/useTimeout";
 import authenticationService, {
   Login,
-} from "../services/authenticationService";
+} from "src/services/authenticationService";
 
 export default function LoginPage() {
   const navigate = useNavigate();

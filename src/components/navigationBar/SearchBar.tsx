@@ -1,12 +1,18 @@
 import { useState } from "react";
 
-import { Autocomplete, TextField, Box, InputAdornment, AutocompleteRenderInputParams } from "@mui/material";
+import {
+  Autocomplete,
+  TextField,
+  Box,
+  InputAdornment,
+  AutocompleteRenderInputParams,
+} from "@mui/material";
 import { AxiosRequestConfig } from "axios";
 import { FaSearch } from "react-icons/fa";
 
-import { Constants, ConstantsArrays } from "../../constants/Constants";
-import useFetchData from "../../hooks/useFetchData";
-import useNavigateSearch from "../../hooks/useNavigateSearch";
+import { Constants, ConstantsArrays } from "src/constants/Constants";
+import useFetchData from "src/hooks/useFetchData";
+import useNavigateSearch from "src/hooks/useNavigateSearch";
 
 export default function SearchBar() {
   const navigateSearch = useNavigateSearch();

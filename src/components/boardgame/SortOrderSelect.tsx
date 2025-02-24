@@ -7,8 +7,8 @@ import {
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
-import { ConstantsArrays } from "../../constants/Constants";
-import { sortOrderDefiner } from "../../utils/Utilities";
+import { ConstantsArrays } from "src/constants/Constants";
+import { sortOrderDefiner } from "src/utils/Utilities";
 
 interface PageSizeSelectProps {
   sortOrder: number;

@@ -4,13 +4,13 @@ import { Card, Box, Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig } from "axios";
 import { useTranslation } from "react-i18next";
 
-import ReviewCard from "./ReviewCard";
-import { ReviewForm } from "./ReviewForm";
-import { Constants } from "../../../constants/Constants";
-import { useAuthContext } from "../../../context/AuthContext";
-import useFetchData from "../../../hooks/useFetchData";
-import EmptyTemplate from "../../common/EmptyTemplate";
-import PaginationOutlined from "../../common/PaginationOutlined";
+import ReviewCard from "src/components/boardgame/review/ReviewCard";
+import { ReviewForm } from "src/components/boardgame/review/ReviewForm";
+import EmptyTemplate from "src/components/common/EmptyTemplate";
+import PaginationOutlined from "src/components/common/PaginationOutlined";
+import { Constants } from "src/constants/Constants";
+import { useAuthContext } from "src/context/AuthContext";
+import useFetchData from "src/hooks/useFetchData";
 
 interface ReviewTemplateProps {
   boardgameId: number;

@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 
-import WishlistModal from "../components/wishlist/WishlistModal";
-import { useSessionStorage } from "../hooks/useSessionStorage";
+import WishlistModal from "src/components/wishlist/WishlistModal";
+import { useSessionStorage } from "src/hooks/useSessionStorage";
 
 type WishlistContextType = {
   openWishlist: () => void;
