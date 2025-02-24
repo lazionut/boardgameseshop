@@ -3,9 +3,9 @@ import { useState } from "react";
 import { Grid, Card, ListItem, Button } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
-import { Configs } from "../../constants/Configs";
-import sendDataService from "../../services/sendDataService";
-import ConfirmationDialog from "../common/ConfirmationDialog";
+import ConfirmationDialog from "src/components/common/ConfirmationDialog";
+import { Configs } from "src/constants/Configs";
+import sendDataService from "src/services/sendDataService";
 
 interface AdminAccountProps {
   account: {

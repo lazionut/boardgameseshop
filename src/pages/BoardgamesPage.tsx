@@ -6,15 +6,15 @@ import { useTranslation } from "react-i18next";
 import { AiFillPlusSquare } from "react-icons/ai";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
 
-import AdminBoardgameModal from "../components/boardgame/AdminBoardgameModal";
-import BoardgameCard from "../components/boardgame/BoardgameCard";
-import SortOrderSelect from "../components/boardgame/SortOrderSelect";
-import EmptyTemplate from "../components/common/EmptyTemplate";
-import NotificationToast from "../components/common/NotificationToast";import PaginationOutlined from "../components/common/PaginationOutlined";
-import { Configs } from "../constants/Configs";
-import { Constants, ConstantsArrays } from "../constants/Constants";
-import { useAuthContext } from "../context/AuthContext";
-import useFetchData from "../hooks/useFetchData";
+import AdminBoardgameModal from "src/components/boardgame/AdminBoardgameModal";
+import BoardgameCard from "src/components/boardgame/BoardgameCard";
+import SortOrderSelect from "src/components/boardgame/SortOrderSelect";
+import EmptyTemplate from "src/components/common/EmptyTemplate";
+import NotificationToast from "src/components/common/NotificationToast";import PaginationOutlined from "src/components/common/PaginationOutlined";
+import { Configs } from "src/constants/Configs";
+import { Constants, ConstantsArrays } from "src/constants/Constants";
+import { useAuthContext } from "src/context/AuthContext";
+import useFetchData from "src/hooks/useFetchData";
 
 export default function BoardgamesPage() {
   const { categoryId } = useParams();

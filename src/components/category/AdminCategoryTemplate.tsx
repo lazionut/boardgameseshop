@@ -2,9 +2,9 @@ import { Button, Container, Grid, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
-import { Configs } from "../../constants/Configs";
-import { requiredFieldRule } from "../../constants/Rules";
-import sendDataService from "../../services/sendDataService";
+import { Configs } from "src/constants/Configs";
+import { requiredFieldRule } from "src/constants/Rules";
+import sendDataService from "src/services/sendDataService";
 
 interface AdminCategoryTemplateProps {
   templateName: string;

@@ -1,6 +1,6 @@
-import { Constants, ORDER_STATUS_OPTIONS } from "../constants/Constants";
-import { CountryType } from "../constants/Countries";
-import i18n from "../localization/i18n";
+import { Constants, ORDER_STATUS_OPTIONS } from "src/constants/Constants";
+import { CountryType } from "src/constants/Countries";
+import i18n from "src/localization/i18n";
 
 export function stockDefiner(stockQuantity: number): string | undefined {
   if (stockQuantity > Constants.IN_STOCK) {

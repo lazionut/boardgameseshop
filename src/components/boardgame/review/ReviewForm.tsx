@@ -4,11 +4,11 @@ import { Box, TextField, Grid, Button } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
-import RatingOptions from "./RatingOptions";
-import { requiredFieldRule } from "../../../constants/Rules";
-import useTimeout from "../../../hooks/useTimeout";
-import sendDataService from "../../../services/sendDataService";
-import NotificationToast from "../../common/NotificationToast";
+import RatingOptions from "src/components/boardgame/review/RatingOptions";
+import NotificationToast from "src/components/common/NotificationToast";
+import { requiredFieldRule } from "src/constants/Rules";
+import useTimeout from "src/hooks/useTimeout";
+import sendDataService from "src/services/sendDataService";
 
 interface ReviewFormProps {
   boardgameId: number;

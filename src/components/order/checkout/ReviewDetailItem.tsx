@@ -2,8 +2,8 @@ import { Typography, ListItem, ListItemText, Box } from "@mui/material";
 import { AxiosRequestConfig } from "axios";
 import { useTranslation } from "react-i18next";
 
-import { CartItemType, useCartContext } from "../../../context/CartContext";
-import useFetchData from "../../../hooks/useFetchData";
+import { CartItemType, useCartContext } from "src/context/CartContext";
+import useFetchData from "src/hooks/useFetchData";
 
 interface ReviewDetailItemProps {
   cartItem: CartItemType;

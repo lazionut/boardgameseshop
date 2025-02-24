@@ -6,11 +6,11 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import NavigateBackButton from "../components/common/NavigateBackButton";
-import NotificationToast from "../components/common/NotificationToast";import { Configs } from "../constants/Configs";
-import { emailFieldRule, requiredFieldRule } from "../constants/Rules";
-import useTimeout from "../hooks/useTimeout";
-import sendDataService from "../services/sendDataService";
+import NavigateBackButton from "src/components/common/NavigateBackButton";
+import NotificationToast from "src/components/common/NotificationToast";import { Configs } from "src/constants/Configs";
+import { emailFieldRule, requiredFieldRule } from "src/constants/Rules";
+import useTimeout from "src/hooks/useTimeout";
+import sendDataService from "src/services/sendDataService";
 
 export default function EditProfilePage() {
   const navigate = useNavigate();

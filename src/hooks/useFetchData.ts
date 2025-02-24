@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 
-import { Configs } from "../constants/Configs";
+import { Configs } from "src/constants/Configs";
 
 axios.defaults.baseURL = String(Configs.BASE_URL);
 axios.defaults.timeout = Number(Configs.REQUEST_TIMEOUT);

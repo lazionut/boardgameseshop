@@ -14,19 +14,19 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 
-import { Countries } from "../constants/Countries";
+import NotificationToast from "src/components/common/NotificationToast";
+import { Countries } from "src/constants/Countries";
 import {
   emailFieldRule,
   passwordFieldRule,
   PASSWORD_MESSAGE,
   phoneFieldRule,
   requiredFieldRule,
-} from "../constants/Rules";
-import useTimeout from "../hooks/useTimeout";
+} from "src/constants/Rules";
+import useTimeout from "src/hooks/useTimeout";
 import authenticationService, {
   Account,
-} from "../services/authenticationService";
-import NotificationToast from "../components/common/NotificationToast";
+} from "src/services/authenticationService";
 
 export default function RegisterPage() {
   const navigate = useNavigate();

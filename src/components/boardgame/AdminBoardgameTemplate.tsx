@@ -15,14 +15,15 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
-import { Configs } from "../../constants/Configs";
+import no_image from "src/assets/images/no_image.jpg";
+import { Configs } from "src/constants/Configs";
 import {
   minimumPriceFieldRule,
   positiveNumberFieldRule,
   requiredFieldRule,
-} from "../../constants/Rules";
-import useFetchData from "../../hooks/useFetchData";
-import sendDataService from "../../services/sendDataService";
+} from "src/constants/Rules";
+import useFetchData from "src/hooks/useFetchData";
+import sendDataService from "src/services/sendDataService";
 
 type FormValues = {
   name: string;
@@ -222,7 +223,7 @@ export default function AdminBoardgameTemplate({
                   src={
                     file
                       ? window.URL.createObjectURL(file)
-                      : require("../../assets/images/no_image.jpg")
+                      : no_image
                   }
                   alt="boardgame image"
                 />

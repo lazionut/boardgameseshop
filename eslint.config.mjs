@@ -31,8 +31,13 @@ eslintConfig.push({
         pathGroups: [
           {
             pattern: "react",
-            group: "builtin",
+            group: "external",
             position: "before",
+          },
+          {
+            pattern: "src/**",
+            group: "internal",
+            position: "after",
           },
         ],
         pathGroupsExcludedImportTypes: ["react"],

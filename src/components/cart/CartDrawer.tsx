@@ -13,8 +13,8 @@ import { useTranslation } from "react-i18next";
 import { IoClose } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
-import { CartItem } from "./CartItem";
-import { CartItemType, useCartContext } from "../../context/CartContext";
+import { CartItem } from "src/components/cart/CartItem";
+import { CartItemType, useCartContext } from "src/context/CartContext";
 
 interface CartProps {
   isOpen: boolean;

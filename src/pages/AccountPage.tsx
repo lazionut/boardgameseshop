@@ -6,14 +6,14 @@ import { useTranslation } from "react-i18next";
 import { MdDelete } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import AddressItems from "../components/account/AddressItems";
-import ProfileItems from "../components/account/ProfileItems";
-import ConfirmationDialog from "../components/common/ConfirmationDialog";
-import NotificationToast from "../components/common/NotificationToast";
-import { Configs } from "../constants/Configs";
-import { useAuthContext } from "../context/AuthContext";
-import useFetchData from "../hooks/useFetchData";
-import sendDataService from "../services/sendDataService";
+import AddressItems from "src/components/account/AddressItems";
+import ProfileItems from "src/components/account/ProfileItems";
+import ConfirmationDialog from "src/components/common/ConfirmationDialog";
+import NotificationToast from "src/components/common/NotificationToast";
+import { Configs } from "src/constants/Configs";
+import { useAuthContext } from "src/context/AuthContext";
+import useFetchData from "src/hooks/useFetchData";
+import sendDataService from "src/services/sendDataService";
 
 export default function AccountPage() {
   const { state } = useLocation();

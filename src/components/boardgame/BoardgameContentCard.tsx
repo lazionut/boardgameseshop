@@ -11,17 +11,18 @@ import {
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
-import AdminBoardgameActions from "./AdminBoardgameActions";
-import AdminBoardgameModal from "./AdminBoardgameModal";
-import { Configs, IMAGE_TYPE } from "../../constants/Configs";
-import { Constants } from "../../constants/Constants";
-import { useAuthContext } from "../../context/AuthContext";
-import { useCartContext } from "../../context/CartContext";
-import { useWishlistContext } from "../../context/WishlistContext";
-import useFetchData from "../../hooks/useFetchData";
-import sendDataService from "../../services/sendDataService";
-import { stockDefiner } from "../../utils/Utilities";
-import { LoadingCircle } from "../common/LoadingCircle";
+import no_image from "src/assets/images/no_image.jpg";
+import AdminBoardgameActions from "src/components/boardgame/AdminBoardgameActions";
+import AdminBoardgameModal from "src/components/boardgame/AdminBoardgameModal";
+import { LoadingCircle } from "src/components/common/LoadingCircle";
+import { Configs, IMAGE_TYPE } from "src/constants/Configs";
+import { Constants } from "src/constants/Constants";
+import { useAuthContext } from "src/context/AuthContext";
+import { useCartContext } from "src/context/CartContext";
+import { useWishlistContext } from "src/context/WishlistContext";
+import useFetchData from "src/hooks/useFetchData";
+import sendDataService from "src/services/sendDataService";
+import { stockDefiner } from "src/utils/Utilities";
 
 interface BoardgameContentCardProps {
   boardgame: {
@@ -100,7 +101,7 @@ export default function BoardgameContentCard({
               image={
                 blobImage && boardgame.image !== null
                   ? window.URL.createObjectURL(blobImage)
-                  : require("../../assets/images/no_image.jpg")
+                  : no_image
               }
               alt="boardgame image"
               sx={{

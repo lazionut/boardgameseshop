@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { GrEdit } from "react-icons/gr";
 import { MdDelete } from "react-icons/md";
 
-import ConfirmationDialog from "../common/ConfirmationDialog";
+import ConfirmationDialog from "src/components/common/ConfirmationDialog";
 
 interface AdminBoardgameActionsProps {
   isDeleteOpen: boolean;

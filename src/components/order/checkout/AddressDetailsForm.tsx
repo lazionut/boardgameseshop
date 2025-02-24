@@ -5,9 +5,9 @@ import { AxiosRequestConfig } from "axios";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
-import { phoneFieldRule, requiredFieldRule } from "../../../constants/Rules";
-import { useAuthContext } from "../../../context/AuthContext";
-import useFetchData from "../../../hooks/useFetchData";
+import { phoneFieldRule, requiredFieldRule } from "src/constants/Rules";
+import { useAuthContext } from "src/context/AuthContext";
+import useFetchData from "src/hooks/useFetchData";
 
 interface AddressDetailsProps {
   setNameDetails: React.Dispatch<React.SetStateAction<string>>;

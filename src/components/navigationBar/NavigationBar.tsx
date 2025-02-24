@@ -12,12 +12,12 @@ import { Gi3DMeeple } from "react-icons/gi";
 import { MdAccountCircle } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
-import SearchBar from "./SearchBar";
-import SwipeableTemporaryDrawer from "./SwipeableTemporaryDrawer";
-import { useAuthContext } from "../../context/AuthContext";
-import { useCartContext } from "../../context/CartContext";
-import { useWishlistContext } from "../../context/WishlistContext";
-import CategoriesMenu from "../category/CategoriesMenu";
+import CategoriesMenu from "src/components/category/CategoriesMenu";
+import SearchBar from "src/components/navigationBar/SearchBar";
+import SwipeableTemporaryDrawer from "src/components/navigationBar/SwipeableTemporaryDrawer";
+import { useAuthContext } from "src/context/AuthContext";
+import { useCartContext } from "src/context/CartContext";
+import { useWishlistContext } from "src/context/WishlistContext";
 
 export default function NavigationBar() {
   const navigate = useNavigate();

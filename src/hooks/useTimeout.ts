@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import { Configs } from "../constants/Configs";
+import { Configs } from "src/constants/Configs";
 
 const useTimeout = (
   isReady: boolean,

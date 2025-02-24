@@ -14,11 +14,11 @@ import { useTranslation } from "react-i18next";
 import { GiMeepleKing } from "react-icons/gi";
 import { useLocation } from "react-router-dom";
 
-import AddressDetailsForm from "../components/order/checkout/AddressDetailsForm";
-import PaymentShippingDetails from "../components/order/checkout/PaymentShippingDetails";
-import ReviewDetails from "../components/order/checkout/ReviewDetails";
-import { useCartContext } from "../context/CartContext";
-import sendDataService from "../services/sendDataService";
+import AddressDetailsForm from "src/components/order/checkout/AddressDetailsForm";
+import PaymentShippingDetails from "src/components/order/checkout/PaymentShippingDetails";
+import ReviewDetails from "src/components/order/checkout/ReviewDetails";
+import { useCartContext } from "src/context/CartContext";
+import sendDataService from "src/services/sendDataService";
 
 export default function CheckoutOrderPage() {
   const { state } = useLocation();

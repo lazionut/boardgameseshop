@@ -10,7 +10,9 @@ import {
 import { MdDelete } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
-import { stockDefiner } from "../../utils/Utilities";
+import no_image from "src/assets/images/no_image.jpg";
+import { stockDefiner } from "src/utils/Utilities";
+
 
 interface WishlistModalItemTemplateProps {
   boardgame: {
@@ -62,7 +64,7 @@ export function WishlistModalItemTemplate({
           image={
             blobImage && boardgame.image
               ? window.URL.createObjectURL(blobImage)
-              : require("../../assets/images/no_image.jpg")
+              : no_image
           }
           sx={{ width: "100%", height: 200, objectFit: "fill" }}
           alt="boardgame image"

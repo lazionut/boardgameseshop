@@ -1,7 +1,7 @@
 import { Box, Button, ButtonGroup, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
-import Copyright from "./Copyright";
+import Copyright from "src/components/footer/Copyright";
 
 export default function Footer() {
   const { t, i18n } = useTranslation();

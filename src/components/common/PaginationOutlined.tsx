@@ -10,7 +10,7 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { useTranslation } from "react-i18next";
 
-import { ConstantsArrays } from "../../constants/Constants";
+import { ConstantsArrays } from "src/constants/Constants";
 
 interface PaginationOutlinedProps {
   pageCount: number;

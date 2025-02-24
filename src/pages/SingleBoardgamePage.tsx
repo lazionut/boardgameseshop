@@ -1,10 +1,10 @@
 import { Box, Card, Container, Divider } from "@mui/material";
 import { useParams } from "react-router-dom";
 
-import BoardgameContentCard from "../components/boardgame/BoardgameContentCard";
-import BoardgameDetailsCard from "../components/boardgame/BoardgameDetailsCard";
-import ReviewTemplate from "../components/boardgame/review/ReviewTemplate";
-import useFetchData from "../hooks/useFetchData";
+import BoardgameContentCard from "src/components/boardgame/BoardgameContentCard";
+import BoardgameDetailsCard from "src/components/boardgame/BoardgameDetailsCard";
+import ReviewTemplate from "src/components/boardgame/review/ReviewTemplate";
+import useFetchData from "src/hooks/useFetchData";
 
 export default function SingleBoardgamePage() {
   const { boardgameId } = useParams();

@@ -16,8 +16,9 @@ import { BsPlusCircleFill } from "react-icons/bs";
 import { FaMinusCircle } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 
-import { CartItemType, useCartContext } from "../../context/CartContext";
-import useFetchData from "../../hooks/useFetchData";
+import no_image from "src/assets/images/no_image.jpg";
+import { CartItemType, useCartContext } from "src/context/CartContext";
+import useFetchData from "src/hooks/useFetchData";
 
 interface CartItemProps {
   id: number;
@@ -82,7 +83,7 @@ export function CartItem({ id, setLocalCartItems }: CartItemProps) {
           src={
             blobImage && boardgameData.image
               ? window.URL.createObjectURL(blobImage)
-              : require("../../assets/images/no_image.jpg")
+              : no_image
           }
           alt="boardgame image"
         />

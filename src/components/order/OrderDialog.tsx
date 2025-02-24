@@ -15,9 +15,9 @@ import {
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { Configs } from "../../constants/Configs";
-import { ORDER_STATUS_OPTIONS } from "../../constants/Constants";
-import sendDataService from "../../services/sendDataService";
+import { Configs } from "src/constants/Configs";
+import { ORDER_STATUS_OPTIONS } from "src/constants/Constants";
+import sendDataService from "src/services/sendDataService";
 
 interface OrderDialogProps {
   id: number;
