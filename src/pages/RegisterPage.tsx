@@ -168,7 +168,7 @@ export default function RegisterPage() {
                       <img
                         loading="lazy"
                         width="20"
-                        src={require(`../assets/images/countries_flags/${option.code.toLowerCase()}.png`)}
+                        src={new URL(`../assets/images/countries_flags/${option.code.toLowerCase()}.png`, import.meta.url).href}
                         alt="country flag"
                       />
                       {option.label} ({option.code})
